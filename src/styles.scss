@@ -1,0 +1,234 @@
+/* You can add global styles to this file, and also import other style files */
+// body,
+// html
+// {
+//     background-color: white;
+//     padding:0;
+//     margin:0;
+//     height:100%;
+//     font-family: 'Montserrat';
+// }
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled) {
+  cursor: pointer;
+  outline: none;
+}
+
+/*========== Snackbar CSS ===================*/
+.mat-snack-bar-container .flex {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//   font-family: "Montserrat";
+// }
+
+// .mat-snack-bar-container.info,
+// .mat-snack-bar-container.warning,
+// .mat-snack-bar-container.error,
+// .mat-snack-bar-container.success {
+//   color: #414141;
+//   padding-left: 0;
+//   padding-right: 10px;
+//   background: white;
+//   font-family: "Montserrat";
+//   font-weight: 500;
+//   max-width: max-content;
+// }
+
+/*========== Snackbar Success ===================*/
+.mat-snack-bar-container.success .flex {
+  border-left: 2px solid #22cc02;
+
+  .icons {
+    background: #d2f5cc;
+    margin-left: 10px;
+    cursor: auto;
+  }
+}
+
+.mat-snack-bar-container .flex .row {
+  margin: 0;
+
+  .title {
+    font-weight: 700;
+  }
+
+  .description {
+    color: #7f7f7f;
+    font-size: 13px;
+  }
+}
+
+/*========== Snackbar Error ===================*/
+.mat-snack-bar-container.error .flex {
+  border-left: 2px solid #fe3b3b;
+
+  .icons {
+    background: #ffdede;
+    margin-left: 10px;
+    cursor: auto;
+  }
+}
+
+/*========== Snackbar Info ===================*/
+
+.mat-snack-bar-container.info .flex {
+  border-left: 2px solid #2d62ed;
+
+  .icons {
+    background: #d2defb;
+    margin-left: 10px;
+    cursor: auto;
+  }
+}
+
+/*========== Snackbar Warning ===================*/
+.mat-snack-bar-container.warning .flex {
+  border-left: 2px solid #00ccf2;
+
+  .icons {
+    background: #f2fdff;
+    margin-left: 10px;
+    cursor: auto;
+  }
+}
+
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:wght@400;700&display=swap");
+
+:root {
+  --color-success: #41f1b6;
+  --color-info-light: #dce1eb;
+  --color-warning: #ffbb55;
+  --color-white: #fff;
+  --color-danger: #dc3545;
+  --color-light: rgba(132, 139, 200, 0.18);
+  --color-dark: #363949;
+  --color-primary: #7380ec;
+  --color-secondary: 108, 117, 125;
+  --color-info-dark: #7d8da1;
+  --color-warning: 255, 193, 7;
+  --color-dark-variant: #677483;
+  --color-primary-variant: #111e88;
+  --color-background: #f6f6f9;
+
+  --card-border-radius: 2rem;
+  --card-radius-1: 04rem;
+  --border-radius-1: 0.8rem;
+
+  --border-radius-2: 0.8rem;
+  --border-radius-3: 1.2rem;
+
+  --card-padding: 1.8rem;
+  --padding-1: 1.2rem;
+
+  --box-shadow: 0 2px 6px var(--color-light);
+}
+
+* {
+  /* margin: 0;
+    padding: 0; */
+  outline: 0;
+  appearance: 0;
+  border: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.88rem;
+  background: var(--color-background);
+  user-select: none;
+  overflow-x: hidden;
+  color: var(--color-dark);
+}
+
+a {
+  color: var(--color-dark);
+}
+img {
+  display: block;
+  width: 100%;
+}
+h1 {
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+h2 {
+  font-size: 1.4rem;
+}
+h3 {
+  font-size: 0.8rem;
+}
+h5 {
+  font-size: 0.77rem;
+}
+small {
+  font-size: 0.76rem;
+}
+
+.profile-photo {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.text-muted {
+  color: var(--color-info-light);
+}
+
+p {
+  // color: var(--color-dark-variant);
+  margin: 0;
+}
+b {
+  color: var(--color-dark);
+}
+.primary {
+  color: var(--color-primary);
+}
+.danger {
+  color: var(--color-danger);
+}
+.success {
+  color: var(--color-success);
+}
+.warning {
+  color: var(--color-warning);
+}
+
+.container {
+  display: grid;
+  width: 96%;
+  margin: 0 auto;
+  gap: 1.8rem;
+  grid-template-columns: 14rem auto 23rem;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

@@ -1,0 +1,25 @@
+<div class="flex">
+    <div class="row">
+      <button mat-icon-button class="icons">
+        <img *ngIf="data.type === 'Error'"  src="../../../assets/notifications/error.svg" alt="">
+        <img *ngIf="data.type === 'Info'"  src="../../../assets/notifications/info.svg" alt="">
+        <img *ngIf="data.type === 'Success'"  src="../../../assets/notifications/success.svg" alt="">
+        <img *ngIf="data.type === 'Warning'"  src="../../../assets/notifications/warning.svg" alt="">
+      </button>
+
+      <div class="col">
+          <div class="row title">
+            {{ data.type }}
+          </div>
+          <div class="row description">
+            {{ data.message }}
+          </div>
+      </div>
+      
+    </div>
+    <div class="dismiss">
+      <button mat-icon-button (click)="snackBarRef.dismiss()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>

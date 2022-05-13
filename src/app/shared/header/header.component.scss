@@ -1,0 +1,28 @@
+header {
+  padding: 2px;
+  background-color: white;
+}
+
+a {
+  color: black;
+  gap: 1rem;
+  transition: all 300ms ease;
+  text-decoration: none;
+  font-weight: 500;
+  margin-right: 2rem;
+}
+
+
+a.active:before {
+ 
+  background:#7380ec;
+}
+
+a:hover {
+  color: #7380ec;
+}
+
+img{
+  width: 5rem;
+  margin-left: 1rem;
+}

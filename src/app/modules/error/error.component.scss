@@ -1,0 +1,32 @@
+.error_container{
+    align-items: center;
+    height: 100%;
+}
+p{
+    font-size: 12px;
+    margin-left: 30px;
+}
+h2{
+    font-weight: 700;
+    font-size:90px ;
+    margin-left: 100px;
+}
+h3{
+    margin-left: 130px;
+}
+a{
+    display: inline-block;
+    padding: 8px 22px;
+    color: #fff;
+    background-color: #1EA5F7;
+    border: 1px solid transparent;
+    margin-top: 60px;
+    text-decoration: none;
+    transition: .5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  
+    &:hover {
+        color: #1EA5F7;
+        background-color: #fff;
+        border: 1px solid #1EA5F7;
+    }
+  }
