@@ -1,3 +1,4 @@
+/*
 package com.management.cni.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,3 +10,4 @@ import com.management.cni.Entity.Notification;
 public interface NotificationRepository extends JpaRepository<Notification, Long>{
 
 }
+*/

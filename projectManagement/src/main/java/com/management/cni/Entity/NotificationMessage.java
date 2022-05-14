@@ -1,3 +1,4 @@
+/*
 package com.management.cni.Entity;
 
 import java.util.List;
@@ -19,10 +20,10 @@ public class NotificationMessage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column(name = "message")
 	private String message;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "notificationMessage")
 	private List<Notification> notifications;
@@ -53,6 +54,7 @@ public class NotificationMessage {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
+
+
 }
+*/

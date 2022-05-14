@@ -1,102 +1,52 @@
 package com.management.cni.Entity;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "T_inviation")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Table(name = "INVITATION")
 public class Invitation {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@Column(name = "date")
-	private Timestamp date;
-	
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id_user", referencedColumnName = "id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User user;
-	
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id_project", referencedColumnName = "id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Project project;
-	
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_status", referencedColumnName = "id")
-	private Status status;
-	
-	public Invitation() {
-		super();
-	}
-	
-	public Invitation(Timestamp date) {
-		super();
-		this.date = date;
-	}
 
-	public Timestamp getDate() {
-		return date;
-	}
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
 
-	public void setDate(Timestamp date) {
-		this.date = date;
-	}
+  @Column(name = "date")
+  private Timestamp date;
 
-	public long getId() {
-		return id;
-	}
+  @Enumerated(EnumType.STRING)
+  private Status status;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+  //// SENDER
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "manager_id", referencedColumnName = "id")
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private Manager manager;
 
-	public User getUser() {
-		return user;
-	}
+  ///RECIEVER
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "member_id", referencedColumnName = "id")
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private Member member;
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	
-
-	
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "project_id", referencedColumnName = "id")
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private Project project;
 
 }

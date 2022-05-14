@@ -1,233 +1,98 @@
 
 package com.management.cni.Entity;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "T_user", uniqueConstraints = { @UniqueConstraint(columnNames = "email") })
-//UserDetails store user details
-public class User implements UserDetails{
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
-	@Column(name = "first_name", length = 30, nullable = false)
-	private String firstName;
-	
-	@Column(name = "last_name", length = 30, nullable = false)
-	private String lastName;
-	
-	@Column(name = "photo")
-	private byte[] photo;
-	
-	@Column(name = "post")
-	private String post;
-	
-	@Column(name = "email", nullable = false, unique = true)
-    private String email ;
-	
-	@Column(name= "password")
-	private String password;
-	
-	@Column(name="status")
-	private Boolean status;
-	
-	@Column(name="city")
-	private String city;
-	
-	@Column(name="country")
-	private String country;
-	
-	@Column(name="code_postal")
-	private String codePostal;
-	
-	//ki tfasa5 ll user tetfasa5 session
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private Session session;
-	
-	
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_role", referencedColumnName = "id")
-	private Role role;
-	
-	
-	//one user have many invitation 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user")
-	private List<Invitation> invitation;
-	
-	//one user have many chats
-	@JsonIgnore
-	@OneToMany(mappedBy = "user")
-	private List<Chat> chats;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "user")
-	private List<Project> projects;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "user")
-	private List<Notification> notifications;
-	
-	public User() {
-		super();
-	}
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Table(name = "USER")
+public class User implements UserDetails {
 
-	public User(Long id, String firstName, String lastName, byte[] photo, String post, String email, String password,
-			Boolean status, String city, String country, String codePostal) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.photo = photo;
-		this.post = post;
-		this.email = email;
-		this.password = password;
-		this.status = status;
-		this.city = city;
-		this.country = country;
-		this.codePostal = codePostal;
-	}
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public Long getId() {
-		return id;
-	}
+  @Column(name = "first_name", length = 30, nullable = false)
+  private String firstName;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  @Column(name = "last_name", length = 30, nullable = false)
+  private String lastName;
 
-	public String getFirstName() {
-		return firstName;
-	}
+  @Column(name = "photo")
+  private byte[] photo;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+  @Column(name = "post")
+  private String post;
 
-	public String getLastName() {
-		return lastName;
-	}
+  @Column(name = "username")
+  private String username;
+  @Column(name = "email", nullable = false, unique = true)
+  private String email;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+  @Column(name = "password")
+  private String password;
 
-	public byte[] getPhoto() {
-		return photo;
-	}
+  @Column(name = "status")
+  private Boolean status;
 
-	public void setPhoto(byte[] photo) {
-		this.photo = photo;
-	}
+  @Column(name = "city")
+  private String city;
 
-	public String getPost() {
-		return post;
-	}
+  @Column(name = "country")
+  private String country;
 
-	public void setPost(String post) {
-		this.post = post;
-	}
+  @Column(name = "code_postal")
+  private String codePostal;
 
-	public String getEmail() {
-		return email;
-	}
+  //ki tfasa5 ll user tetfasa5 session
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+  private Session session;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  @Enumerated(EnumType.STRING)
+  private UserRole userRole;
 
-	public String getPassword() {
-		return password;
-	}
+  @OneToOne(mappedBy = "user")
+  private Manager manager;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  @OneToOne(mappedBy = "user")
+  private Member member;
 
-	public Boolean getStatus() {
-		return status;
-	}
+  @OneToOne(mappedBy = "user")
+  private Bank bank;
 
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
+  @OneToOne(mappedBy = "user")
+  private Admin admin;
 
-	public String getCity() {
-		return city;
-	}
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+  @Override
+  public String getUsername() {
+    // TODO Auto-generated method stub
+    return email;
+  }
 
-	public String getCountry() {
-		return country;
-	}
+  @Override
+  public boolean isAccountNonExpired() {
+    // TODO Auto-generated method stub
+    return true;
+  }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getCodePostal() {
-		return codePostal;
-	}
-
-	public void setCodePostal(String codePostal) {
-		this.codePostal = codePostal;
-	}
-	
-	
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
+  @Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
 		return true;
@@ -242,10 +107,7 @@ public class User implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return status;
+    return true;
 	}
-	
-	
-	
-	
+
 }

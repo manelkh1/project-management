@@ -1,3 +1,4 @@
+/*
 package com.management.cni.Entity;
 
 import java.util.List;
@@ -18,14 +19,14 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private long id;
-	
+
 	@Column(name= "name")
 	private String name;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "role")
 	private List<User> users;
-	
+
 	public Role() {
 		super();
 	}
@@ -59,9 +60,10 @@ public class Role {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-	
-	
 
-	
+
+
+
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.management.cni.Entity;
 
 import javax.persistence.CascadeType;
@@ -19,35 +20,35 @@ public class Notification {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
+
 	@Column(name = "time")
 	private String time;
-	
+
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_status", referencedColumnName = "id")
 	private Status status;
-	
+
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_user", referencedColumnName = "id")
 	private User user;
-	
+
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_notification_message", referencedColumnName = "id")
 	private NotificationMessage notificationMessage;
-	
+
 	public Notification() {
 		super();
 	}
-	
+
 	public Notification(Long id, String time) {
 		super();
 		this.id = id;
 		this.time = time;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -84,8 +85,9 @@ public class Notification {
 	public void setNotificationMessage(NotificationMessage notificationMessage) {
 		this.notificationMessage = notificationMessage;
 	}
-	
-	
-	
+
+
+
 
 }
+*/

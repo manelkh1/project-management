@@ -1,11 +1,12 @@
 package com.management.cni.Repository;
 
+import com.management.cni.Entity.Bank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.management.cni.Entity.Chat;
-
 @Repository
-public interface ChatRepository extends JpaRepository<Chat, Long > {
+public interface BankRepository extends JpaRepository<Bank, Long> {
+
+  Bank findBankByBankName(String bankName);
 
 }

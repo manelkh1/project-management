@@ -1,51 +1,42 @@
 package com.management.cni.Entity;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 @Entity
-@Table(name = "T_session")
+@Table(name = "session")
 public class Session {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	//expiration time avec fonction calculateExpiryDate 24*6
-	@Column(name = "last_connection")
-	private Timestamp lastConnection;
-	
-	@Column(name = "token")
-    private String token;
-	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_user")
-	private User user;
-    
-    public Session() {
-		super();
-	}
-    
-    public Session(String token, User user) {
-		super();
-		this.id = id;
-		this.lastConnection = lastConnection;
-		this.token = token;
-		this.user = user;
-	}
 
-	public long getId() {
-		return id;
-	}
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+
+  //expiration time avec fonction calculateExpiryDate 24*6
+  @Column(name = "last_connection")
+  private Timestamp lastConnection;
+
+  @Column(name = "token")
+  private String token;
+
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_id")
+  private User user;
+
+  public Session() {
+    super();
+  }
+
+  public Session(String token, User user) {
+    super();
+    this.id = id;
+    this.lastConnection = lastConnection;
+    this.token = token;
+    this.user = user;
+  }
+
+  public long getId() {
+    return id;
+  }
 
 	public void setId(long id) {
 		this.id = id;
@@ -75,8 +66,4 @@ public class Session {
 		this.user = user;
 	}
 
-	
-	
-	
-	
 }

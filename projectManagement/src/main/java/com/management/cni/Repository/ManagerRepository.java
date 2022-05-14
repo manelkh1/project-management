@@ -1,13 +1,10 @@
 package com.management.cni.Repository;
 
+import com.management.cni.Entity.Manager;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.management.cni.Entity.Status;
-
 @Repository
-public interface StatusRepository extends JpaRepository<Status, Long>{
-	
-	Status findStatusByStatusCode(String statusCode);
+public interface ManagerRepository extends JpaRepository<Manager, Long> {
 
 }
