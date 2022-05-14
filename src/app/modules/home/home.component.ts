@@ -11,7 +11,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Role } from 'src/app/Model/role';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { User } from 'src/app/Model/user';
 import { ThisReceiver } from '@angular/compiler';
@@ -58,7 +57,6 @@ export class HomeComponent implements OnInit {
   form!: FormGroup;
   id!: number;
   projects!: MatTableDataSource<any>;
-  role: Role = new Role();
   objectUser: any;
   currentUser: User = new User();
   users: User[] = [];

@@ -1,13 +1,16 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Attachement } from 'src/app/Model/attachement';
-import { CreateProject } from 'src/app/Model/CreateProject';
-import { Invitation } from 'src/app/Model/invitation';
-import { Project } from 'src/app/Model/project';
+import { CreateProject } from '../../modules/projects/create-project'
 import { environment } from 'src/environments/environment';
-const AUTH_API = environment.baseURL;
+import { Project } from '../../Model/project';
 
+
+
+
+
+
+const AUTH_API = environment.baseURL;
 let headers = new HttpHeaders();
 headers.set('Content-Type', undefined!);
 headers.set('Accept', 'multipart/form-data');
@@ -37,33 +40,79 @@ export class ProjectService {
     });
   }
 
-  getAllProjects(): Observable<Project[]> {
+  
+  getAllProjectsByAdmin(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(
-      AUTH_API + 'api/projects/allProjects'
+      AUTH_API + 'api/projects/projectsByAdmin'
+    );
+  }
+
+  getAllProjectsByManager(): Observable<Project[]> {
+    return this.httpClient.get<Project[]>(
+      AUTH_API + 'api/projects/projectsByManager'
+    );
+  }
+
+  getAllProjectsByMember(): Observable<Project[]> {
+    return this.httpClient.get<Project[]>(
+      AUTH_API + 'api/projects/projectsByMember/'
+    );
+  }
+
+  getAllProjectsByBank(): Observable<Project[]> {
+    return this.httpClient.get<Project[]>(
+      AUTH_API + 'api/projects/projectsByBank/'
     );
   }
 
   getprojectById(projectId: number): Observable<Project> {
     return this.httpClient.get<Project>(
-      AUTH_API + 'api/projects/projectById/' + projectId
+      AUTH_API + 'api/projects/projects/' + projectId
     );
   }
 
-  getAttachmentsByProjectId(projectId: number): Observable<Attachement[]> {
-    return this.httpClient.get<Attachement[]>(
-      AUTH_API + 'api/projects/attachments/' + projectId
-    );
+  createProject(project: Project): Observable<any> {
+    return this.httpClient.post(AUTH_API + '/api/projects/' , project);
   }
 
-  getMembersProject(projectId: number): Observable<Invitation[]> {
-    return this.httpClient.get<Invitation[]>(
-      AUTH_API + 'api/projects/memberProject/' + projectId
-    );
+  updateProject(projectId: number,project:Project): Observable<any> {
+    return this.httpClient.put(AUTH_API + '/api/projects/' + projectId, project);
   }
 
-  getInvitationsByUser(): Observable<Invitation[]> {
-    return this.httpClient.get<Invitation[]>(
-      AUTH_API + 'api/projects/invitationsProject'
-    );
+  deleteProjectById(projectId: number): Observable<any> {
+    return this.httpClient.delete(
+      AUTH_API + 'api/projects/projects/' +projectId);
   }
+
+
+
+  // getAllProjects(): Observable<Project[]> {
+  //   return this.httpClient.get<Project[]>(
+  //     AUTH_API + 'api/projects/allProjects'
+  //   );
+  // }
+
+  // getprojectById(projectId: number): Observable<Project> {
+  //   return this.httpClient.get<Project>(
+  //     AUTH_API + 'api/projects/projectById/' + projectId
+  //   );
+  // }
+
+  // getAttachmentsByProjectId(projectId: number): Observable<Attachement[]> {
+  //   return this.httpClient.get<Attachement[]>(
+  //     AUTH_API + 'api/projects/attachments/' + projectId
+  //   );
+  // }
+
+  // getMembersProject(projectId: number): Observable<Invitation[]> {
+  //   return this.httpClient.get<Invitation[]>(
+  //     AUTH_API + 'api/projects/memberProject/' + projectId
+  //   );
+  // }
+
+  // getInvitationsByUser(): Observable<Invitation[]> {
+  //   return this.httpClient.get<Invitation[]>(
+  //     AUTH_API + 'api/projects/invitationsProject'
+  //   );
+  // }
 }

@@ -2,12 +2,11 @@ import { Manager } from "./manager";
 import { Member } from "./member";
 import { Project } from "./project";
 
-export class Invitation{
+export class Comment{
     id!: number;
-    date!:string;
-    status!: Enumerator;
+    message :string;
+    time :string;
     manager : Manager;
     member : Member;
     project : Project;
-  
 }

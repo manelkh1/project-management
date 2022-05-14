@@ -14,19 +14,23 @@ public class InvitationController {
 
   @Autowired
   private InvitationService invitationService;
-
+  
+  
+  // get all the invitations of a member
   @GetMapping("/")
   public ResponseEntity<ApiResponse> getAllInvitationByMember() {
     ApiResponse apiResponse = invitationService.getAllInvitationByMember();
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
+  //get all the invitations in a projet
   @GetMapping("/{idProject}")
   public ResponseEntity<ApiResponse> getAllInvitationByProject(@PathVariable long idProject) {
     ApiResponse apiResponse = invitationService.getAllInvitationByProject(idProject);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
+  
   @PostMapping("/acceptInvitation/{idProject}")
   public ResponseEntity<ApiResponse> acceptInvitationByProject(@PathVariable long idProject) {
     ApiResponse apiResponse = invitationService.acceptInvitationByProject(idProject);
@@ -39,8 +43,9 @@ public class InvitationController {
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
+  //////////***** @PathVariable idproject
   @PostMapping("/sendInvitation/{idProject}")
-  public ResponseEntity<ApiResponse> sendInvitationByProject(@RequestBody InvitationRequest invitationRequest) {
+  public ResponseEntity<ApiResponse> sendInvitationByProject(@PathVariable long idProject ,@RequestBody InvitationRequest invitationRequest) {
     ApiResponse apiResponse = invitationService.sendInvitationByProject(invitationRequest);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }

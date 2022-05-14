@@ -1,3 +1,4 @@
+import { Manager } from "./manager";
 import { Status } from "./status";
 
 export class Project{
@@ -8,4 +9,7 @@ export class Project{
     endDate!: string;
     creationDate!: string;
     status!:Status;
+    manager : Manager;
+    
+    
 }

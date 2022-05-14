@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CreateProject } from 'src/app/Model/CreateProject';
+import { CreateProject } from '../../../modules/projects/create-project';
 import { Project } from 'src/app/Model/project';
 import { User } from 'src/app/Model/user';
 import { ConvertDateService } from 'src/app/services/convert-date/convert-date.service';

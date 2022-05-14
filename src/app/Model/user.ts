@@ -1,4 +1,7 @@
-import { Role } from "./role";
+import { Admin } from "./admin";
+import { Bank } from "./bank";
+import { Manager } from "./manager";
+import { Member } from "./member";
 
 export class User{
     id!: number;
@@ -12,5 +15,8 @@ export class User{
     city!: string;
     country!: string;
     codePostal!: string;
-    role!: Role;
+    manager : Manager ;
+    member : Member ;
+    bank : Bank ;
+    admin : Admin ;
 }

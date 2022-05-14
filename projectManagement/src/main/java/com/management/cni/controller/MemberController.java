@@ -18,24 +18,28 @@ public class MemberController {
   @Autowired
   private ProjectService projectService;
 
+  //get all the members list
   @GetMapping("/members")
   public ResponseEntity<ApiResponse> getAllMembers() {
     ApiResponse apiResponse = memberService.getAllMembers();
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
+  //get member details 
   @GetMapping("/members/{id}")
   public ResponseEntity<ApiResponse> getMemberById(@PathVariable("id") long id) {
     ApiResponse apiResponse = memberService.getMemberById(id);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
+  //get the members of each project
   @GetMapping("/members/projects/{id}")
   public ResponseEntity<ApiResponse> getAllMembersByProject(@PathVariable("id") long id) {
     ApiResponse apiResponse = projectService.getAllMembersByProject(id);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
+  // add member
   @PostMapping("/members")
   public ResponseEntity<ApiResponse> createMember(@RequestBody MemberRequest memberRequest) {
     ApiResponse apiResponse = memberService.createMember(memberRequest);
