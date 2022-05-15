@@ -15,6 +15,8 @@ import { TokenStorageService } from '../../services/token-storage.service';
 import { User } from '../../models/user';
 import { ThisReceiver } from '@angular/compiler';
 import { first } from 'rxjs';
+import { Manager } from '../../models/manager';
+import { ManagerService } from '../../services/manager.service';
 
 export interface PeriodicElement {
   name: string;
@@ -60,9 +62,10 @@ export class HomeComponent implements OnInit {
   objectUser: any;
   currentUser: User = new User();
   users: User[] = [];
+  managers: Manager = new Manager();
   showAdmin!: boolean;
   loading = false;
- // user: User | undefined;
+  // user: User | undefined;
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -70,6 +73,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private projectService: ProjectService,
     private userService: UserService,
+    private managerService :ManagerService,
     private _fb: FormBuilder
   ) {}
 
@@ -77,7 +81,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     //jebna role mtee currentuser
-    this.objectUser =this.tokenStorage.getUser();
+    this.objectUser = this.tokenStorage.getUser();
     // this.currentUser = this.objectUser.user;
     // console.log(this.currentUser)
     // this.role = this.currentUser.role;
@@ -88,12 +92,13 @@ export class HomeComponent implements OnInit {
     this.form = this._fb.group({
       title: new FormControl('', [Validators.required]),
     });
-    this.getAllProjects();
+    this.getAllProjectsByManager();
     this.getProjects();
     this.getAllUsers();
+    this.getAllProjectsByMember();
+    this.getAllProjectsByBank();
   }
 
-  
   //lorsque l'utilisateur saisit input et que la propriété de filtre MatTableDataSource
   //écoute la valeur input qui filtre les données dans dataSource
   applyFilter(event: Event) {
@@ -101,22 +106,48 @@ export class HomeComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getAllProjects() {
-/*     this.projectService.getAllProjects().subscribe((data) => {
+  getAllProjectsByManager() {
+    this.projectService.getAllProjectsByManager().subscribe((data) => {
       //MatTableDataSource :  une source de données de table matTableDataSource intégrée.
       this.dataSource = new MatTableDataSource(data);
       //apply the pagination to all the dataSource
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource);
-    }); */
+    });
+  }
+
+  getAllProjectsByMember() {
+    this.projectService.getAllProjectsByMember().subscribe((data) => {
+      this.projects = new MatTableDataSource(data);
+      this.projects.paginator = this.paginator;
+      console.log(this.projects);
+    });
+  }
+
+  getAllProjectsByBank() {
+    this.projectService.getAllProjectsByBank().subscribe((data) => {
+      this.projects = new MatTableDataSource(data);
+      this.projects.paginator = this.paginator;
+      console.log(this.projects);
+    });
   }
 
   getProjects() {
-   /*  this.userService.getProjectByUserId(this.id).subscribe((data) => {
+    /*  this.userService.getProjectByUserId(this.id).subscribe((data) => {
       this.projects = new MatTableDataSource(data);
       this.projects.paginator = this.paginator;
       console.log(this.projects);
     }); */
+  }
+
+  getAllManagers() {
+    this.managerService
+      .getAllManagers()
+      .pipe(first())
+      .subscribe((managers) => {
+        this.managers = new Manager();
+      });
+    console.log(this.managers);
   }
 
   subStrDescription(description: String) {
@@ -127,8 +158,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
+
   getAllUsers() {
-   /*  this.loading = true;
+    /*  this.loading = true;
     this.userService
       .getAllUsers()
       .pipe(first())
@@ -138,14 +171,11 @@ export class HomeComponent implements OnInit {
       });
     console.log(this.users); */
   }
-
-  // getUsers(){
+  // getUsers(){j
   //   this.userService.getUserById(this.id).subscribe((data) =>{
   //     this.users = data;
   //     console.log(this.users);
-
   //   });
-
   // }
 
   getRoute(route: string, id: number) {

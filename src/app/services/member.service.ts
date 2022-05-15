@@ -3,17 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Member } from '../models/member';
 import  {environment } from '../../environments/environment'
-
 const AUTH_API = environment.baseURL;
-
 @Injectable({
   providedIn: 'root'
 })
 export class MemberService {
 
   constructor(private httpClient: HttpClient) { }
-
-  
   getAllMembers(): Observable<Member[]> {
     return this.httpClient.get<Member[]>( AUTH_API + '/api/projects/members/');
   }
@@ -37,6 +33,4 @@ export class MemberService {
   deleteMember(memberId: number): Observable<any> {
     return this.httpClient.delete(AUTH_API + '/api/projects/members/' + memberId);
   }
-
-
 }

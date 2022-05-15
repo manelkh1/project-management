@@ -27,8 +27,8 @@ export class InvitationService {
   refuseInvitationByProject(projectId: number): Observable<any> {
     return this.httpClient.post(AUTH_API + '/api/invitations/refuseInvitation/' , + projectId);
   }
-  sendInvitationByProject(invitation: Invitation ,projectId:number): Observable<any> {
-    return this.httpClient.post(AUTH_API + '/api/invitations/sendInvitation/' , invitation ,+projectId);
+  sendInvitationByProject(invitation: Invitation ): Observable<any> {
+    return this.httpClient.post(AUTH_API + '/api/invitations/sendInvitation/' , invitation );
   }
 
   removeInvitationByProject(projectId:number): Observable<any> {

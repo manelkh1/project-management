@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform, VERSION } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,7 +9,7 @@ import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../../shared/snackbar/snackbar.component';
-
+import {UserRole} from '../../models/userRole'
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
@@ -19,7 +19,8 @@ export class CreateUserComponent implements OnInit {
   //roles: Role[] = [];
   form!: FormGroup;
   user: User = new User();
-
+  roleEnum = UserRole; 
+  
   constructor(private userService: UserService, 
     private _snackBar: MatSnackBar,
     private _fb: FormBuilder) {}
@@ -49,8 +50,7 @@ export class CreateUserComponent implements OnInit {
     });
   }
 
-
-/*   addUser() {
+ddUser() {
     console.log(parseInt(this.form.value.selectedRole));
     this.user.firstName = this.form.value.firstName;
     this.user.lastName = this.form.value.lastName;
@@ -59,15 +59,15 @@ export class CreateUserComponent implements OnInit {
     this.user.city = this.form.value.city;
     this.user.country = this.form.value.country;
     this.user.codePostal = this.form.value.codePostal;
-    this.user.post = this.form.value.post;
-    
-     this.userService.addUser(this.user, parseInt(this.form.value.)).subscribe(data =>{
+    this.user.post = this.form.value.post;   
+     this.userService.addUser(this.user).subscribe(data =>{
        console.log(data);
        this.form.reset();
        this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
-
      });
-  } */
+  } 
+
+
   get f() {
     return this.form.controls;
   }
@@ -83,4 +83,13 @@ export class CreateUserComponent implements OnInit {
     });
   }
 
+}
+@Pipe({
+  name: ' enumToArray '
+})
+export class EnumToArrayPipe implements PipeTransform {
+  transform(data: Object) {
+    const keys = Object.keys(data);
+    return keys.slice(keys.length / 2);
+  }
 }

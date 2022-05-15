@@ -16,10 +16,6 @@
 // import { MatFormFieldModule } from '@angular/material/form-field';
 // import {MatTableModule} from '@angular/material/table';
 // import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
-
-
-
 // @NgModule({
 //   declarations: [
 //     HomeComponent,
@@ -121,7 +117,7 @@ import { ChatComponent } from '../../modules/chat/chat.component';
    UserDetailsComponent,
    InvitationListComponent,
    ChangePasswordComponent,
-   ChatComponent
+   ChatComponent,
   ],
   imports: [
     CommonModule,

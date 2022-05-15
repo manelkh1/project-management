@@ -17,7 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
-  declarations: [AppComponent, ],
+  declarations: [AppComponent,   ],
   imports: [
     RouterModule,
     BrowserModule,
@@ -31,8 +31,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDatepickerModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule,
-    
+    MatSnackBarModule,    
   ],
   providers: [authInterceptorProviders, AuthGuard],
   bootstrap: [AppComponent],

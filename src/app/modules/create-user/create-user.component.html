@@ -63,7 +63,7 @@
                           name="lastName"
                           id="lastName"
                           formControlName="lastName"
-                          required                        />
+                          required/>
                         <div
                           *ngIf="
                             form.controls['lastName'].hasError('required') &&
@@ -148,9 +148,9 @@
                           required
                         >
                         <!-- liste des roles par id -->
-                        <!--   <option *ngFor="let role of roles" [value]="role.id">
-                            {{ role.name }}
-                          </option> -->
+                          <option *ngFor="let item of    ">
+                            {{ item }}
+                          </option> 
                         </select>
                         <div
                           *ngIf="

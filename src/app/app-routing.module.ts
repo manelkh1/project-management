@@ -27,14 +27,14 @@ const routes: Routes = [
 
     children: [
       { path: 'home', component: HomeComponent, /* canActivate: [AuthGuard] */ },
-      { path: 'post', component: PostComponent, canActivate: [AuthGuard] },
-      { path: 'create-project', component: CreateProjectComponent, canActivate: [AuthGuard] },
+      { path: 'post', component: PostComponent, /*canActivate: [AuthGuard]*/ },
+      { path: 'create-project', component: CreateProjectComponent, /*canActivate: [AuthGuard]*/ },
       { path: 'project-details/:id', component: ProjectDetailsComponent, /* canActivate: [AuthGuard] */ },
-      { path: 'create-user', component: CreateUserComponent, canActivate: [AuthGuard] },
-      { path: 'user-details/:id', component: UserDetailsComponent, canActivate: [AuthGuard] },
+      { path: 'create-user', component: CreateUserComponent,/* canActivate: [AuthGuard]*/ },
+      { path: 'user-details/:id', component: UserDetailsComponent,/* canActivate: [AuthGuard] */},
       { path: 'invitation-list', component: InvitationListComponent, /* canActivate: [AuthGuard]  */},
-      {path:'change-password', component: ChangePasswordComponent,canActivate: [AuthGuard]  } ,
-      {path:'chat', component: ChatComponent,canActivate: [AuthGuard]  } 
+      {path:'change-password', component: ChangePasswordComponent,/*canActivate: [AuthGuard]*/  } ,
+      {path:'chat', component: ChatComponent,/*canActivate: [AuthGuard]*/  } 
     ],
   },
   {
