@@ -70,7 +70,7 @@
                <!-- status Column  -->
                <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef>Status</th>
-                <td mat-cell *matCellDef="let element">{{ element.status.description }}</td>
+               <!--  <td mat-cell *matCellDef="let element">{{ element.status.description }}</td> -->
               </ng-container>
             
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -189,13 +189,12 @@
               >
             </div>
             <div class="message" >
-              <p>
+             <!--  <p>
                 <b (click)="getRoute('default/user-details', user.id)">{{ user.firstName }} {{user.lastName}}</b> <span class="poste">{{user.name}} </span>
-              </p>
+              </p> -->
               <!-- <small class="text-muted">2 minutes later</small> -->
             </div>
           </div>
-          
         </div>
       </div>
     </div>

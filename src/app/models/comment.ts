@@ -4,9 +4,9 @@ import { Project } from "./project";
 
 export class Comment{
     id!: number;
-    message :string;
-    time :string;
-    manager : Manager;
-    member : Member;
-    project : Project;
+    message!: string;
+    time!: string;
+    manager!: Manager;
+    member!: Member;
+    project!: Project;
 }

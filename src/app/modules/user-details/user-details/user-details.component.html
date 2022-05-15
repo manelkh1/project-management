@@ -30,12 +30,12 @@
               *ngIf="isEditingFirstName"
             >
               <img
-                src="../../../../assets/img/xmark-solid.svg"
+                src="../../../assets/img/xmark-solid.svg"
                 alt=""
                 (click)="cancelUpdate()"
               />
               <img
-                src="../../../../assets/img/check-solid.svg"
+                src="../../../assets/img/check-solid.svg"
                 alt=""
                 (click)="updateUser()"
               />
@@ -85,12 +85,12 @@
                   *ngIf="isEditingFirstName"
                 >
                   <img
-                    src="../../../../assets/img/xmark-solid.svg"
+                    src="../../../assets/img/xmark-solid.svg"
                     alt=""
                     (click)="cancelUpdate()"
                   />
                   <img
-                    src="../../../../assets/img/check-solid.svg"
+                    src="../../../assets/img/check-solid.svg"
                     alt=""
                     (click)="updateUser()"
                   />
@@ -120,12 +120,12 @@
                   *ngIf="isEditingEmail"
                 >
                   <img
-                    src="../../../../assets/img/xmark-solid.svg"
+                    src="../../../assets/img/xmark-solid.svg"
                     alt=""
                     (click)="cancelUpdate()"
                   />
                   <img
-                    src="../../../../assets/img/check-solid.svg"
+                    src="../../../assets/img/check-solid.svg"
                     alt=""
                     (click)="updateUser()"
                   />
@@ -155,12 +155,12 @@
                   *ngIf="isEditingPost"
                 >
                   <img
-                    src="../../../../assets/img/xmark-solid.svg"
+                    src="../../../assets/img/xmark-solid.svg"
                     alt=""
                     (click)="cancelUpdate()"
                   />
                   <img
-                    src="../../../../assets/img/check-solid.svg"
+                    src="../../../assets/img/check-solid.svg"
                     alt=""
                     (click)="updateUser()"
                   />
@@ -187,9 +187,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let project of projects">
-                <th scope="row">{{ project.id }}</th>
-                <td>{{ project.title }}</td>
-                <td>{{ project.status.description }}</td>
+              <!--   <th scope="row">{{ project.id }}</th>
+                <td>{{ project.title }}</td> -->
+           <!--      <td>{{ project.status.description }}</td> -->
               </tr>
             </tbody>
           </table>

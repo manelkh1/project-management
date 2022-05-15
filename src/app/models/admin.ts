@@ -2,5 +2,5 @@ import { User } from "./user";
 
 export class Admin{
     id!: number;
-    user : User;
+    user: User = new User;
 }

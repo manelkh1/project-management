@@ -6,9 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from 'src/app/Model/project';
-import { User } from 'src/app/Model/user';
-import { UserService } from 'src/app/services/user-service/user.service';
+import { Project } from '../../../models/project';
+import { User } from '../../../models/user';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-user-details',
@@ -71,7 +71,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUserById(this.id).subscribe((data) => {
+    /* this.userService.getUserById(this.id).subscribe((data: any) => {
       this.user = data;
       this.form.controls['firstName'].setValue(this.user.firstName);
       this.form.controls['lastName'].setValue(this.user.lastName);
@@ -83,13 +83,13 @@ export class UserDetailsComponent implements OnInit {
       this.form.controls['country'].setValue(this.user.country);
       this.form.controls['codePostal'].setValue(this.user.codePostal);
       console.log(this.user);
-    });
+    }); */
   }
   getProjects() {
-    this.userService.getProjectByUserId(this.id).subscribe((data) => {
+    /* this.userService.getProjectByUserId(this.id).subscribe((data: Project[]) => {
       this.projects = data;
       console.log(this.projects);
-    });
+    }); */
   }
   // setEditingFirstName(mode: boolean){
   //   this.isEditingFirstName = mode;

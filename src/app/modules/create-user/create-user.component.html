@@ -17,7 +17,7 @@
                     class="d-flex align-items-start align-items-sm-center gap-4"
                   >
                     <img
-                      src="../../../assets/img/avatar/avatar-1.jpg"
+                      src="../../assets/img/avatar/avatar-1.jpg"
                       alt="user-avatar"
                       class="d-block rounded"
                       height="100"
@@ -148,9 +148,9 @@
                           required
                         >
                         <!-- liste des roles par id -->
-                          <option *ngFor="let role of roles" [value]="role.id">
+                        <!--   <option *ngFor="let role of roles" [value]="role.id">
                             {{ role.name }}
-                          </option>
+                          </option> -->
                         </select>
                         <div
                           *ngIf="
@@ -253,9 +253,9 @@
                     </div>
                     <!-- cliquer sur submit appliquer addUser() -->
                     <div class="mt-2">
-                      <button type="submit" class="btn btn-primary me-2" (click)="addUser()" [disabled]="!form.valid">
+                     <!--  <button type="submit" class="btn btn-primary me-2" (click)="addUser()" [disabled]="!form.valid">
                         Submit
-                      </button>
+                      </button> -->
                     </div>
                   </form>
                 </div>

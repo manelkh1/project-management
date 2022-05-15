@@ -1,3 +1,4 @@
+import { UserService } from '../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,13 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CreateProject } from '../../../modules/projects/create-project';
-import { Project } from 'src/app/Model/project';
-import { User } from 'src/app/Model/user';
-import { ConvertDateService } from 'src/app/services/convert-date/convert-date.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
-import { UserService } from 'src/app/services/user-service/user.service';
-
+import { CreateProject } from '../../../models/CreateProject';
+import { Project } from '../../../models/project';
+import { User } from '../../../models/user';
+import { ConvertDateService } from '../../../services/convert-date.service';
+import { ProjectService } from '../../../services/project.service';
+ 
 @Component({
   selector: 'app-create-project',
   templateUrl: './create-project.component.html',
@@ -55,11 +55,14 @@ export class CreateProjectComponent implements OnInit {
     this.createProject.project = this.project;
     this.createProject.users = this.users;
     console.log(this.createProject)
-    this.projectService.addProject(this.createProject, this.files).subscribe((data) => {
+    this.projectService.addProject(this.createProject, this.files).subscribe((data: { id: any; }) => {
+
       console.log(data)
+
       this.form.reset();
       // redirect the path from create-project to project-details 
       this.router.navigate(['/default/project-details', data.id])
+
     });
   }
 
@@ -69,10 +72,12 @@ export class CreateProjectComponent implements OnInit {
     //if there is a written value 
     if(keyword.target.value.length > 1){
       console.log(keyword.target.value.toLowerCase())
-      this.userService.getMembers(keyword.target.value.toLowerCase()).subscribe(data =>{
+     /*  this.userService.getMembers(keyword.target.value.toLowerCase()).subscribe((data: User[]) =>{
+
         this.searchUsers = data;
+
         console.log(this.searchUsers)
-      });
+      }); */
     }else{
       this.searchUsers = [];
     }

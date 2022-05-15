@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Manager } from '../../Model/manager';
-import { Project } from '../../Model/project';
-
+import { Manager } from '../models/manager';
+import { Project } from '../models/project';
+import  {environment } from '../../environments/environment'
 const AUTH_API = environment.baseURL;
 
 @Injectable({

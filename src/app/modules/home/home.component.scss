@@ -8,7 +8,6 @@ h1 {
   padding-top: 1rem;
   border-radius: 1rem;
   font-family: Montserrat;
-
 }
 main .insights {
   display: grid;
@@ -113,17 +112,15 @@ main .insights small {
   box-shadow: var(--box-shadow);
 }
 
-.card-header{
+.card-header {
   border-radius: var(--card-border-radius);
   background: var(--color-white);
   padding-top: 1.5rem;
-
 }
 
 main .recent-orders h2 {
   margin-bottom: 0.8rem;
   font-family: Montserrat;
-
 }
 /* Structure */
 table {
@@ -208,12 +205,9 @@ main .recent-orders a {
   text-align: right;
 }
 
-
-
 .right .recent-updates h2 {
   margin-bottom: 0.8rem;
 }
-
 
 .right .recent-updates .updates:hover {
   box-shadow: none;
@@ -229,7 +223,7 @@ main .recent-orders a {
   margin-right: 10px;
 }
 
-.poste{
+.poste {
   margin-left: 2rem;
 }
 .avatar {
@@ -265,7 +259,7 @@ a {
   height: 48px !important;
 }
 
-.avatar  {
+.avatar {
   position: relative;
   line-height: 1;
   border-radius: 500px;

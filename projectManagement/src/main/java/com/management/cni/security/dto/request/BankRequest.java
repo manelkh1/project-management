@@ -7,9 +7,7 @@ import lombok.Setter;
 @Setter
 public class BankRequest {
 
-  private String name;
-
-  private byte[] fileContent;
+  private String bankName;
 
   private UserRequest userRequest;
 

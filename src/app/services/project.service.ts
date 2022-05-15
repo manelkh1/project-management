@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateProject } from '../../modules/projects/create-project'
+import { CreateProject } from '../models/CreateProject'
 import { environment } from 'src/environments/environment';
-import { Project } from '../../Model/project';
+import { Project } from '../models/project';
 
 
 

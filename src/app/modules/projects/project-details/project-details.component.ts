@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Attachement } from 'src/app/Model/attachement';
-import { Invitation } from 'src/app/Model/invitation';
-import { Project } from 'src/app/Model/project';
-import { Status } from 'src/app/Model/status';
-import { User } from 'src/app/Model/user';
-import { ProjectService } from 'src/app/services/project-service/project.service';
+import { Attachement } from '../../../models/attachement';
+import { Invitation } from '../../../models/invitation';
+import { Project } from '../../../models/project';
+import { Status } from '../../../models/status';
+import { User } from '../../../models/user';
+import { ProjectService } from '../../../services/project.service';
 
 @Component({
   selector: 'app-project-details',
@@ -17,7 +17,6 @@ export class ProjectDetailsComponent implements OnInit {
 
   id!:number;
   project: Project = new Project();
-  status: Status = new Status();
   attachments: Attachement[] = [];
   isEditingTitle = false;
   form!: FormGroup;
@@ -39,14 +38,14 @@ export class ProjectDetailsComponent implements OnInit {
       endDate: new FormControl('', [Validators.required]),
     });
     this.getProject();
-    this.getAttachments();
-    this.getMembersProject();
+/*     this.getAttachments();
+    this.getMembersProject(); */
   }
 
   getProject(){
-    this.projectService.getprojectById(this.id).subscribe(data =>{
+    this.projectService.getprojectById(this.id).subscribe((data: Project) =>{
       this.project = data;
-      this.status = this.project.status;
+     /// this.status = this.project.status;
       this.form.controls['title'].setValue(this.project.title);
       this.form.controls['description'].setValue(this.project.description);
       this.form.controls['startDate'].setValue(this.project.startDate);
@@ -54,13 +53,13 @@ export class ProjectDetailsComponent implements OnInit {
       console.log(this.project)
     })
   }
-
+/* 
   getAttachments(){
     this.projectService.getAttachmentsByProjectId(this.id).subscribe(data =>{
       this.attachments = data;
       console.log(this.attachments)
     })
-  }
+  } */
   
   setEditingTitle(mode: boolean){
     this.isEditingTitle = mode;
@@ -75,14 +74,14 @@ export class ProjectDetailsComponent implements OnInit {
     this.setEditingTitle(false);
     console.log(this.project)
   }
-
+/* 
   getMembersProject(){
     this.projectService.getMembersProject(this.id).subscribe(data =>{
       this.invitations = data;
       console.log(this.invitations)
     })
   }
-
+ */
   subStrName(user:User){
     return user.firstName.substring(0,1)+user.lastName.substring(0,1);
   }

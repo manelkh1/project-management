@@ -1,6 +1,7 @@
+import { User } from './user';
 import { Project } from "./project";
 
 export class Manager{
     id!: number;
-    project :Project;
+    user!: User;
 }

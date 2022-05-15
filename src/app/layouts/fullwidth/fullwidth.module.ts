@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FullwidthComponent } from './fullwidth.component';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { LoginComponent } from 'src/app/modules/login/login.component';
-import { WelcomePageComponent } from 'src/app/modules/welcome-page/welcome-page.component';
+import { SharedModule } from '../../shared/shared.module';
+import { LoginComponent } from '../../modules/login/login.component';
+import { WelcomePageComponent } from '../../modules/welcome-page/welcome-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AlreadyActivatedComponent } from 'src/app/modules/already-activated/already-activated.component';
-import { ErrorComponent } from 'src/app/modules/error/error.component';
-import { ExpiredTokenComponent } from 'src/app/modules/expired-token/expired-token.component';
-import { SuccessefullyActivatedComponent } from 'src/app/modules/successefully-activated/successefully-activated.component';
+import { AlreadyActivatedComponent } from '../../modules/already-activated/already-activated.component';
+import { ErrorComponent } from '../../modules/error/error.component';
+import { ExpiredTokenComponent } from '../../modules/expired-token/expired-token.component';
+import { SuccessefullyActivatedComponent } from '../../modules/successefully-activated/successefully-activated.component';
 
 @NgModule({
   declarations: [

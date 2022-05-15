@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Project } from 'src/app/Model/project';
-import { ProjectService } from 'src/app/services/project-service/project.service';
+import { Project } from '../../models/project';
+import { ProjectService } from '../../services/project.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserService } from 'src/app/services/user-service/user.service';
+import { UserService } from '../../services/user.service';
 import {
   FormBuilder,
   FormControl,
@@ -11,8 +11,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { User } from 'src/app/Model/user';
+import { TokenStorageService } from '../../services/token-storage.service';
+import { User } from '../../models/user';
 import { ThisReceiver } from '@angular/compiler';
 import { first } from 'rxjs';
 
@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit {
   users: User[] = [];
   showAdmin!: boolean;
   loading = false;
+ // user: User | undefined;
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -76,7 +77,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     //jebna role mtee currentuser
-    // this.objectUser =this.tokenStorage.getUser();
+    this.objectUser =this.tokenStorage.getUser();
     // this.currentUser = this.objectUser.user;
     // console.log(this.currentUser)
     // this.role = this.currentUser.role;
@@ -101,21 +102,21 @@ export class HomeComponent implements OnInit {
   }
 
   getAllProjects() {
-    this.projectService.getAllProjects().subscribe((data) => {
+/*     this.projectService.getAllProjects().subscribe((data) => {
       //MatTableDataSource :  une source de données de table matTableDataSource intégrée.
       this.dataSource = new MatTableDataSource(data);
       //apply the pagination to all the dataSource
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource);
-    });
+    }); */
   }
 
   getProjects() {
-    this.userService.getProjectByUserId(this.id).subscribe((data) => {
+   /*  this.userService.getProjectByUserId(this.id).subscribe((data) => {
       this.projects = new MatTableDataSource(data);
       this.projects.paginator = this.paginator;
       console.log(this.projects);
-    });
+    }); */
   }
 
   subStrDescription(description: String) {
@@ -127,7 +128,7 @@ export class HomeComponent implements OnInit {
   }
 
   getAllUsers() {
-    this.loading = true;
+   /*  this.loading = true;
     this.userService
       .getAllUsers()
       .pipe(first())
@@ -135,7 +136,7 @@ export class HomeComponent implements OnInit {
         this.loading = false;
         this.users = users;
       });
-    console.log(this.users);
+    console.log(this.users); */
   }
 
   // getUsers(){

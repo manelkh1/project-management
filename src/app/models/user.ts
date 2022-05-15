@@ -15,8 +15,8 @@ export class User{
     city!: string;
     country!: string;
     codePostal!: string;
-    manager : Manager ;
-    member : Member ;
-    bank : Bank ;
-    admin : Admin ;
+    manager!: Manager ;
+    member !: Member ;
+    bank !: Bank ;
+    admin !: Admin ;
 }

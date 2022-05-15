@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Invitation } from '../../Model/invitation';
+import { environment } from '../../environments/environment';
+import { Invitation } from '../models/invitation';
 
 const AUTH_API = environment.baseURL;
 

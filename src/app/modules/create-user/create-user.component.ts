@@ -5,11 +5,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Role } from 'src/app/Model/role';
-import { User } from 'src/app/Model/user';
-import { UserService } from 'src/app/services/user-service/user.service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { SnackbarComponent } from 'src/app/shared/snackbar/snackbar.component';
+import { SnackbarComponent } from '../../shared/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-create-user',
@@ -17,7 +16,7 @@ import { SnackbarComponent } from 'src/app/shared/snackbar/snackbar.component';
   styleUrls: ['./create-user.component.scss'],
 })
 export class CreateUserComponent implements OnInit {
-  roles: Role[] = [];
+  //roles: Role[] = [];
   form!: FormGroup;
   user: User = new User();
 
@@ -26,7 +25,7 @@ export class CreateUserComponent implements OnInit {
     private _fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.getAllRoles();
+    //this.getAllRoles();
     this.form = this._fb.group({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -50,13 +49,8 @@ export class CreateUserComponent implements OnInit {
     });
   }
 
-  getAllRoles() {
-    this.userService.getAllRole().subscribe((data) => {
-      this.roles = data;
-    });
-  }
 
-  addUser() {
+/*   addUser() {
     console.log(parseInt(this.form.value.selectedRole));
     this.user.firstName = this.form.value.firstName;
     this.user.lastName = this.form.value.lastName;
@@ -67,13 +61,13 @@ export class CreateUserComponent implements OnInit {
     this.user.codePostal = this.form.value.codePostal;
     this.user.post = this.form.value.post;
     
-     this.userService.addUser(this.user, parseInt(this.form.value.selectedRole)).subscribe(data =>{
+     this.userService.addUser(this.user, parseInt(this.form.value.)).subscribe(data =>{
        console.log(data);
        this.form.reset();
        this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
 
      });
-  }
+  } */
   get f() {
     return this.form.controls;
   }

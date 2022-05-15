@@ -4,7 +4,7 @@
     <span class=" mt-1 fw-bold fs-7">check your invitations</span>
   </h3>
 </div> -->
-
+<div>
 <div class="row" style="margin-right: 1rem; margin-left: 0.19rem">
   <div class="card align-items-start flex-column">
     <!-- <h1 class="">invitation list</h1> -->
@@ -18,43 +18,43 @@
     <div class="list-item" data-id="19" *ngFor="let invitation of invitations">
       <div>
         <a href="#" data-abc="true"
-          ><span class="w-48 avatar gd-warning">{{
+          ><span class="w-48 avatar gd-warning"><!-- {{
             subStrName(invitation.user)
-          }}</span></a
+          }} --></span></a
         >
       </div>
       <div class="flex">
         <a href="#" class="item-author text-color" data-abc="true"
-          >{{ invitation.user.lastName }} {{ invitation.user.lastName }}</a
+          ><!-- {{ invitation.user.lastName }} {{ invitation.user.lastName }} --></a
         >
         <div class="item-except text-sm h-1x">
-          {{ invitation.user.post }}
+        <!--   {{ invitation.user.post }} -->
         </div>
       </div>
 
-      <div
+   <!--    <div
         *ngIf="
           invitation.status.description == 'Submitted';
           then contenu_bon;
           else templateName
         "
-      >
+      > -->
         contenue ignoree 
       </div>
 
       <ng-template #contenu_bon>
         <div class="flex margin_status">
-          <a href="#" class="badge badge-light-success fs-7 fw-bold">{{
+          <a href="#" class="badge badge-light-success fs-7 fw-bold"><!-- {{
             invitation.status.description
-          }}</a>
+          }} --></a>
         </div>
       </ng-template>
 
       <ng-template #templateName>
         <div class="flex margin_status">
-          <a href="#" class="badge badge-light-danger fs-7 fw-bold">{{
+          <a href="#" class="badge badge-light-danger fs-7 fw-bold"><!-- {{
             invitation.status.description
-          }}</a>
+          }} --></a>
         </div>
       </ng-template>
       <!-- <div class="flex margin_status">
@@ -63,7 +63,7 @@
       >
     </div> -->
       <div class="button">
-        <a
+     <!--    <a
           class="btn btn-primary float-right"
           style="margin-right: 0.25rem"
           (click)="acceptInv(invitation.id)"
@@ -73,7 +73,7 @@
           class="btn btn-secondary active"
           (click)="refuseInv(invitation.id)"
           >Refuse</a
-        >
+        > -->
       </div>
     </div>
   </div>

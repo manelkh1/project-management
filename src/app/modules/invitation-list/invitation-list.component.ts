@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Invitation } from 'src/app/Model/invitation';
-import { Status } from 'src/app/Model/status';
-import { User } from 'src/app/Model/user';
-import { ProjectService } from 'src/app/services/project-service/project.service';
-import { UserService } from 'src/app/services/user-service/user.service';
+import { Invitation } from '../../models/invitation';
+import { Status } from '../../models/status';
+import { User } from '../../models/user';
+import { ProjectService } from '../../services/project.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-invitation-list',
@@ -21,10 +21,10 @@ status: Status[]=[];
   }
 
   getInvitationsByUser(){
-    this.projectService.getInvitationsByUser().subscribe(data =>{
+    /* this.projectService.getInvitationsByUser().subscribe(data =>{
       this.invitations = data;
       console.log(this.invitations)
-    })
+    }) */
   }
 
   subStrName(user:User){

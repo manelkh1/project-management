@@ -1,13 +1,13 @@
 // import { NgModule } from '@angular/core';
 // import { CommonModule } from '@angular/common';
-// import { HomeComponent } from 'src/app/modules/home/home.component';
-// import { PostComponent } from 'src/app/modules/post/post.component';
+// import { HomeComponent } from '../../modules/home/home.component';
+// import { PostComponent } from '../../modules/post/post.component';
 // import { RouterModule } from '@angular/router';
-// import { SharedModule } from 'src/app/shared/shared.module';
+// import { SharedModule } from '../../shared/shared.module';
 // import { FlexLayoutModule } from '@angular/flex-layout';
-// import { CreateProjectComponent } from 'src/app/modules/projects/create-project/create-project.component';
-// import { ProjectDetailsComponent } from 'src/app/modules/projects/project-details/project-details.component';
-// import { CreateUserComponent } from 'src/app/modules/create-user/create-user.component';
+// import { CreateProjectComponent } from '../../modules/projects/create-project/create-project.component';
+// import { ProjectDetailsComponent } from '../../modules/projects/project-details/project-details.component';
+// import { CreateUserComponent } from '../../modules/create-user/create-user.component';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import {MatSnackBarModule} from '@angular/material/snack-bar';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -49,13 +49,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DefaultComponent } from './default.component';
-import { HomeComponent } from 'src/app/modules/home/home.component';
-import { PostComponent } from 'src/app/modules/post/post.component';
+import { HomeComponent } from '../../modules/home/home.component';
+import { PostComponent } from '../../modules/post/post.component';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CreateProjectComponent } from 'src/app/modules/projects/create-project/create-project.component';
-import { ProjectDetailsComponent } from 'src/app/modules/projects/project-details/project-details.component';
+import { CreateProjectComponent } from '../../modules/projects/create-project/create-project.component';
+import { ProjectDetailsComponent } from '../../modules/projects/project-details/project-details.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {A11yModule} from '@angular/cdk/a11y';
@@ -102,11 +102,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CreateUserComponent } from 'src/app/modules/create-user/create-user.component';
-import { UserDetailsComponent } from 'src/app/modules/user-details/user-details/user-details.component';
-import { InvitationListComponent } from 'src/app/modules/invitation-list/invitation-list.component';
-import { ChangePasswordComponent } from 'src/app/modules/change-password/change-password.component';
-import { ChatComponent } from 'src/app/modules/chat/chat.component';
+import { CreateUserComponent } from '../../modules/create-user/create-user.component';
+import { UserDetailsComponent } from '../../modules/user-details/user-details/user-details.component';
+import { InvitationListComponent } from '../../modules/invitation-list/invitation-list.component';
+import { ChangePasswordComponent } from '../../modules/change-password/change-password.component';
+import { ChatComponent } from '../../modules/chat/chat.component';
 
 
 @NgModule({

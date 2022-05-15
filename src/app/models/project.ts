@@ -9,7 +9,7 @@ export class Project{
     endDate!: string;
     creationDate!: string;
     status!:Status;
-    manager : Manager;
+    manager!: Manager;
     
     
 }
