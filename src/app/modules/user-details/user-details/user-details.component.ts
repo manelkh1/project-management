@@ -35,7 +35,7 @@ export class UserDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private _fb: FormBuilder,
     private userService: UserService
-    
+
   ) {}
 
   ngOnInit(): void {
@@ -137,7 +137,7 @@ export class UserDetailsComponent implements OnInit {
   updateUser(){
     this.setEditing(false);
     // this.setEditingLastName(false);
-    console.log(this.user)
+
   }
 
 }

@@ -1,8 +1,8 @@
-package com.management.cni.Controller;
+package com.management.cni.controller;
 
 import com.management.cni.Entity.UploadResponseMessage;
 import com.management.cni.Repository.ProjectRepository;
-import com.management.cni.Service.AttachmentService;
+
 import com.management.cni.service.ProjectService;
 import org.apache.commons.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 
-@CrossOrigin(origins = "*",allowedHeaders = "*")
+@CrossOrigin
 @RestController
 public class AttachementController {
 
-	@Autowired
+/*	@Autowired
 	private ProjectService projectService ;
   @Autowired
 	private ProjectRepository projectRepository;
-  /*	@Autowired
-    private StatusService     statusService;*/
+  *//*	@Autowired
+    private StatusService     statusService;*//*
 	@Autowired
 	private AttachmentService attachmentService;
 
@@ -34,5 +34,5 @@ public class AttachementController {
 
         return ResponseEntity.status(HttpStatus.OK)
                              .body(new UploadResponseMessage("Uploaded the file successfully: " + file.getOriginalFilename()));
-    }
+    }*/
 }

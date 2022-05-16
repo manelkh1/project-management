@@ -1,0 +1,196 @@
+<!-- <p>create-project works!</p> -->
+
+<div class="row container_project">
+  <form [formGroup]="form">
+    <div class="row title_date">
+      <div class="col-5">
+        <label for="inputEmail4" class="form-label">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputTitle"
+          formControlName="title"
+          required
+        />
+        <div
+          *ngIf="
+            form.controls['title'].hasError('required') &&
+            form.controls['title'].touched
+          "
+          id="inputTitle"
+          class="requiredField"
+        >
+          Please enter the title.
+        </div>
+      </div>
+      <div class="col-6">
+        <!-- *************************DATE ********************** -->
+        <mat-form-field appearance="fill">
+          <!-- <mat-label >Enter a date range</mat-label> -->
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              placeholder="Start date"
+              formControlName="startDate"
+            />
+            <input
+              matEndDate
+              placeholder="End date"
+              formControlName="endDate"
+            />
+          </mat-date-range-input>
+
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+    </div>
+
+        <!-- ************************* Description ********************** -->
+        <div class="row mb-3 mt-3 justify-content-between align-items-center">
+      <div class="col-md-5">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          rows="4"
+          formControlName="description"
+          required
+        ></textarea>
+        <div
+          *ngIf="
+            form.controls['description'].hasError('required') &&
+            form.controls['description'].touched
+          "
+          id="inputDescription"
+          class="requiredField"
+        >
+          Please enter the description.
+        </div>
+      </div>
+
+      <div class="col-6">
+        <!-- ************************* Search ********************** -->
+        <div class="card">
+          <div class="card-body">
+            <div class="input-group rounded">
+              <!-- ******************* Keyup : événement est déclenché lorsqu'une touche est relâchée. -->
+              <input
+                type="search"
+                class="form-control rounded"
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedby="search-addon"
+                [matAutocomplete]="auto"
+                (keyup)="findMember($event)"
+              />
+              <!-- Autocomplete : d'un panneau d'options suggérées -->
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option
+                  *ngFor="let user of searchUsers"
+                  (onSelectionChange)="addUser(user)"
+                >
+                  {{ user?.firstName }} {{ user?.lastName }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-between">
+      <div class="col-5">
+        <!-- ************************* import document ********************-->
+        <div class="card" style="padding: 50px">
+          <div class="card-body">
+            <h1 style="margin: revert">Import a document</h1>
+            <div class="mb-3">
+              <label for="formFile" class="form-label text-muted"
+                >share documets with your team</label
+              >
+              <!-- Define simple input tag of type file. Add a function to (change)-event for handling choosing files. -->
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                #fileUpload
+                multiple
+                (change)="fileBrowseHandler($event)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card mb-4 mb-md-0" style="padding: 25px">
+          <div class="card-body">
+            <table class="table col-md-6">
+              <thead>
+                <tr>
+                  <th scope="col">First name</th>
+                  <th scope="col">Last name</th>
+                  <th scope="col">Post</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- fill the table with value -->
+                <tr *ngFor="let user of users">
+                  <th scope="row">{{ user.firstName }}</th>
+                  <td>{{ user.lastName }}</td>
+                  <td>{{ user.post }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-5">
+        <div class="card mt-3">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="type"></th>
+                <th class="name truncate">Name</th>
+                <th class="size">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- parcourir tableau attachements et les inserere dans "attachment"  -->
+              <tr *ngFor="let file of files">
+                <td class="type">
+                  <i class="fa fa-file-text-o text-primary"></i>
+                </td>
+                <td class="name truncate">
+                  <a href="#">{{ file.name }}</a>
+                </td>
+                <td class="delete">
+                  <img
+                    src="../../../assets/img/xmark-solid.svg"
+                    alt=""
+                    (click)="deleteFile(file)"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row row_btn">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="addProject()"
+        [disabled]="!form.valid"
+      >
+        Create new project
+      </button>
+    </div>
+  </form>
+</div>

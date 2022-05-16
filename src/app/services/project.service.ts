@@ -29,7 +29,7 @@ export class ProjectService {
     //ajouter des champs
     for (var i = 0; i < files.length; i++) {
       formData.append('files', files[i]);
-    } 
+    }
     formData.append(
       'project',
       new Blob([JSON.stringify(project)], { type: 'application/json' })
@@ -41,7 +41,7 @@ export class ProjectService {
     });
   }
 
-  
+
   getAllProjectsByAdmin(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(
       AUTH_API + 'api/projects/projectsByAdmin'
@@ -56,13 +56,13 @@ export class ProjectService {
 
   getAllProjectsByMember(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(
-      AUTH_API + 'api/projects/projectsByMember/'
+      AUTH_API + 'api/projects/projectsByMember'
     );
   }
 
   getAllProjectsByBank(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(
-      AUTH_API + 'api/projects/projectsByBank/'
+      AUTH_API + 'api/projects/projectsByBank'
     );
   }
 

@@ -1,3 +1,4 @@
+import { EnumToArrayPipe } from './../../modules/create-user/create-user.component';
 // import { NgModule } from '@angular/core';
 // import { CommonModule } from '@angular/common';
 // import { HomeComponent } from '../../modules/home/home.component';
@@ -20,7 +21,7 @@
 //   declarations: [
 //     HomeComponent,
 //     PostComponent,
-//     ProjectDetailsComponent, 
+//     ProjectDetailsComponent,
 //     CreateProjectComponent,
 //     CreateUserComponent
 //   ],
@@ -110,9 +111,10 @@ import { ChatComponent } from '../../modules/chat/chat.component';
     DefaultComponent,
     HomeComponent,
     PostComponent,
-    ProjectDetailsComponent, 
+    ProjectDetailsComponent,
     CreateProjectComponent,
     HomeComponent,
+    EnumToArrayPipe,
    CreateUserComponent,
    UserDetailsComponent,
    InvitationListComponent,
@@ -177,7 +179,7 @@ import { ChatComponent } from '../../modules/chat/chat.component';
     OverlayModule,
     PortalModule,
     ScrollingModule,
-    
+
   ]
 })
 export class DefaultModule { }

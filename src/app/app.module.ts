@@ -14,10 +14,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DefaultModule } from './layouts/default/default.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { EnumToArrayPipe } from './modules/create-user/create-user.component';
 
 
 @NgModule({
-  declarations: [AppComponent,   ],
+  declarations: [AppComponent ],
   imports: [
     RouterModule,
     BrowserModule,
@@ -31,7 +32,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDatepickerModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule,    
+    MatSnackBarModule,
   ],
   providers: [authInterceptorProviders, AuthGuard],
   bootstrap: [AppComponent],

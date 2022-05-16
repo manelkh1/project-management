@@ -172,13 +172,14 @@ public class ProjectService {
   }
 
   public ApiResponse createProject(ProjectRequest projectRequest) {
-    User user = userService.getConnectedAdmin();
+    User user = userService.getConnectedManager();
     try {
       if (user != null) {
         Project project = ProjectMapper.INSTANCE.convertToProject(projectRequest);
+        project.setManager(user.getManager());
         projectRepository.save(project);
         return new ApiResponse(null, "PROJECT CREATED", HttpStatus.OK, LocalDateTime.now());
-      } else {
+     } else {
         return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
       }
     } catch (Exception e) {

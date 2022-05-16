@@ -66,15 +66,15 @@ public class BankService {
   }
 
   public ApiResponse createBank(BankRequest bankRequest) {
-    User user = userService.getConnectedAdmin();
+   // User user = userService.getConnectedAdmin();
     try {
-      if (user != null) {
+     /// if (user != null) {
         Bank bank = BankMapper.INSTANCE.convertToBank(bankRequest);
         bankRepository.save(bank);
         return new ApiResponse(null, "BANK CREATED", HttpStatus.OK, LocalDateTime.now());
-      } else {
+      /*} else {
         return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
-      }
+      }*/
     } catch (Exception e) {
       return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
     }
@@ -107,7 +107,7 @@ public class BankService {
         if (bank.isPresent()) {
           User newUser = bank.get().getUser();
 
-          newUser.getBank().setBankName(bankRequest.getName());
+          newUser.getBank().setBankName(bankRequest.getBankName());
           user.getBank().setUser(newUser);
           bankRepository.save(user.getBank());
           return new ApiResponse(null, "BANK UPDATED", HttpStatus.OK, LocalDateTime.now());

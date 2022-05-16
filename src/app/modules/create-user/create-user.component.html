@@ -24,13 +24,14 @@
                       width="100"
                       id="uploadedAvatar"
                     />
-                    
+
                   </div>
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
                   <form  [formGroup]="form">
                     <div class="row">
+
                       <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label"
                           >First Name</label
@@ -140,25 +141,25 @@
                       </div>
 
                       <div class="mb-3 col-md-6">
-                        <label for="inputPoste" class="form-label">Role</label>
+                        <label for="userRole" class="form-label">Role</label>
                         <select
-                          id="inputPoste"
+                          id="userRole"
                           class="form-select"
-                          formControlName="selectedRole"
+                          formControlName="userRole"
                           required
                         >
                         <!-- liste des roles par id -->
-                          <option *ngFor="let item of    ">
+                          <option *ngFor="let item of roleEnum | enumToArray">
                             {{ item }}
-                          </option> 
+                          </option>
                         </select>
                         <div
                           *ngIf="
-                            form.controls['selectedRole'].hasError(
+                            form.controls['userRole'].hasError(
                               'required'
-                            ) && form.controls['selectedRole'].touched
+                            ) && form.controls['userRole'].touched
                           "
-                          id="inputPoste"
+                          id="userRole"
                           class="requiredField"
                         >
                           Please select role.
@@ -253,9 +254,9 @@
                     </div>
                     <!-- cliquer sur submit appliquer addUser() -->
                     <div class="mt-2">
-                     <!--  <button type="submit" class="btn btn-primary me-2" (click)="addUser()" [disabled]="!form.valid">
+                   <button type="submit" class="btn btn-primary me-2" (click)="addUser()" [disabled]="!form.valid">
                         Submit
-                      </button> -->
+                      </button>
                     </div>
                   </form>
                 </div>

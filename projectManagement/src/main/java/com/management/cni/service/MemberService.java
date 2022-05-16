@@ -24,11 +24,11 @@ public class MemberService {
   private UserService userService;
 
   public ApiResponse getAllMembers() {
-    User user = userService.getConnectedAdmin();
+   // User user = userService.getConnectedAdmin();
     List<MemberResponse> memberResponses = new ArrayList<>();
     try {
 
-      if (user != null) {
+   //   if (user != null) {
         List<Member> members = memberRepository.findAll();
         if (!members.isEmpty()) {
           for (Member member : members) {
@@ -37,9 +37,9 @@ public class MemberService {
           }
         }
         return new ApiResponse(memberResponses, null, HttpStatus.OK, LocalDateTime.now());
-      } else {
+     /* } else {
         return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
-      }
+      }*/
     } catch (Exception e) {
       return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
     }
@@ -65,15 +65,15 @@ public class MemberService {
   }
 
   public ApiResponse createMember(MemberRequest memberRequest) {
-    User user = userService.getConnectedAdmin();
+ //   User user = userService.getConnectedAdmin();
     try {
-      if (user != null) {
+     // if (user != null) {
         Member member = MemberMapper.INSTANCE.convertToMember(memberRequest);
         memberRepository.save(member);
         return new ApiResponse(null, "MEMBER CREATED", HttpStatus.OK, LocalDateTime.now());
-      } else {
+  /*    } else {
         return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
-      }
+      }*/
     } catch (Exception e) {
       return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
     }

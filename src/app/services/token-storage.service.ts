@@ -6,8 +6,8 @@
 
 import { Injectable } from '@angular/core';
 
-const TOKEN_KEY = 'auth-token';
-const USER_KEY = 'auth-user';
+const TOKEN_KEY = 'token';
+const USER_KEY = 'user';
 
 
 @Injectable({
@@ -16,7 +16,7 @@ const USER_KEY = 'auth-user';
 export class TokenStorageService {
 
   constructor() { }
-  
+
 // For Logout, we only need to clear this Session Storage.
   signOut() {
     window.sessionStorage.clear();
@@ -26,6 +26,7 @@ export class TokenStorageService {
 
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, jwt);
+    window.sessionStorage.setItem(USER_KEY, jwt);
   }
 
   public getToken() {

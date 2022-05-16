@@ -1,0 +1,247 @@
+<form [formGroup]="form">
+  <div class="row align-items-center">
+    <div class="col-8">
+      <h3 class="acount mb-0">My project Details</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <h3 class="mb-0 text-muted">Title</h3>
+        <hr />
+        <!-- <h3 class="title">{{ project.title }}</h3> -->
+        <div class="d-flex">
+          <input
+            type="text"
+            class="form-control"
+            id="inputTitle"
+
+            formControlName="title"
+            required
+            (click)="setEditingTitle(true)"
+          />
+          <!-- if isEditingTitle=true -->
+          <div class="d-flex justify-content-end images" *ngIf="isEditingTitle">
+            <img
+              src="../../../assets/img/xmark-solid.svg"
+              alt=""
+              (click)="cancelUpdateTitle()"
+            />
+            <img
+              src="../../../assets/img/check-solid.svg"
+              alt=""
+              (click)="updateProject()"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="col-6">
+          <div>
+            <h3 class="mb-0 text-muted">Description</h3>
+            <hr />
+            <p>
+              {{ project.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="type"></th>
+              <th class="name truncate">Name</th>
+              <th class="date">Uploaded</th>
+              <th class="size">Status</th>
+              <th class="size"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- parcourir tableau attachements et les inserere dans "attachment"  -->
+            <tr *ngFor="let attachment of attachments">
+              <td class="type">
+                <i class="fa fa-file-text-o text-primary"></i>
+              </td>
+              <td class="name truncate">
+                <a [href]="attachment" [download]="attachment.name">{{
+                  attachment.name
+                }}</a>
+              </td>
+              <td class="date">
+                {{ attachment.creationDate | date: "longDate" }}
+              </td>
+              <td class="size"><!-- {{ attachment.status.description }} --></td>
+              <td class="size">
+                <a
+                  class="float-right"
+                  style="margin-right: 0.25rem; cursor: pointer"
+                  >Validate</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div>
+        <!-- user list -->
+        <div class="list list-row block" style="padding-bottom: 1.15rem;padding-top: 1.15rem;padding-inline: 1rem;">
+          <h3 class="mb-0 text-muted" style="margin-left: 0.7rem;">Members </h3>
+          <hr />
+
+          <div
+            class="list-item"
+            data-id="19"
+            *ngFor="let invitation of invitations"
+          >
+            <div>
+              <a href="#" data-abc="true"
+                ><span class="w-48 avatar gd-warning"><!-- {{
+                  subStrName(invitation.user)
+                }} --></span></a
+              >
+            </div>
+            <div class="flex">
+            <!--   <a href="#" class="item-author text-color" data-abc="true"
+                >{{ invitation.user.firstName }}
+                {{ invitation.user.lastName }}</a> -->
+              <div class="item-except text-muted text-sm h-1x">
+               <!--  {{ invitation.user.post }} -->
+              </div>
+            </div>
+            <div class="flex margin_status">
+              <a
+                href="#"
+                class="item-author text-color margin_status"
+                data-abc="true"
+
+                ><!-- {{ invitation.status.description }} --></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div _ngcontent-gux-c192="" class="col-6">
+      <div _ngcontent-gux-c192="" class="card" style="padding: 25px">
+        <div _ngcontent-gux-c192="" class="card-body">
+          <h1 _ngcontent-gux-c192="" style="margin: revert">
+            Import a document
+          </h1>
+          <div _ngcontent-gux-c192="" class="mb-3">
+            <label
+              _ngcontent-gux-c192=""
+              for="formFile"
+              class="form-label text-muted"
+              >share documets with your team</label
+            ><input
+              class="form-control"
+              type="file"
+              id="formFile"
+              #fileUpload
+              multiple
+              (change)="fileBrowseHandler($event)"
+            />
+            <div class="col-5">
+              <div style="width: 40rem;margin-top: 5rem;">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="type"></th>
+                      <th class="name truncate">Name</th>
+                      <th class="size">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- parcourir tableau attachements et les inserere dans "attachment"  -->
+                    <tr *ngFor="let file of files">
+                      <td class="type">
+                        <i class="fa fa-file-text-o text-primary"></i>
+                      </td>
+                      <td class="name truncate">
+                        <a href="#">{{ file.name }}</a>
+                      </td>
+                      <td class="delete">
+                        <img
+                          src="../../../assets/img/xmark-solid.svg"
+                          alt=""
+                          (click)="deleteFile(file)"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- lorsque il clique sur submit il enregistre les attachements dans le projet addattachement to the project -->
+                <a class="btn btn-primary float-right"   (click)="fileBrowseHandler($event)"
+                >Submit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-5"    style="width: 49.666667%;">
+      <div class="card">
+        <div _ngcontent-vto-c70="" class="chat-container">
+          <ul _ngcontent-vto-c70="" class="chat-box chatContainerScroll">
+            <li _ngcontent-vto-c70="" class="chat-right">
+              <div _ngcontent-vto-c70="" class="chat-hour">
+                08:59
+                <span _ngcontent-vto-c70="" class="fa fa-check-circle"></span>
+              </div>
+              <div _ngcontent-vto-c70="" class="chat-text">
+                Have you faced any problems at the last phase of the project?
+              </div>
+              <div _ngcontent-vto-c70="" class="chat-avatar">
+                <img
+                  _ngcontent-vto-c70=""
+                  src="https://www.bootdey.com/img/Content/avatar/avatar4.png"
+                  alt="Retail Admin"
+                />
+                <div _ngcontent-vto-c70="" class="chat-name">Jin</div>
+              </div>
+            </li>
+            <li _ngcontent-vto-c70="" class="chat-left">
+              <div _ngcontent-vto-c70="" class="chat-avatar">
+                <img
+                  _ngcontent-vto-c70=""
+                  src="https://www.bootdey.com/img/Content/avatar/avatar3.png"
+                  alt="Retail Admin"
+                />
+                <div _ngcontent-vto-c70="" class="chat-name">Russell</div>
+              </div>
+              <div _ngcontent-vto-c70="" class="chat-text">
+                Actually everything was fine. <br _ngcontent-vto-c70="" />I'm
+                very excited to show this to our team.
+              </div>
+              <div _ngcontent-vto-c70="" class="chat-hour">
+                07:00
+                <span _ngcontent-vto-c70="" class="fa fa-check-circle"></span>
+              </div>
+            </li>
+          </ul>
+          <div _ngcontent-vto-c70="" class="form-group mt-3 mb-0">
+            <textarea
+              _ngcontent-vto-c70=""
+              rows="3"
+              placeholder="Type your message here..."
+              class="form-control"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+

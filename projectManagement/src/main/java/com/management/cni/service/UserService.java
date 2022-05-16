@@ -4,7 +4,9 @@ import com.management.cni.Entity.User;
 import com.management.cni.Entity.UserRole;
 import com.management.cni.Repository.UserRepository;
 import com.management.cni.exceptions.ApiResponse;
+import com.management.cni.security.dto.request.AuthenticatedUserDto;
 import com.management.cni.security.dto.request.UserRequest;
+import com.management.cni.security.dto.response.UserResponse;
 import com.management.cni.security.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,18 @@ public class UserService {
     return userRepository.findUserByEmail(email);
   }
 
+
+  public User findByUsername(String username) {
+
+    return userRepository.findByUsername(username);
+  }
+
+  public UserResponse findAuthenticatedUserByUsername(String username) {
+
+    final User user = findByUsername(username);
+
+    return UserMapper.INSTANCE.convertToUserResponse(user);
+  }
   @Transactional
   public User saveUser(User user) {
     return userRepository.save(user);

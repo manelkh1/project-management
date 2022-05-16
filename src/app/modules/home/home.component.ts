@@ -82,6 +82,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     //jebna role mtee currentuser
     this.objectUser = this.tokenStorage.getUser();
+
     // this.currentUser = this.objectUser.user;
     // console.log(this.currentUser)
     // this.role = this.currentUser.role;
@@ -108,27 +109,30 @@ export class HomeComponent implements OnInit {
 
   getAllProjectsByManager() {
     this.projectService.getAllProjectsByManager().subscribe((data) => {
+
       //MatTableDataSource :  une source de données de table matTableDataSource intégrée.
       this.dataSource = new MatTableDataSource(data);
       //apply the pagination to all the dataSource
       this.dataSource.paginator = this.paginator;
-      console.log(this.dataSource);
+
     });
   }
 
   getAllProjectsByMember() {
     this.projectService.getAllProjectsByMember().subscribe((data) => {
+
       this.projects = new MatTableDataSource(data);
       this.projects.paginator = this.paginator;
-      console.log(this.projects);
+
     });
   }
 
   getAllProjectsByBank() {
     this.projectService.getAllProjectsByBank().subscribe((data) => {
+
       this.projects = new MatTableDataSource(data);
       this.projects.paginator = this.paginator;
-      console.log(this.projects);
+
     });
   }
 
@@ -147,7 +151,7 @@ export class HomeComponent implements OnInit {
       .subscribe((managers) => {
         this.managers = new Manager();
       });
-    console.log(this.managers);
+
   }
 
   subStrDescription(description: String) {

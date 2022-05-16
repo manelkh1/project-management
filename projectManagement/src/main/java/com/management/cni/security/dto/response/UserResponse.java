@@ -32,7 +32,7 @@ public class UserResponse {
 
   private String codePostal;
 
-  private Session session;
+//  private Session session;
 
   private UserRole userRole;
 

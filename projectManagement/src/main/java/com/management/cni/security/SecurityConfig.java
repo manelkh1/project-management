@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 //to customize Spring Security
@@ -51,10 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
   public UserDetailsService userDetailsService() {
     return email -> {
       User user = userService.findUserByEmail(email);
-		/*	if(user.isEmpty()) {
+			if(user == null) {
 				throw new UsernameNotFoundException("No user found with email address: "+email);
-			}*/
-      return null;
+			}
+      return user;
     };
   }
 
@@ -63,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         // TODO configure web security (public/private URL ..)
 		http.cors().and().csrf().disable()
 		// The pages does not require login
-		.authorizeRequests().antMatchers("/login", "/activation"). permitAll()
+		.authorizeRequests().antMatchers("/login","/**", "/activation"). permitAll()
 		// Set permissions on our private endpoints
 
 		.anyRequest().authenticated().and()

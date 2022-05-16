@@ -15,19 +15,19 @@ export class BankService {
 
 
   getBankById(bankId: number): Observable<Bank[]> {
-    return this.httpClient.get<Bank[]>( AUTH_API + '/api/projects/banks/' + bankId);
+    return this.httpClient.get<Bank[]>( AUTH_API + 'api/banks/' + bankId);
   }
 
   createBank(bank: Bank): Observable<any> {
-    return this.httpClient.post(AUTH_API + '/api/projects/banks/' , bank);
+    return this.httpClient.post(AUTH_API + 'api/banks/' , bank);
   }
 
   updateBank(bankId: number,bank:Bank): Observable<any> {
-    return this.httpClient.put(AUTH_API + '/api/projects/banks/' + bankId, bank);
+    return this.httpClient.put(AUTH_API + 'api/banks/' + bankId, bank);
   }
 
   deleteBank(bankId: number): Observable<any> {
-    return this.httpClient.delete(AUTH_API + '/api/projects/banks/' + bankId);
+    return this.httpClient.delete(AUTH_API + 'api/banks/' + bankId);
   }
- 
+
 }

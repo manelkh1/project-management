@@ -14,21 +14,21 @@ export class InvitationService {
   constructor(private httpClient: HttpClient) { }
 
   getAllInvitationByMember(): Observable<Invitation[]> {
-    return this.httpClient.get<Invitation[]>( AUTH_API + '/api/invitations/' );
+    return this.httpClient.get<Invitation[]>( AUTH_API + 'api/invitations/' );
   }
-    
+
   getAllInvitationByProject(projectId: number): Observable<Invitation[]> {
-    return this.httpClient.get<Invitation[]>( AUTH_API + '/api/invitations/' + projectId);
+    return this.httpClient.get<Invitation[]>( AUTH_API + 'api/invitations/' + projectId);
   }
 
   acceptInvitationByProject(projectId: number): Observable<any> {
-    return this.httpClient.post(AUTH_API + '/api/invitations/acceptInvitation/' , + projectId);
+    return this.httpClient.post(AUTH_API + 'api/invitations/acceptInvitation/' , + projectId);
   }
   refuseInvitationByProject(projectId: number): Observable<any> {
-    return this.httpClient.post(AUTH_API + '/api/invitations/refuseInvitation/' , + projectId);
+    return this.httpClient.post(AUTH_API + 'api/invitations/refuseInvitation/' , + projectId);
   }
   sendInvitationByProject(invitation: Invitation ): Observable<any> {
-    return this.httpClient.post(AUTH_API + '/api/invitations/sendInvitation/' , invitation );
+    return this.httpClient.post(AUTH_API + 'api/invitations/sendInvitation' , invitation );
   }
 
   removeInvitationByProject(projectId:number): Observable<any> {

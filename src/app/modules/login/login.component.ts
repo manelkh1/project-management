@@ -1,3 +1,4 @@
+import { LoginResponse } from './../../models/login';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { AuthService } from '../../services/auth.service';
 import { TokenStorageService } from '../../services/token-storage.service';
 
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit {
   isLoggedFailed = false;
   message = 'Login Failed';
   form!: FormGroup;
-
+  loginResponse: LoginResponse = new LoginResponse();
   constructor(
     private _fb: FormBuilder,
     private authService: AuthService,
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._fb.group({
-      email: new FormControl('', [Validators.required]),
+      username: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
@@ -44,19 +46,22 @@ export class LoginComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
-// 
+//
   login() {
-    console.log(this.form.value);
+
     this.authService.login(this.form.value).subscribe(
-      (data) => {
-        this.tokenStorage.saveToken(data.jwt);
-        this.tokenStorage.saveUser(data);
+      (data: any) => {
+
+        this.loginResponse = data.data
+
+        this.tokenStorage.saveToken(data.data.token);
+        this.tokenStorage.saveUser(data.data.user);
         this.isLoggedFailed = false;
         this.isLoggedIn = true;
         //navigation to the next component Home
         this.router.navigate(['default/home']);
       },
-      // if there is an error in the login 
+      // if there is an error in the login
       (err) => {
         this.isLoggedFailed = true;
       }

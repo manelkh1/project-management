@@ -4,10 +4,18 @@ import com.management.cni.Entity.Session;
 import com.management.cni.Entity.User;
 import com.management.cni.Object.AuthenticationResponse;
 import com.management.cni.Repository.UserRepository;
+import com.management.cni.exceptions.ApiResponse;
 import com.management.cni.security.JwtUtil;
 import com.management.cni.security.MyUserDetailsService;
+import com.management.cni.security.dto.request.AuthenticatedUserDto;
+import com.management.cni.security.dto.request.LoginRequest;
+import com.management.cni.security.dto.response.LoginResponse;
+import com.management.cni.security.dto.response.UserResponse;
+import com.management.cni.security.mapper.UserMapper;
 import com.management.cni.service.SessionService;
+import com.management.cni.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,9 +26,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 // allows all origins, all headers
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 @RestController
 public class LoginController {
 
@@ -38,13 +47,15 @@ public class LoginController {
   private MyUserDetailsService userDetailsService;
   @Autowired
   private SessionService sessionService;
+  @Autowired
+  private  UserService userService;
 
-  @PostMapping("/login")
+/*  @PostMapping("/login")
   public ResponseEntity<?> createAuthenticationToken(@RequestBody User authenticationRequest) throws Exception {
 
     try {
       authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
+					new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword())
 			);
 		}
 		catch (BadCredentialsException e) {
@@ -59,6 +70,29 @@ public class LoginController {
     final String jwt = jwtTokenUtil.generateToken(userDetails);
 
     return ResponseEntity.ok(new AuthenticationResponse(null, jwt));
+  }*/
+
+
+  @PostMapping("/login")
+  public ResponseEntity<ApiResponse> createAuthenticationToken(@RequestBody LoginRequest loginRequest) throws Exception {
+
+    final String username = loginRequest.getUsername();
+    final String password = loginRequest.getPassword();
+
+    final UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+
+    authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+    final User user = userService.findUserByEmail(username);
+
+  //  final User user = UserMapper.INSTANCE.convertToUser(authenticatedUserDto);
+    final String token = jwtTokenUtil.generateToken(user);
+    UserResponse response = UserMapper.INSTANCE.convertToUserResponse(user);
+    LoginResponse loginResponse = new LoginResponse(token, response);
+
+   // log.info(" {} has successfully logged in!", user.getUsername());
+    ApiResponse apiResponse =new ApiResponse(loginResponse, "USER LOGED IN ", HttpStatus.OK, LocalDateTime.now());
+    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
   @Transactional

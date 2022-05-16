@@ -1,4 +1,4 @@
-package com.management.cni.Service;
+package com.management.cni.service;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,14 +21,14 @@ public class AttachmentService {
 
 	@Autowired
 	private AttachmentRepository attachmentRepository;
-	
-	
+
+
 	@Transactional
 	public List<Attachement> getAttachmentsByProjectId(Long projectId){
 		return attachmentRepository.getAttachmentsByProjectId(projectId);
 	}
-	
-	
+
+
 	//add file
 	@Value("${upload.path}")
     private String uploadPath;

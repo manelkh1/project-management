@@ -7,29 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 @RestController
 @RequestMapping("/api/projects")
 public class ProjectController {
 
   @Autowired
   private ProjectService projectService;
-  
-  
+
+
   //get admin projects
   @GetMapping("/projectsByAdmin")
   public ResponseEntity<ApiResponse> getAllProjectsByAdmin() {
     ApiResponse apiResponse = projectService.getAllProjectsByAdmin();
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
-  
+
   //get manager projects
   @GetMapping("/projectsByManager")
   public ResponseEntity<ApiResponse> getAllProjectsByManager() {
     ApiResponse apiResponse = projectService.getAllProjectsByManager();
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
-  
+
   //get member projects
   @GetMapping("/projectsByMember")
   public ResponseEntity<ApiResponse> getAllProjectsByMember() {
@@ -45,28 +45,28 @@ public class ProjectController {
   }
 
   // get project details
-  @GetMapping("/projects/{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<ApiResponse> getProjectById(@PathVariable("id") long id) {
     ApiResponse apiResponse = projectService.getProjectById(id);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
   //add project
-  @PostMapping("/projects")
+  @PostMapping("")
   public ResponseEntity<ApiResponse> createProject(@RequestBody ProjectRequest projectRequest) {
     ApiResponse apiResponse = projectService.createProject(projectRequest);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
   //update project
-  @PutMapping("/projects/{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<ApiResponse> updateProject(@PathVariable("id") long id, @RequestBody ProjectRequest projectRequest) {
     ApiResponse apiResponse = projectService.updateProject(id, projectRequest);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
   //delete project
-  @DeleteMapping("/projects/{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<ApiResponse> deleteProjectById(@PathVariable("id") long id) {
     ApiResponse apiResponse = projectService.deleteProjectById(id);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
@@ -75,7 +75,7 @@ public class ProjectController {
 
 
 
- 
+
 
 /*	@Autowired
 	private ProjectService projectService ;

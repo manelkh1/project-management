@@ -12,23 +12,23 @@ export class ManagerService {
   constructor(private httpClient: HttpClient) { }
 
   getAllManagers(): Observable<Manager[]> {
-    return this.httpClient.get<Manager[]>( AUTH_API + '/api/projects/managers/');
+    return this.httpClient.get<Manager[]>( AUTH_API + 'api/projects/managers/');
   }
-    
+
   getManagerById(managerId: number): Observable<Manager[]> {
-    return this.httpClient.get<Manager[]>( AUTH_API + '/api/projects/managers/' + managerId);
+    return this.httpClient.get<Manager[]>( AUTH_API + 'api/projects/managers/' + managerId);
   }
 
   createManager(manager: Manager): Observable<any> {
-    return this.httpClient.post(AUTH_API + '/api/managers/' , manager);
+    return this.httpClient.post(AUTH_API + 'api/managers' , manager);
   }
 
   updateManager(managerId: number,manager:Manager): Observable<any> {
-    return this.httpClient.put(AUTH_API + '/api/managers/' +managerId, manager);
+    return this.httpClient.put(AUTH_API + 'api/managers/' +managerId, manager);
   }
 
   deleteManager(managerId: number): Observable<any> {
-    return this.httpClient.delete(AUTH_API + '/api/managers/' + managerId);
+    return this.httpClient.delete(AUTH_API + 'api/managers/' + managerId);
   }
- 
+
 }

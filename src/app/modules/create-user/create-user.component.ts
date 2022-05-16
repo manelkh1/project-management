@@ -1,3 +1,10 @@
+import { Bank } from './../../models/bank';
+import { Member } from './../../models/member';
+
+import { MemberService } from './../../services/member.service';
+import { BankService } from './../../services/bank.service';
+import { Manager } from './../../models/manager';
+import { ManagerService } from './../../services/manager.service';
 import { Component, OnInit, Pipe, PipeTransform, VERSION } from '@angular/core';
 import {
   FormBuilder,
@@ -7,9 +14,11 @@ import {
 } from '@angular/forms';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../../shared/snackbar/snackbar.component';
-import {UserRole} from '../../models/userRole'
+import { UserRole } from '../../models/userRole';
+import { Admin } from 'src/app/models/admin';
+import { AdminService } from 'src/app/services/admin.service';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
@@ -19,11 +28,21 @@ export class CreateUserComponent implements OnInit {
   //roles: Role[] = [];
   form!: FormGroup;
   user: User = new User();
-  roleEnum = UserRole; 
-  
-  constructor(private userService: UserService, 
+  admin: Admin = new Admin();
+  manager: Manager = new Manager();
+  member: Member = new Member();
+  bank: Bank = new Bank();
+  roleEnum = UserRole;
+
+  constructor(
+    private userService: UserService,
+    private adminService: AdminService,
+    private managerService: ManagerService,
+    private bankService: BankService,
+    private memberService: MemberService,
     private _snackBar: MatSnackBar,
-    private _fb: FormBuilder) {}
+    private _fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     //this.getAllRoles();
@@ -41,17 +60,16 @@ export class CreateUserComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-       // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'),
+        // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'),
       ]),
       city: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
       codePostal: new FormControl('', [Validators.required]),
-      selectedRole: new FormControl( [Validators.required]),
+      userRole: new FormControl([Validators.required]),
     });
   }
 
-ddUser() {
-    console.log(parseInt(this.form.value.selectedRole));
+  addUser() {
     this.user.firstName = this.form.value.firstName;
     this.user.lastName = this.form.value.lastName;
     this.user.email = this.form.value.email;
@@ -59,14 +77,53 @@ ddUser() {
     this.user.city = this.form.value.city;
     this.user.country = this.form.value.country;
     this.user.codePostal = this.form.value.codePostal;
-    this.user.post = this.form.value.post;   
-     this.userService.addUser(this.user).subscribe(data =>{
+    this.user.post = this.form.value.post;
+    this.user.userRole = this.form.value.userRole;
+    /* this.userService.addUser(this.user).subscribe(data =>{
        console.log(data);
        this.form.reset();
        this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
-     });
-  } 
+     }); */
 
+    /*      if (this.form.value.userRole == UserRole.ADMIN) {
+      this.adminService.cra(this.manager).subscribe(data =>{
+        console.log(data);
+        this.form.reset();
+        this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
+      });
+     } */
+    console.log(this.form.value.userRole == UserRole[0]);
+    if (this.form.value.userRole == UserRole[0]) {
+      console.log((this.admin.user = this.user));
+      this.admin.user = this.user;
+      this.adminService.createAdmin(this.admin).subscribe((data) => {
+        this.form.reset();
+        this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
+      });
+    }
+
+    if (this.form.value.userRole == UserRole[1]) {
+      this.manager.user = this.user;
+      this.managerService.createManager(this.manager).subscribe((data) => {
+        this.form.reset();
+        this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
+      });
+    }
+    if (this.form.value.userRole == UserRole[2]) {
+      this.member.user = this.user;
+      this.memberService.createMember(this.member).subscribe((data) => {
+        this.form.reset();
+        this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
+      });
+    }
+    if (this.form.value.userRole == UserRole[3]) {
+      this.bank.user = this.user;
+      this.bankService.createBank(this.bank).subscribe((data) => {
+        this.form.reset();
+        this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
+      });
+    }
+  }
 
   get f() {
     return this.form.controls;
@@ -76,17 +133,15 @@ ddUser() {
     this._snackBar.openFromComponent(SnackbarComponent, {
       data: {
         message: message,
-        type: type
+        type: type,
       },
       panelClass: panelClass,
-      duration: 10000
+      duration: 10000,
     });
   }
-
 }
-@Pipe({
-  name: ' enumToArray '
-})
+
+@Pipe({ name: 'enumToArray' })
 export class EnumToArrayPipe implements PipeTransform {
   transform(data: Object) {
     const keys = Object.keys(data);

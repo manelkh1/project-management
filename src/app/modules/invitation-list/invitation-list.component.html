@@ -1,69 +1,127 @@
-<!-- <div class="card-header pt-5">
+<div class="card-header pt-5">
   <h3 class="card-title align-items-start flex-column">
     <span class="card-label fw-bolder fs-3 mb-1">Invitations</span>
-    <span class=" mt-1 fw-bold fs-7">check your invitations</span>
-  </h3>
-</div> -->
-<div>
-<div class="row" style="margin-right: 1rem; margin-left: 0.19rem">
-  <div class="card align-items-start flex-column">
-    <!-- <h1 class="">invitation list</h1> -->
-    <span class="header fw-bolder fs-3 mb-1">Invitation list</span>
     <span class="mt-1 fw-bold fs-7">check your invitations</span>
-  </div>
+  </h3>
 </div>
+<div>
+  <div class="row" style="margin-right: 1rem; margin-left: 0.19rem">
+    <div class="card align-items-start flex-column">
+      <!-- <h1 class="">invitation list</h1> -->
+      <span class="header fw-bolder fs-3 mb-1">Invitation list</span>
+      <span class="mt-1 fw-bold fs-7">check your invitations</span>
+    </div>
+  </div>
 
-<div class="invi card" style="margin-right: 1rem">
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <h5 class="card-header">Add Invitation</h5>
+          <!-- Account -->
+          <div class="card-body"></div>
+          <hr class="my-0" />
+          <div class="card-body">
+            <form [formGroup]="form">
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label for="projectId" class="form-label">Project</label>
+                  <select
+                    id="projectId"
+                    class="form-select"
+                    formControlName="projectId"
+                    required
+                  >
+                    <!-- liste des roles par id -->
+                    <option *ngFor="let p of projects">
+                      {{ p.title }}
+                    </option>
+                  </select>
+                  <div>Please select project.</div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label for="members" class="form-label">Member</label>
+                  <select
+                    id="members"
+                    class="form-select"
+                    formControlName="members"
+                    required
+                  >
+                    <option *ngFor="let m of members">
+                      {{ m.user.email }}
+                    </option>
+                  </select>
+                  <div>Please select member.</div>
+                </div>
+              </div>
+              <!-- cliquer sur submit appliquer addUser() -->
+              <div class="mt-2">
+                <button
+                  type="submit"
+                  class="btn btn-primary me-2"
+                  (click)="sendInvitationByProject()"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="invi card" style="margin-right: 1rem">
   <div class="list list-row" style="padding: 1rem">
     <div class="list-item" data-id="19" *ngFor="let invitation of invitations">
       <div>
         <a href="#" data-abc="true"
-          ><span class="w-48 avatar gd-warning"><!-- {{
+          ><span class="w-48 avatar gd-warning">{{
             subStrName(invitation.user)
-          }} --></span></a
+          }}</span></a
         >
       </div>
       <div class="flex">
         <a href="#" class="item-author text-color" data-abc="true"
-          ><!-- {{ invitation.user.lastName }} {{ invitation.user.lastName }} --></a
+          >{{ invitation.user.lastName }} {{ invitation.user.lastName }}</a
         >
         <div class="item-except text-sm h-1x">
-        <!--   {{ invitation.user.post }} -->
+          {{ invitation.user.post }}
         </div>
       </div>
 
-   <!--    <div
+      <div
         *ngIf="
           invitation.status.description == 'Submitted';
           then contenu_bon;
           else templateName
         "
-      > -->
-        contenue ignoree 
+      >
+        contenue ignoree
       </div>
 
       <ng-template #contenu_bon>
         <div class="flex margin_status">
-          <a href="#" class="badge badge-light-success fs-7 fw-bold"><!-- {{
+          <a href="#" class="badge badge-light-success fs-7 fw-bold">{{
             invitation.status.description
-          }} --></a>
+          }}</a>
         </div>
       </ng-template>
 
       <ng-template #templateName>
         <div class="flex margin_status">
-          <a href="#" class="badge badge-light-danger fs-7 fw-bold"><!-- {{
+          <a href="#" class="badge badge-light-danger fs-7 fw-bold">{{
             invitation.status.description
-          }} --></a>
+          }}</a>
         </div>
       </ng-template>
-      <!-- <div class="flex margin_status">
+      <div class="flex margin_status">
       <a href="#" class="item-author text-color margin_status" data-abc="true" [ngStyle]="{'color':invitation.status.color, 'background-color':invitation.status.backgroundColor}"
         >{{invitation.status.description}}</a
       >
-    </div> -->
+    </div>
       <div class="button">
-     <!--    <a
+        <a
           class="btn btn-primary float-right"
           style="margin-right: 0.25rem"
           (click)="acceptInv(invitation.id)"
@@ -73,8 +131,10 @@
           class="btn btn-secondary active"
           (click)="refuseInv(invitation.id)"
           >Refuse</a
-        > -->
+        >
       </div>
     </div>
   </div>
+</div>
+ -->
 </div>

@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 @RestController
 @RequestMapping("/api/invitations")
 public class InvitationController {
 
   @Autowired
   private InvitationService invitationService;
-  
-  
+
+
   // get all the invitations of a member
   @GetMapping("/")
   public ResponseEntity<ApiResponse> getAllInvitationByMember() {
@@ -30,7 +30,7 @@ public class InvitationController {
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
-  
+
   @PostMapping("/acceptInvitation/{idProject}")
   public ResponseEntity<ApiResponse> acceptInvitationByProject(@PathVariable long idProject) {
     ApiResponse apiResponse = invitationService.acceptInvitationByProject(idProject);
@@ -44,8 +44,8 @@ public class InvitationController {
   }
 
   //////////***** @PathVariable idproject
-  @PostMapping("/sendInvitation/{idProject}")
-  public ResponseEntity<ApiResponse> sendInvitationByProject(@PathVariable long idProject ,@RequestBody InvitationRequest invitationRequest) {
+  @PostMapping("/sendInvitation")
+  public ResponseEntity<ApiResponse> sendInvitationByProject(@RequestBody InvitationRequest invitationRequest) {
     ApiResponse apiResponse = invitationService.sendInvitationByProject(invitationRequest);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
