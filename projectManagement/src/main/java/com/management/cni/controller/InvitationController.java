@@ -17,7 +17,13 @@ public class InvitationController {
 
 
   // get all the invitations of a member
-  @GetMapping("/")
+
+  @GetMapping("/invitationByManager")
+  public ResponseEntity<ApiResponse> getAllInvitationByManager() {
+    ApiResponse apiResponse = invitationService.getAllInvitationByManager();
+    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
+  }
+  @GetMapping("/invitationByMember")
   public ResponseEntity<ApiResponse> getAllInvitationByMember() {
     ApiResponse apiResponse = invitationService.getAllInvitationByMember();
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
@@ -31,13 +37,13 @@ public class InvitationController {
   }
 
 
-  @PostMapping("/acceptInvitation/{idProject}")
+  @PutMapping("/acceptInvitation/{idProject}")
   public ResponseEntity<ApiResponse> acceptInvitationByProject(@PathVariable long idProject) {
     ApiResponse apiResponse = invitationService.acceptInvitationByProject(idProject);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
-  @PostMapping("/refuseInvitation/{idProject}")
+  @PutMapping("/refuseInvitation/{idProject}")
   public ResponseEntity<ApiResponse> refuseInvitationByProject(@PathVariable long idProject) {
     ApiResponse apiResponse = invitationService.refuseInvitationByProject(idProject);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
@@ -50,7 +56,7 @@ public class InvitationController {
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
-  @PostMapping("/removeInvitation/{idProject}")
+  @DeleteMapping("/removeInvitation/{idProject}")
   public ResponseEntity<ApiResponse> removeInvitationByProject(@PathVariable long idProject) {
     ApiResponse apiResponse = invitationService.removeInvitationByProject(idProject);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());

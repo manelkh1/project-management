@@ -1,0 +1,74 @@
+<!-- <p>create-project works!</p> -->
+
+<div class="row container_project">
+  <form [formGroup]="form">
+    <div class="row justify-content-between">
+      <div class="col-10">
+        <!-- ************************* import document ********************-->
+        <div class="card" style="padding: 50px">
+          <div class="card-body">
+            <h1 style="margin: revert">Import a document</h1>
+            <div class="mb-3">
+              <label for="formFile" class="form-label text-muted"
+                >share documets with your team</label
+              >
+              <!-- Define simple input tag of type file. Add a function to (change)-event for handling choosing files. -->
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                #fileUpload
+                multiple
+                (change)="fileBrowseHandler($event)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6"></div>
+    </div>
+    <div class="row">
+      <div class="col-10">
+        <div class="card mt-3">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="type"></th>
+                <th class="name truncate">Name</th>
+                <th class="size">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- parcourir tableau attachements et les inserere dans "attachment"  -->
+              <tr *ngFor="let file of files">
+                <td class="type">
+                  <i class="fa fa-file-text-o text-primary"></i>
+                </td>
+                <td class="name truncate">
+                  <a href="#">{{ file.name }}</a>
+                </td>
+                <td class="delete">
+                  <img
+                    src="../../../assets/img/xmark-solid.svg"
+                    alt=""
+                    (click)="deleteFile(file)"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row row_btn">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="addAttachment()"
+        [disabled]="!form.valid"
+      >
+        add project
+      </button>
+    </div>
+  </form>
+</div>

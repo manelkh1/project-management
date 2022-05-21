@@ -9,16 +9,16 @@ import java.util.List;
 @Repository
 public interface InviationRepository extends JpaRepository<Invitation, Long> {
 
-  List<Invitation> findInvitationByProject(Project project);
+  List<Invitation> findInvitationsByProject(Project project);
 
-  List<Invitation> findInvitationByStatus(Status status);
+  List<Invitation> findInvitationsByStatus(Status status);
 
-  List<Invitation> findInvitationByManager(Manager manager);
+  List<Invitation> findInvitationsByManager(Manager manager);
 
-  List<Invitation> findInvitationByMember(Member member);
+  List<Invitation> findInvitationsByMember(Member member);
 
   Invitation findInvitationByMemberAndProject(Member member, Project project);
-
+  Invitation findInvitationByMember(Member member);
   List<Invitation> findInvitationByMemberAndStatus(Member member, Status status);
 
   List<Invitation> findInvitationByMemberAndStatusAndProject(Member member, Project project, Status status);

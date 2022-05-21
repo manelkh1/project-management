@@ -67,8 +67,6 @@ export class InvitationListComponent implements OnInit {
     this.memberService.getAllMembers().subscribe(
       (data: any) => {
         this.members = data.data;
-        console.log(data.data[0].user.id);
-        console.log(this.members[0]);
       },
       (error) => {
         console.log(error);
@@ -80,8 +78,6 @@ export class InvitationListComponent implements OnInit {
     this.projectService.getAllProjectsByManager().subscribe(
       (data: any) => {
         this.projects = data.data;
-        console.log(data.data[0].user.id);
-        console.log(this.projects[0]);
       },
       (error) => {
         console.log(error);

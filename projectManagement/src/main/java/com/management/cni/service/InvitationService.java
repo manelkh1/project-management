@@ -30,6 +30,30 @@ public class InvitationService {
   @Autowired
   private MemberRepository memberRepository;
 
+  public ApiResponse getAllInvitationByManager() {
+
+    List<InvitationResponse> invitationsResponse = new ArrayList<>();
+    try {
+
+      User user = userService.getConnectedManager();
+      if (user != null) {
+        List<Invitation> invitations = inviationRepository.findInvitationsByManager(user.getManager());
+
+        if (!invitations.isEmpty()) {
+          for (Invitation invitation : invitations) {
+            InvitationResponse invitationResponse = InvitationMapper.INSTANCE.convertToInvitationResponse(invitation);
+            invitationsResponse.add(invitationResponse);
+          }
+        }
+        return new ApiResponse(invitationsResponse, null, HttpStatus.OK, LocalDateTime.now());
+      } else {
+        return new ApiResponse(null, "USER MUST BE MANAGER", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
+      }
+    } catch (Exception e) {
+      return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
+    }
+  }
+
   /// for member consult recieved Invitation
   public ApiResponse getAllInvitationByMember() {
 
@@ -38,7 +62,7 @@ public class InvitationService {
 
       User user = userService.getConnectedMember();
       if (user != null) {
-        List<Invitation> invitations = inviationRepository.findInvitationByMember(user.getMember());
+        List<Invitation> invitations = inviationRepository.findInvitationsByMember(user.getMember());
 
         if (!invitations.isEmpty()) {
           for (Invitation invitation : invitations) {
@@ -66,7 +90,7 @@ public class InvitationService {
         if (project == null) {
           return new ApiResponse(null, "PROJECT DOES NOT EXIST", HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
-        List<Invitation> invitations = inviationRepository.findInvitationByProject(project);
+        List<Invitation> invitations = inviationRepository.findInvitationsByProject(project);
 
         if (!invitations.isEmpty()) {
           for (Invitation invitation : invitations) {
@@ -92,7 +116,7 @@ public class InvitationService {
         Project project = projectRepository.getById(idProject);
         if (project != null) {
 
-          Invitation invitation = inviationRepository.findInvitationByMemberAndProject(user.getMember(), project);
+          Invitation invitation = inviationRepository.findInvitationByMember(user.getMember());
 
           if (invitation != null) {
             invitation.setStatus(Status.ACCEPTED);
@@ -116,12 +140,11 @@ public class InvitationService {
 
     try {
 
-      User user = userService.getConnectedManager();
+      User user = userService.getConnectedMember();
       if (user != null) {
-        Project project = projectRepository.getById(idProject);
-        if (project == null) {
 
-          Invitation invitation = inviationRepository.findInvitationByMemberAndProject(user.getMember(), project);
+
+          Invitation invitation = inviationRepository.findInvitationByMember(user.getMember());
 
           if (invitation != null) {
             invitation.setStatus(Status.REFUSED);
@@ -130,9 +153,6 @@ public class InvitationService {
           } else {
             return new ApiResponse(null, "INVIATION DOES NOT EXIST", HttpStatus.BAD_REQUEST, LocalDateTime.now());
           }
-        } else {
-          return new ApiResponse(null, "PROJECT DOES NOT EXIST", HttpStatus.BAD_REQUEST, LocalDateTime.now());
-        }
       } else {
         return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
       }
@@ -178,7 +198,7 @@ public class InvitationService {
       User user = userService.getConnectedManager();
       if (user != null) {
         Invitation invitation = inviationRepository.getById(idInvitation);
-        if (invitation == null) {
+        if (invitation != null) {
           inviationRepository.deleteById(idInvitation);
           return new ApiResponse(null, "INVITATION REMOVED", HttpStatus.OK, LocalDateTime.now());
         } else {

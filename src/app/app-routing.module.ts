@@ -1,3 +1,7 @@
+import { MemberInvitationListComponent } from './modules/Member/invitations/member-invitation-list/member-invitation-list.component';
+import { MemberComponent } from './layouts/member/member.component';
+import { SendInvitationComponent } from './modules/Manager/invitation/send-invitation/send-invitation.component';
+import { ManagerComponent } from './layouts/manager/manager.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
@@ -9,11 +13,11 @@ import { CreateUserComponent } from './modules/create-user/create-user.component
 import { ErrorComponent } from './modules/error/error.component';
 import { ExpiredTokenComponent } from './modules/expired-token/expired-token.component';
 import { HomeComponent } from './modules/home/home.component';
-import { InvitationListComponent } from './modules/invitation-list/invitation-list.component';
+import { ManagerInvitationListComponent } from './modules/Manager/invitation/invitation-list/invitation-list.component';
 import { LoginComponent } from './modules/login/login.component';
 import { PostComponent } from './modules/post/post.component';
-import { CreateProjectComponent } from './modules/projects/create-project/create-project.component';
-import { ProjectDetailsComponent } from './modules/projects/project-details/project-details.component';
+import { CreateProjectComponent } from './modules/Manager/projects/create-project/create-project.component';
+/* import { ProjectDetailsComponent } from './modules/manager/projects/project-details/project-details.component'; */
 import { SuccessefullyActivatedComponent } from './modules/successefully-activated/successefully-activated.component';
 import { UserDetailsComponent } from './modules/user-details/user-details/user-details.component';
 import { WelcomePageComponent } from './modules/welcome-page/welcome-page.component';
@@ -23,18 +27,108 @@ const routes: Routes = [
   {
     path: 'default',
     component: DefaultComponent,
-   /*  canActivate: [AuthGuard] ,*/
+    /*  canActivate: [AuthGuard] ,*/
 
     children: [
-      { path: 'home', component: HomeComponent, /* canActivate: [AuthGuard] */ },
-      { path: 'post', component: PostComponent, /*canActivate: [AuthGuard]*/ },
-      { path: 'create-project', component: CreateProjectComponent, /*canActivate: [AuthGuard]*/ },
-      { path: 'project-details/:id', component: ProjectDetailsComponent, /* canActivate: [AuthGuard] */ },
-      { path: 'create-user', component: CreateUserComponent,/* canActivate: [AuthGuard]*/ },
-      { path: 'user-details/:id', component: UserDetailsComponent,/* canActivate: [AuthGuard] */},
-      { path: 'invitation-list', component: InvitationListComponent, /* canActivate: [AuthGuard]  */},
-      {path:'change-password', component: ChangePasswordComponent,/*canActivate: [AuthGuard]*/  } ,
-      {path:'chat', component: ChatComponent,/*canActivate: [AuthGuard]*/  } 
+      { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
+      { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
+      {
+        path: 'create-project',
+        component: CreateProjectComponent /*canActivate: [AuthGuard]*/,
+      },
+
+      {
+        path: 'create-user',
+        component: CreateUserComponent /* canActivate: [AuthGuard]*/,
+      },
+      {
+        path: 'user-details/:id',
+        component: UserDetailsComponent /* canActivate: [AuthGuard] */,
+      },
+      {
+        path: 'invitation-list',
+        component:
+          ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
+      },
+      { path: 'chat', component: ChatComponent /*canActivate: [AuthGuard]*/ },
+    ],
+  },
+  {
+    path: 'manager',
+    component: ManagerComponent,
+    /*  canActivate: [AuthGuard] ,*/
+
+    children: [
+      { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
+      { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
+      {
+        path: 'create-project',
+        component: CreateProjectComponent /*canActivate: [AuthGuard]*/,
+      },
+      {
+        path: 'project-list',
+        component:
+          ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
+      },
+
+      {
+        path: 'attachment-list',
+        component:
+          ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
+      },
+      {
+        path: 'send-invitation',
+        component: SendInvitationComponent /* canActivate: [AuthGuard]  */,
+      },
+      {
+        path: 'invitation-list',
+        component:
+          ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
+      },
+
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
+      },
+      { path: 'chat', component: ChatComponent /*canActivate: [AuthGuard]*/ },
+    ],
+  },
+
+  {
+    path: 'member',
+    component: MemberComponent,
+    /*  canActivate: [AuthGuard] ,*/
+
+    children: [
+      { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
+      { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
+
+      {
+        path: 'project-list',
+        component:
+          ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
+      },
+
+      {
+        path: 'attachment-list',
+        component:
+          ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
+      },
+      {
+        path: 'invitation-list',
+        component:
+          MemberInvitationListComponent /* canActivate: [AuthGuard]  */,
+      },
+
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
+      },
+      { path: 'chat', component: ChatComponent /*canActivate: [AuthGuard]*/ },
     ],
   },
   {

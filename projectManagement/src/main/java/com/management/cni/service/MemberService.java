@@ -1,20 +1,24 @@
 package com.management.cni.service;
 
 import com.management.cni.Entity.Member;
+import com.management.cni.Entity.Member;
 import com.management.cni.Entity.User;
 import com.management.cni.Repository.MemberRepository;
 import com.management.cni.exceptions.ApiResponse;
 import com.management.cni.security.dto.request.MemberRequest;
 import com.management.cni.security.dto.response.MemberResponse;
 import com.management.cni.security.mapper.MemberMapper;
+import com.management.cni.security.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 @Service
 public class MemberService {
 
@@ -22,6 +26,11 @@ public class MemberService {
   MemberRepository memberRepository;
   @Autowired
   private UserService userService;
+  @Autowired
+  private BCryptPasswordEncoder passwordEncoder;
+  @Autowired
+  private SessionService sessionService;
+
 
   public ApiResponse getAllMembers() {
    // User user = userService.getConnectedAdmin();
@@ -65,15 +74,23 @@ public class MemberService {
   }
 
   public ApiResponse createMember(MemberRequest memberRequest) {
- //   User user = userService.getConnectedAdmin();
+    User user = userService.getConnectedAdmin();
     try {
-     // if (user != null) {
+      if (user != null) {
         Member member = MemberMapper.INSTANCE.convertToMember(memberRequest);
+        ///convert userRequest to USER PERSISTENCE SO YOU CAN STORE IT IN DATABASE
+
+        String password = passwordEncoder.encode(memberRequest.getUser().getPassword());
+        member.getUser().setPassword(password);
+        member.getUser().setStatus(false);
+        String token = UUID.randomUUID().toString();//generate token randomly
+        sessionService.saveSession(member.getUser(), token);//put a token and a saveduser in a session
+        // emailService.sendHtmlMail(member.getUser());
         memberRepository.save(member);
         return new ApiResponse(null, "MEMBER CREATED", HttpStatus.OK, LocalDateTime.now());
-  /*    } else {
+      } else {
         return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
-      }*/
+      }
     } catch (Exception e) {
       return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
     }

@@ -25,12 +25,12 @@ public class ProjectResponse {
 
   private Status status;
 
-  private ManagerResponse manager;
+  //private ManagerResponse manager;
 
-  private List<CommentResponse> comments;
+  //private List<CommentResponse> comments;
 
-  private List<AttachmentResponse> Attachments;
+  //private List<AttachmentResponse> Attachments;
 
-  private List<InvitationResponse> invitations;
+  //private List<InvitationResponse> invitations;
 
 }

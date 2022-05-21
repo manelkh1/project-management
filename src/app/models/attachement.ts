@@ -1,10 +1,10 @@
-import { Byte } from "@angular/compiler/src/util";
-import { Status } from "./status";
+import { Byte } from '@angular/compiler/src/util';
+import { Status } from './status';
 
-export class Attachement{
-    id!: number;
-    name!: string;
-    fileContent!: Byte[];
-    creationDate!: Date;
-    status!: Status
+export class Attachment {
+  id!: number;
+  name!: string;
+  fileContent!: Byte[];
+  creationDate!: Date;
+  status!: Status;
 }

@@ -1,15 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateProject } from '../models/CreateProject'
+import { CreateProject } from '../models/CreateProject';
 import { Project } from '../models/project';
-import  {environment } from '../../environments/environment'
-
-
-
-
-
-
+import { environment } from '../../environments/environment';
 
 const AUTH_API = environment.baseURL;
 let headers = new HttpHeaders();
@@ -23,24 +17,9 @@ let params = new HttpParams();
 export class ProjectService {
   constructor(private httpClient: HttpClient) {}
 
-  addProject(project: CreateProject, files: any[]): Observable<any> {
-    //create a FormData object
-    const formData: FormData = new FormData();
-    //ajouter des champs
-    for (var i = 0; i < files.length; i++) {
-      formData.append('files', files[i]);
-    }
-    formData.append(
-      'project',
-      new Blob([JSON.stringify(project)], { type: 'application/json' })
-    );
-
-    return this.httpClient.post(AUTH_API + 'api/projects/add', formData, {
-      params,
-      headers,
-    });
+  addProject(project: Project): Observable<any> {
+    return this.httpClient.post(AUTH_API + 'api/projects', project);
   }
-
 
   getAllProjectsByAdmin(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(
@@ -73,19 +52,21 @@ export class ProjectService {
   }
 
   createProject(project: Project): Observable<any> {
-    return this.httpClient.post(AUTH_API + '/api/projects/' , project);
+    return this.httpClient.post(AUTH_API + '/api/projects/', project);
   }
 
-  updateProject(projectId: number,project:Project): Observable<any> {
-    return this.httpClient.put(AUTH_API + '/api/projects/' + projectId, project);
+  updateProject(projectId: number, project: Project): Observable<any> {
+    return this.httpClient.put(
+      AUTH_API + '/api/projects/' + projectId,
+      project
+    );
   }
 
   deleteProjectById(projectId: number): Observable<any> {
     return this.httpClient.delete(
-      AUTH_API + 'api/projects/projects/' +projectId);
+      AUTH_API + 'api/projects/projects/' + projectId
+    );
   }
-
-
 
   // getAllProjects(): Observable<Project[]> {
   //   return this.httpClient.get<Project[]>(
