@@ -1,13 +1,11 @@
 package com.management.cni.service;
 
-import com.management.cni.Entity.Member;
-import com.management.cni.Entity.Member;
-import com.management.cni.Entity.User;
-import com.management.cni.Repository.MemberRepository;
+import com.management.cni.entity.Member;
+import com.management.cni.entity.User;
+import com.management.cni.repository.MemberRepository;
 import com.management.cni.exceptions.ApiResponse;
 import com.management.cni.security.dto.request.MemberRequest;
 import com.management.cni.security.dto.response.MemberResponse;
-import com.management.cni.security.mapper.MemberMapper;
 import com.management.cni.security.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

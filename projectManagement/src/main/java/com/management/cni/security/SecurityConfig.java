@@ -1,6 +1,6 @@
 package com.management.cni.security;
 
-import com.management.cni.Entity.User;
+import com.management.cni.entity.User;
 import com.management.cni.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,11 +1,10 @@
 package com.management.cni.security.dto.response;
 
-import com.management.cni.Entity.Status;
+import com.management.cni.entity.Status;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter

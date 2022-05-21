@@ -1,4 +1,4 @@
-package com.management.cni.Entity;
+package com.management.cni.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;

@@ -1,13 +1,11 @@
 package com.management.cni.controller;
 
-import com.management.cni.Entity.Session;
-import com.management.cni.Entity.User;
-import com.management.cni.Object.AuthenticationResponse;
-import com.management.cni.Repository.UserRepository;
+import com.management.cni.entity.Session;
+import com.management.cni.entity.User;
+import com.management.cni.repository.UserRepository;
 import com.management.cni.exceptions.ApiResponse;
 import com.management.cni.security.JwtUtil;
 import com.management.cni.security.MyUserDetailsService;
-import com.management.cni.security.dto.request.AuthenticatedUserDto;
 import com.management.cni.security.dto.request.LoginRequest;
 import com.management.cni.security.dto.response.LoginResponse;
 import com.management.cni.security.dto.response.UserResponse;
@@ -18,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;

@@ -1,8 +1,8 @@
 package com.management.cni.service;
 
-import com.management.cni.Entity.Session;
-import com.management.cni.Entity.User;
-import com.management.cni.Repository.SessionRepository;
+import com.management.cni.entity.Session;
+import com.management.cni.entity.User;
+import com.management.cni.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

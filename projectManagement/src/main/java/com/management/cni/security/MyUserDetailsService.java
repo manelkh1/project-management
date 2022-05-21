@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.management.cni.Entity.User;
-import com.management.cni.Repository.UserRepository;
+import com.management.cni.entity.User;
+import com.management.cni.repository.UserRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService{
@@ -20,9 +20,9 @@ public class MyUserDetailsService implements UserDetailsService{
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    	
+
     	User user = userRepository.findByEmail(username);
- 
+
         return user;
     }
 

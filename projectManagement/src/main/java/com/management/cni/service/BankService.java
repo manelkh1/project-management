@@ -1,15 +1,12 @@
 package com.management.cni.service;
 
-import com.management.cni.Entity.Bank;
-import com.management.cni.Entity.Bank;
-import com.management.cni.Entity.User;
-import com.management.cni.Repository.BankRepository;
+import com.management.cni.entity.Bank;
+import com.management.cni.entity.User;
+import com.management.cni.repository.BankRepository;
 import com.management.cni.exceptions.ApiResponse;
 import com.management.cni.security.dto.request.BankRequest;
 import com.management.cni.security.dto.response.BankResponse;
 import com.management.cni.security.mapper.BankMapper;
-import com.management.cni.security.mapper.BankMapper;
-import com.management.cni.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

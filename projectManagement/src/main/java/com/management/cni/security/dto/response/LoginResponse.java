@@ -1,6 +1,5 @@
 package com.management.cni.security.dto.response;
 
-import com.management.cni.Entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

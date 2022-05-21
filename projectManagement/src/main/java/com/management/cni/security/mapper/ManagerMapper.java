@@ -1,6 +1,6 @@
 package com.management.cni.security.mapper;
 
-import com.management.cni.Entity.Manager;
+import com.management.cni.entity.Manager;
 import com.management.cni.security.dto.request.ManagerRequest;
 import com.management.cni.security.dto.response.ManagerResponse;
 import org.mapstruct.Mapper;

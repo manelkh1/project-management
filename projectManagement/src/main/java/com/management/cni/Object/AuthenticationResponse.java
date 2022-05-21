@@ -1,6 +1,6 @@
 package com.management.cni.Object;
 
-import com.management.cni.Entity.User;
+import com.management.cni.entity.User;
 
 import java.io.Serializable;
 

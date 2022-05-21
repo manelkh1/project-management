@@ -1,9 +1,9 @@
 package com.management.cni.service;
 
-import com.management.cni.Entity.*;
-import com.management.cni.Repository.InviationRepository;
-import com.management.cni.Repository.MemberRepository;
-import com.management.cni.Repository.ProjectRepository;
+import com.management.cni.entity.*;
+import com.management.cni.repository.InviationRepository;
+import com.management.cni.repository.MemberRepository;
+import com.management.cni.repository.ProjectRepository;
 import com.management.cni.exceptions.ApiResponse;
 import com.management.cni.security.dto.request.InvitationRequest;
 import com.management.cni.security.dto.response.InvitationResponse;

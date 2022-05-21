@@ -1,8 +1,8 @@
 package com.management.cni.service;
 
-import com.management.cni.Entity.Admin;
-import com.management.cni.Entity.User;
-import com.management.cni.Repository.AdminRepository;
+import com.management.cni.entity.Admin;
+import com.management.cni.entity.User;
+import com.management.cni.repository.AdminRepository;
 import com.management.cni.exceptions.ApiResponse;
 import com.management.cni.security.dto.request.AdminRequest;
 import com.management.cni.security.dto.response.AdminResponse;

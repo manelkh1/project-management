@@ -1,4 +1,4 @@
-package com.management.cni.Entity;
+package com.management.cni.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -16,27 +16,25 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "INVITATION")
-public class Invitation {
+@Table(name = "COMMENT")
+public class Comment {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private long Id;
 
-  @Column(name = "date")
-  private Timestamp date;
+  @Column(name = "message")
+  private String message;
 
-  @Enumerated(EnumType.STRING)
-  private Status status;
+  @Column(name = "time")
+  private Timestamp time;
 
-  //// SENDER
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "manager_id", referencedColumnName = "id")
   @OnDelete(action = OnDeleteAction.CASCADE)
   private Manager manager;
 
-  ///RECIEVER
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "member_id", referencedColumnName = "id")
@@ -45,7 +43,7 @@ public class Invitation {
 
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "project_id", referencedColumnName = "id")
+  @JoinColumn(name = "id_project", referencedColumnName = "id")
   @OnDelete(action = OnDeleteAction.CASCADE)
   private Project project;
 

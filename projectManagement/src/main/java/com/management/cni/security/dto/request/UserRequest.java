@@ -1,7 +1,7 @@
 
 package com.management.cni.security.dto.request;
 
-import com.management.cni.Entity.UserRole;
+import com.management.cni.entity.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
 package com.management.cni.security.mapper;
 
-import com.management.cni.Entity.Comment;
+import com.management.cni.entity.Comment;
 import com.management.cni.security.dto.request.CommentRequest;
 import com.management.cni.security.dto.response.CommentResponse;
 import org.mapstruct.Mapper;

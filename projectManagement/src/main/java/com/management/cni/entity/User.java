@@ -1,5 +1,5 @@
 
-package com.management.cni.Entity;
+package com.management.cni.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

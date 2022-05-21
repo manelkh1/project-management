@@ -1,11 +1,11 @@
 package com.management.cni.service;
 
-import com.management.cni.Entity.Comment;
-import com.management.cni.Entity.Project;
-import com.management.cni.Entity.User;
-import com.management.cni.Entity.UserRole;
-import com.management.cni.Repository.CommentRepository;
-import com.management.cni.Repository.ProjectRepository;
+import com.management.cni.entity.Comment;
+import com.management.cni.entity.Project;
+import com.management.cni.entity.User;
+import com.management.cni.entity.UserRole;
+import com.management.cni.repository.CommentRepository;
+import com.management.cni.repository.ProjectRepository;
 import com.management.cni.exceptions.ApiResponse;
 import com.management.cni.security.dto.request.CommentRequest;
 import com.management.cni.security.dto.response.CommentResponse;

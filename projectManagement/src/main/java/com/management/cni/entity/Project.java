@@ -1,4 +1,4 @@
-package com.management.cni.Entity;
+package com.management.cni.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -62,8 +63,10 @@ public class Project {
   @OneToMany(mappedBy = "project")
   private List<Invitation> invitations;
 
-  @JsonIgnore
+ /* @JsonIgnore
   @OneToMany(mappedBy = "project")
-  private List<Member> members;
+  private List<Member> members;*/
 
+  @ManyToMany
+  Set<Member> members;
 }

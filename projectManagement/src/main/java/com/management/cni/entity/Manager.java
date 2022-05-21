@@ -1,4 +1,4 @@
-package com.management.cni.Entity;
+package com.management.cni.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,14 +12,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "BANK")
-public class Bank {
+@Table(name = "MANAGER")
+public class Manager {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  private String bankName;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id", referencedColumnName = "id")

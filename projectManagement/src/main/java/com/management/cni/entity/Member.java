@@ -1,4 +1,4 @@
-package com.management.cni.Entity;
+package com.management.cni.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -26,10 +27,13 @@ public class Member {
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User user;
 
-  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+/*  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "project_id", referencedColumnName = "id")
   @OnDelete(action = OnDeleteAction.CASCADE)
-  private Project project;
+  private Project project;*/
+
+  @ManyToMany
+  Set<Project> projects;
 
 }

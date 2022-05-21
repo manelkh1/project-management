@@ -1,6 +1,6 @@
 package com.management.cni.security.mapper;
 
-import com.management.cni.Entity.Bank;
+import com.management.cni.entity.Bank;
 import com.management.cni.security.dto.request.BankRequest;
 import com.management.cni.security.dto.response.BankResponse;
 import org.mapstruct.Mapper;

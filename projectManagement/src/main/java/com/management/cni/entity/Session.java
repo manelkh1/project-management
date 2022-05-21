@@ -1,4 +1,4 @@
-package com.management.cni.Entity;
+package com.management.cni.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

@@ -1,4 +1,4 @@
-package com.management.cni.Entity;
+package com.management.cni.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,8 +12,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "MANAGER")
-public class Manager {
+@Table(name = "ADMIN")
+public class Admin {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

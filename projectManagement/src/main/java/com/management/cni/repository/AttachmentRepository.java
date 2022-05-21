@@ -1,16 +1,15 @@
-package com.management.cni.Repository;
+package com.management.cni.repository;
 
 import java.util.List;
 
+import com.management.cni.entity.Attachment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.management.cni.Entity.Attachement;
-
 @Repository
-public interface AttachmentRepository extends JpaRepository<Attachement, Long > {
+public interface AttachmentRepository extends JpaRepository<Attachment, Long > {
 
 	@Query(value = "SELECT * FROM t_attachement WHERE id_project = :projectId ;", nativeQuery = true)
-	List<Attachement> getAttachmentsByProjectId(Long projectId);
+	List<Attachment> getAttachmentsByProjectId(Long projectId);
 }

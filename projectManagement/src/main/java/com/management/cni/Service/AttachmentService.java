@@ -7,14 +7,14 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.management.cni.entity.Attachment;
 import org.apache.commons.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.management.cni.Entity.Attachement;
-import com.management.cni.Repository.AttachmentRepository;
+import com.management.cni.repository.AttachmentRepository;
 
 @Service
 public class AttachmentService {
@@ -24,7 +24,7 @@ public class AttachmentService {
 
 
 	@Transactional
-	public List<Attachement> getAttachmentsByProjectId(Long projectId){
+	public List<Attachment> getAttachmentsByProjectId(Long projectId){
 		return attachmentRepository.getAttachmentsByProjectId(projectId);
 	}
 

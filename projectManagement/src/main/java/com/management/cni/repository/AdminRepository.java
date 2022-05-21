@@ -1,7 +1,6 @@
-package com.management.cni.Repository;
+package com.management.cni.repository;
 
-import com.management.cni.Entity.Admin;
-import com.management.cni.Entity.Manager;
+import com.management.cni.entity.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

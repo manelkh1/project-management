@@ -1,6 +1,6 @@
 package com.management.cni.security.dto.request;
 
-import com.management.cni.Entity.Status;
+import com.management.cni.entity.Status;
 import lombok.Getter;
 
 import java.util.Date;
