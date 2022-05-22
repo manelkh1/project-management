@@ -63,10 +63,6 @@ public class Project {
   @OneToMany(mappedBy = "project")
   private List<Invitation> invitations;
 
- /* @JsonIgnore
+@JsonIgnore
   @OneToMany(mappedBy = "project")
-  private List<Member> members;*/
-
-  @ManyToMany
-  Set<Member> members;
-}
+  private List<Member> members;}

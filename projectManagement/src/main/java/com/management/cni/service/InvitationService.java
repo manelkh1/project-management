@@ -107,55 +107,51 @@ public class InvitationService {
     }
   }
 
-  public ApiResponse acceptInvitationByProject(long idProject) {
+  public ApiResponse acceptInvitationByProject(long idInvitation) {
 
     try {
 
       User user = userService.getConnectedMember();
       if (user != null) {
-        Project project = projectRepository.getById(idProject);
-        if (project != null) {
 
-          Invitation invitation = inviationRepository.findInvitationByMember(user.getMember());
-
-          if (invitation != null) {
+        List<Invitation> invitations = inviationRepository.findInvitationsByMember(user.getMember());
+        for (Invitation invitation : invitations) {
+          if (invitation != null && invitation.getId() == idInvitation) {
             invitation.setStatus(Status.ACCEPTED);
             inviationRepository.save(invitation);
-            return new ApiResponse(null, "INVIATION ACCEPETED", HttpStatus.OK, LocalDateTime.now());
-          } else {
-            return new ApiResponse(null, "INVIATION DOES NOT EXIST", HttpStatus.BAD_REQUEST, LocalDateTime.now());
+            return new ApiResponse(null, "INVIATION REFUSED", HttpStatus.OK, LocalDateTime.now());
           }
-        } else {
-          return new ApiResponse(null, "PROJECT DOES NOT EXIST", HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
       } else {
         return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
       }
+      return new ApiResponse(null, null, HttpStatus.NO_CONTENT, LocalDateTime.now());
+
     } catch (Exception e) {
       return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
     }
   }
 
-  public ApiResponse refuseInvitationByProject(long idProject) {
+  public ApiResponse refuseInvitationByProject(long idInvitation) {
 
     try {
 
       User user = userService.getConnectedMember();
       if (user != null) {
 
-
-          Invitation invitation = inviationRepository.findInvitationByMember(user.getMember());
-
-          if (invitation != null) {
+        List<Invitation> invitations = inviationRepository.findInvitationsByMember(user.getMember());
+        for (Invitation invitation : invitations) {
+          if (invitation != null && invitation.getId() == idInvitation) {
             invitation.setStatus(Status.REFUSED);
             inviationRepository.save(invitation);
             return new ApiResponse(null, "INVIATION REFUSED", HttpStatus.OK, LocalDateTime.now());
-          } else {
-            return new ApiResponse(null, "INVIATION DOES NOT EXIST", HttpStatus.BAD_REQUEST, LocalDateTime.now());
           }
+        }
       } else {
         return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
       }
+      return new ApiResponse(null, null, HttpStatus.NO_CONTENT, LocalDateTime.now());
+
     } catch (Exception e) {
       return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
     }
