@@ -56,7 +56,7 @@ public class CommentService {
     User user = userService.getConnectedUser();
     try {
       if (user.getUserRole().equals(UserRole.MANAGER) || user.getUserRole().equals(UserRole.MEMBER)) {
-        Project project = projectRepository.getById(commentRequest.getIdProject());
+        Project project = projectRepository.findById(commentRequest.getIdProject()).get();
         if (project == null) {
           return new ApiResponse(null, "PROJECT DOES NOT EXIST", HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }

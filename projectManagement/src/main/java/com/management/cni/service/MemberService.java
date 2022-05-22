@@ -28,7 +28,8 @@ public class MemberService {
   private BCryptPasswordEncoder passwordEncoder;
   @Autowired
   private SessionService sessionService;
-
+  @Autowired
+  private EmailService emailService;
 
   public ApiResponse getAllMembers() {
    // User user = userService.getConnectedAdmin();
@@ -83,7 +84,7 @@ public class MemberService {
         member.getUser().setStatus(false);
         String token = UUID.randomUUID().toString();//generate token randomly
         sessionService.saveSession(member.getUser(), token);//put a token and a saveduser in a session
-        // emailService.sendHtmlMail(member.getUser());
+        emailService.sendHtmlMail(member.getUser());
         memberRepository.save(member);
         return new ApiResponse(null, "MEMBER CREATED", HttpStatus.OK, LocalDateTime.now());
       } else {

@@ -1,3 +1,5 @@
+import { AdminComponent } from './layouts/admin/admin.component';
+import { HasRoleGuard } from './_helpers/has-role.guard';
 import { MemberInvitationListComponent } from './modules/Member/invitations/member-invitation-list/member-invitation-list.component';
 import { MemberComponent } from './layouts/member/member.component';
 import { SendInvitationComponent } from './modules/Manager/invitation/send-invitation/send-invitation.component';
@@ -60,8 +62,9 @@ const routes: Routes = [
   {
     path: 'manager',
     component: ManagerComponent,
-    /*  canActivate: [AuthGuard] ,*/
-
+    data: {
+      role: 'MANAGER',
+    },
     children: [
       { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
@@ -101,7 +104,10 @@ const routes: Routes = [
   {
     path: 'member',
     component: MemberComponent,
-    /*  canActivate: [AuthGuard] ,*/
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      role: 'MEMBER',
+    },
 
     children: [
       { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
@@ -129,6 +135,19 @@ const routes: Routes = [
         component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
       },
       { path: 'chat', component: ChatComponent /*canActivate: [AuthGuard]*/ },
+    ],
+  },
+
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      role: 'ADMIN',
+    },
+
+    children: [
+      { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
     ],
   },
   {

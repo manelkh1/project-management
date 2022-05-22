@@ -1,3 +1,4 @@
+import { SidebarAdminComponent } from './sidebarAdmin/sidebar-admin.component';
 import { SidebarMemberComponent } from './sidebarMember/sidebar-member.component';
 import { SidebarBankComponent } from './sidebarBank/sidebar-bank.component';
 import { SidebarManagerComponent } from './sidebarManager/sidebar-manager.component';
@@ -20,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
     SidebarManagerComponent,
     SidebarBankComponent,
     SidebarMemberComponent,
+    SidebarAdminComponent,
     FooterComponent,
     SnackbarComponent,
   ],
@@ -37,6 +39,7 @@ import { MatButtonModule } from '@angular/material/button';
     SidebarManagerComponent,
     SidebarBankComponent,
     SidebarMemberComponent,
+    SidebarAdminComponent,
     FooterComponent,
     SnackbarComponent,
   ],

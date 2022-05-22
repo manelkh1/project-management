@@ -1,3 +1,4 @@
+import { AdminComponent } from './layouts/admin/admin.component';
 import { MemberModule } from './layouts/member/member.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -18,6 +19,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { EnumToArrayPipe } from './modules/create-user/create-user.component';
 import { BankModule } from './layouts/bank/bank.module';
 import { ManagerModule } from './layouts/manager/manager.module';
+import { AdminModule } from './layouts/admin/admin.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +32,7 @@ import { ManagerModule } from './layouts/manager/manager.module';
     ManagerModule,
     MemberModule,
     BankModule,
+    AdminModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,

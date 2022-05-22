@@ -26,6 +26,8 @@ export class HasRoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     this.user = this.tokenStorage.getUser();
     const user = JSON.parse(this.user);
+
+    // compare between connected user and the path user role app-routing.module.ts
     if (route.data['role'] === user.userRole) {
       return true;
     } else {

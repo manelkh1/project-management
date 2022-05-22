@@ -1,7 +1,3 @@
-import { ManagerInvitationListComponent } from './../../modules/Manager/invitation/invitation-list/invitation-list.component';
-
-import { SendInvitationComponent } from './../../modules/Manager/invitation/send-invitation/send-invitation.component';
-import { SidebarComponent } from './../../shared/sidebar/sidebar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ManagerComponent } from './manager.component';
@@ -9,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CreateProjectComponent } from 'src/app/modules/Manager/projects/create-project/create-project.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -56,19 +51,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
-/* 
-import { ManagerInvitationListComponent } from '../../modules/Manager/invitation/invitation-list/invitation-list.component'; */
 
 @NgModule({
-  declarations: [
-    ManagerComponent,
-    CreateProjectComponent,
-    SendInvitationComponent,
-    /* Manager Componenet */
-    ManagerInvitationListComponent,
-    SendInvitationComponent,
-    /*    ManagerCreateAttachmentComponent, */
-  ],
+  declarations: [ManagerComponent],
   imports: [
     CommonModule,
     RouterModule,
