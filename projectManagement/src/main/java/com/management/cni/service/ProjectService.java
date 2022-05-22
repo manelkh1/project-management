@@ -153,7 +153,7 @@ public class ProjectService {
   }
 
   public ApiResponse getProjectById(Long id) {
-    User user = userService.getConnectedAdmin();
+    User user = userService.getConnectedUser();
     try {
       if (user.getBank() != null || user.getAdmin() != null || user.getMember() != null || user.getManager() != null) {
         Optional<Project> project = projectRepository.findById(id);

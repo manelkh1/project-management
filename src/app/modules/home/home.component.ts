@@ -57,7 +57,8 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   form!: FormGroup;
   id!: number;
-  projects!: MatTableDataSource<any>;
+  //  projects!: MatTableDataSource<any>;
+  projects: any;
   objectUser: any;
   currentUser: User = new User();
   users: User[] = [];
@@ -72,7 +73,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private projectService: ProjectService,
     private userService: UserService,
-    private managerService :ManagerService,
+    private managerService: ManagerService,
     private _fb: FormBuilder
   ) {}
 
@@ -92,11 +93,11 @@ export class HomeComponent implements OnInit {
     this.form = this._fb.group({
       title: new FormControl('', [Validators.required]),
     });
-    this.getAllProjectsByManager();
+    /*   this.getAllProjectsByManager();
     this.getProjects();
-    this.getAllUsers();
+    this.getAllUsers(); */
     this.getAllProjectsByMember();
-    this.getAllProjectsByBank();
+    // this.getAllProjectsByBank();
   }
 
   //lorsque l'utilisateur saisit input et que la propriété de filtre MatTableDataSource
@@ -108,30 +109,29 @@ export class HomeComponent implements OnInit {
 
   getAllProjectsByManager() {
     this.projectService.getAllProjectsByManager().subscribe((data) => {
-
       //MatTableDataSource :  une source de données de table matTableDataSource intégrée.
       this.dataSource = new MatTableDataSource(data);
       //apply the pagination to all the dataSource
       this.dataSource.paginator = this.paginator;
-
     });
   }
 
   getAllProjectsByMember() {
-    this.projectService.getAllProjectsByMember().subscribe((data) => {
-
-      this.projects = new MatTableDataSource(data);
-      this.projects.paginator = this.paginator;
-
-    });
+    this.projectService.getAllProjectsByMember().subscribe(
+      (data: any) => {
+        console.log(data.data);
+        this.projects = data.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getAllProjectsByBank() {
     this.projectService.getAllProjectsByBank().subscribe((data) => {
-
       this.projects = new MatTableDataSource(data);
       this.projects.paginator = this.paginator;
-
     });
   }
 
@@ -150,7 +150,6 @@ export class HomeComponent implements OnInit {
       .subscribe((managers) => {
         this.managers = new Manager();
       });
-
   }
 
   subStrDescription(description: String) {
@@ -160,8 +159,6 @@ export class HomeComponent implements OnInit {
       return description.substring(0, 25);
     }
   }
-
-
 
   getAllUsers() {
     /*  this.loading = true;

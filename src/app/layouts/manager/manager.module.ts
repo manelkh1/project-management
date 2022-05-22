@@ -52,7 +52,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  declarations: [ManagerComponent,],
+  declarations: [ManagerComponent],
   imports: [
     CommonModule,
     RouterModule,

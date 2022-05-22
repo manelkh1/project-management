@@ -28,7 +28,7 @@ import { ManagerCreateAttachmentComponent } from './modules/Manager/attachment/c
 import { MemberCreateAttachmentComponent } from './modules/Member/attachment/member-create-attachment/member-create-attachment.component';
 import { ProjectDetailsComponent } from './modules/Manager/projects/project-details/project-details.component';
 import { UserProfilComponent } from './modules/user-profil/user-profil/user-profil.component';
-// 
+//
 const routes: Routes = [
   {
     path: 'default',
@@ -73,7 +73,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
 
-      // 
+      //
       {
         path: 'user-profil',
         component: UserProfilComponent /*canActivate: [AuthGuard]*/,
@@ -84,7 +84,7 @@ const routes: Routes = [
         component: CreateProjectComponent /*canActivate: [AuthGuard]*/,
       },
       {
-        path: 'project-details',
+        path: 'project-details/:id',
         component: ProjectDetailsComponent /*canActivate: [AuthGuard]*/,
       },
       {
@@ -96,7 +96,7 @@ const routes: Routes = [
       {
         path: 'create-attachment',
         component:
-        ManagerCreateAttachmentComponent /* canActivate: [AuthGuard]  */,
+          ManagerCreateAttachmentComponent /* canActivate: [AuthGuard]  */,
       },
       {
         path: 'attachment-list',
@@ -124,7 +124,7 @@ const routes: Routes = [
   {
     path: 'member',
     component: MemberComponent,
-   /* canActivate: [AuthGuard, HasRoleGuard],*/
+    /* canActivate: [AuthGuard, HasRoleGuard],*/
     data: {
       role: 'MEMBER',
     },
@@ -142,7 +142,7 @@ const routes: Routes = [
       {
         path: 'attachment-list',
         component:
-        MemberCreateAttachmentComponent /* canActivate: [AuthGuard]  */,
+          MemberCreateAttachmentComponent /* canActivate: [AuthGuard]  */,
       },
       {
         path: 'invitation-list',
@@ -168,7 +168,7 @@ const routes: Routes = [
 
     children: [
       { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
-      
+
       {
         path: 'create-user',
         component: CreateUserComponent /* canActivate: [AuthGuard]*/,

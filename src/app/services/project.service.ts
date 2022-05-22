@@ -46,9 +46,7 @@ export class ProjectService {
   }
 
   getprojectById(projectId: number): Observable<Project> {
-    return this.httpClient.get<Project>(
-      AUTH_API + 'api/projects/projects/' + projectId
-    );
+    return this.httpClient.get<Project>(AUTH_API + 'api/projects/' + projectId);
   }
 
   createProject(project: Project): Observable<any> {

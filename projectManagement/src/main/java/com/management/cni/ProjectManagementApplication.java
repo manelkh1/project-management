@@ -2,8 +2,10 @@ package com.management.cni;
 
 import javax.servlet.MultipartConfigElement;
 
+import com.management.cni.property.FileStorageProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +14,9 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @SpringBootApplication
+@EnableConfigurationProperties({
+  FileStorageProperties.class
+})
 public class ProjectManagementApplication {
 
 	public static void main(String[] args) {
