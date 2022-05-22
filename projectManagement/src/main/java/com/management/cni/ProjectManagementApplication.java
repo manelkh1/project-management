@@ -23,7 +23,7 @@ public class ProjectManagementApplication {
 		return new BCryptPasswordEncoder();
 	}
 	// interface for multipart file upload resolution in accordancewith RFC 1867.
-	//Implementations are typically usable both within an application contextand standalone. 
+	//Implementations are typically usable both within an application contextand standalone.
 	@Bean
     public MultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -31,7 +31,7 @@ public class ProjectManagementApplication {
         return multipartResolver;
     }
 
-	
+
 	// add file
 	@Bean
     MultipartConfigElement multipartConfigElement() {

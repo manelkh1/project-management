@@ -24,7 +24,11 @@ import { SuccessefullyActivatedComponent } from './modules/successefully-activat
 import { UserDetailsComponent } from './modules/user-details/user-details/user-details.component';
 import { WelcomePageComponent } from './modules/welcome-page/welcome-page.component';
 import { AuthGuard } from './_helpers/auth.guard';
-
+import { ManagerCreateAttachmentComponent } from './modules/Manager/attachment/create-attachment/create-attachment.component';
+import { MemberCreateAttachmentComponent } from './modules/Member/attachment/member-create-attachment/member-create-attachment.component';
+import { ProjectDetailsComponent } from './modules/Manager/projects/project-details/project-details.component';
+import { UserProfilComponent } from './modules/user-profil/user-profil/user-profil.component';
+// 
 const routes: Routes = [
   {
     path: 'default',
@@ -68,9 +72,20 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
+
+      // 
+      {
+        path: 'user-profil',
+        component: UserProfilComponent /*canActivate: [AuthGuard]*/,
+      },
+
       {
         path: 'create-project',
         component: CreateProjectComponent /*canActivate: [AuthGuard]*/,
+      },
+      {
+        path: 'project-details',
+        component: ProjectDetailsComponent /*canActivate: [AuthGuard]*/,
       },
       {
         path: 'project-list',
@@ -78,6 +93,11 @@ const routes: Routes = [
           ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
       },
 
+      {
+        path: 'create-attachment',
+        component:
+        ManagerCreateAttachmentComponent /* canActivate: [AuthGuard]  */,
+      },
       {
         path: 'attachment-list',
         component:
@@ -104,7 +124,7 @@ const routes: Routes = [
   {
     path: 'member',
     component: MemberComponent,
-    canActivate: [AuthGuard, HasRoleGuard],
+   /* canActivate: [AuthGuard, HasRoleGuard],*/
     data: {
       role: 'MEMBER',
     },
@@ -122,7 +142,7 @@ const routes: Routes = [
       {
         path: 'attachment-list',
         component:
-          ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
+        MemberCreateAttachmentComponent /* canActivate: [AuthGuard]  */,
       },
       {
         path: 'invitation-list',
@@ -141,13 +161,22 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AuthGuard, HasRoleGuard],
+    /*canActivate: [AuthGuard, HasRoleGuard],*/
     data: {
       role: 'ADMIN',
     },
 
     children: [
       { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
+      
+      {
+        path: 'create-user',
+        component: CreateUserComponent /* canActivate: [AuthGuard]*/,
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
+      },
     ],
   },
   {

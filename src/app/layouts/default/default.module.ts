@@ -74,7 +74,7 @@ import { ChatComponent } from '../../modules/chat/chat.component';
     UserDetailsComponent,
     ChangePasswordComponent,
     ChatComponent,
-    /* Mangager Component */
+    /* Manager Component */
   ],
   imports: [
     CommonModule,

@@ -5,8 +5,6 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { A11yModule } from '@angular/cdk/a11y';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
@@ -51,9 +49,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  declarations: [ManagerComponent],
+  declarations: [ManagerComponent,],
   imports: [
     CommonModule,
     RouterModule,
@@ -104,7 +103,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     MatSlideToggleModule,
     MatSnackBarModule,
     MatSortModule,
-    MatTableModule,
+    MatTabsModule,
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,

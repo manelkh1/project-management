@@ -13,7 +13,6 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from '../../services/token-storage.service';
 import { User } from '../../models/user';
-import { ThisReceiver } from '@angular/compiler';
 import { first } from 'rxjs';
 import { Manager } from '../../models/manager';
 import { ManagerService } from '../../services/manager.service';

@@ -1,5 +1,5 @@
 <!-- <p>create-project works!</p> -->
-
+<!-- 
 <div class="row container_project">
   <form [formGroup]="form">
     <div class="row title_date">
@@ -24,9 +24,7 @@
         </div>
       </div>
       <div class="col-6">
-        <!-- *************************DATE ********************** -->
         <mat-form-field appearance="fill">
-          <!-- <mat-label >Enter a date range</mat-label> -->
           <mat-date-range-input [rangePicker]="picker">
             <input
               matStartDate
@@ -47,10 +45,10 @@
           <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
       </div>
-    </div>
+    </div> -->
 
         <!-- ************************* Description ********************** -->
-        <div class="row mb-3 mt-3 justify-content-between align-items-center">
+        <!-- <div class="row mb-3 mt-3 justify-content-between align-items-center">
       <div class="col-md-5">
         <label for="description" class="form-label">Description</label>
         <textarea
@@ -73,11 +71,11 @@
       </div>
 
       <div class="col-6">
-        <!-- ************************* Search ********************** -->
+        ************************* Search ********************** 
         <div class="card">
           <div class="card-body">
             <div class="input-group rounded">
-              <!-- ******************* Keyup : événement est déclenché lorsqu'une touche est relâchée. -->
+           ******************* Keyup : événement est déclenché lorsqu'une touche est relâchée.
               <input
                 type="search"
                 class="form-control rounded"
@@ -87,7 +85,7 @@
                 [matAutocomplete]="auto"
                 (keyup)="findMember($event)"
               />
-              <!-- Autocomplete : d'un panneau d'options suggérées -->
+              Autocomplete : d'un panneau d'options suggérées 
               <mat-autocomplete #auto="matAutocomplete">
                 <mat-option
                   *ngFor="let user of searchUsers"
@@ -100,11 +98,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="row justify-content-between">
+    <!-- <div class="row justify-content-between">
       <div class="col-5">
-        <!-- ************************* import document ********************-->
+        ************************* import document ********************
         <div class="card" style="padding: 50px">
           <div class="card-body">
             <h1 style="margin: revert">Import a document</h1>
@@ -112,7 +110,7 @@
               <label for="formFile" class="form-label text-muted"
                 >share documets with your team</label
               >
-              <!-- Define simple input tag of type file. Add a function to (change)-event for handling choosing files. -->
+              Define simple input tag of type file. Add a function to (change)-event for handling choosing files.
               <input
                 class="form-control"
                 type="file"
@@ -137,7 +135,7 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- fill the table with value -->
+                fill the table with value
                 <tr *ngFor="let user of users">
                   <th scope="row">{{ user.firstName }}</th>
                   <td>{{ user.lastName }}</td>
@@ -161,7 +159,7 @@
               </tr>
             </thead>
             <tbody>
-              <!-- parcourir tableau attachements et les inserere dans "attachment"  -->
+              parcourir tableau attachements et les inserere dans "attachment" 
               <tr *ngFor="let file of files">
                 <td class="type">
                   <i class="fa fa-file-text-o text-primary"></i>
@@ -193,4 +191,4 @@
       </button>
     </div>
   </form>
-</div>
+</div> -->
