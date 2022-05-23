@@ -28,6 +28,10 @@ import { ManagerCreateAttachmentComponent } from './modules/Manager/attachment/c
 import { MemberCreateAttachmentComponent } from './modules/Member/attachment/member-create-attachment/member-create-attachment.component';
 import { ProjectDetailsComponent } from './modules/Manager/projects/project-details/project-details.component';
 import { UserProfilComponent } from './modules/user-profil/user-profil/user-profil.component';
+import { HomeMemberComponent } from './modules/Member/home/home-member/home-member.component';
+import { HomeManagerComponent } from './modules/Manager/home/home-manager/home-manager.component';
+import { BankHomeComponent } from './modules/bank/home/bank-home/bank-home.component';
+import { BankComponent } from './layouts/bank/bank.component';
 //
 const routes: Routes = [
   {
@@ -64,13 +68,34 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'admin',
+    component: AdminComponent,
+    /*canActivate: [AuthGuard, HasRoleGuard],*/
+    data: {
+      role: 'ADMIN',
+    },
+
+    children: [
+      { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
+
+      {
+        path: 'create-user',
+        component: CreateUserComponent /* canActivate: [AuthGuard]*/,
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
+      },
+    ],
+  },
+  {
     path: 'manager',
     component: ManagerComponent,
     data: {
       role: 'MANAGER',
     },
     children: [
-      { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
+      { path: 'home', component: HomeManagerComponent /* canActivate: [AuthGuard] */ },
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
 
       //
@@ -130,7 +155,7 @@ const routes: Routes = [
     },
 
     children: [
-      { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
+      { path: 'home', component: HomeMemberComponent /* canActivate: [AuthGuard] */ },
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
 
       {
@@ -157,28 +182,24 @@ const routes: Routes = [
       { path: 'chat', component: ChatComponent /*canActivate: [AuthGuard]*/ },
     ],
   },
-
   {
-    path: 'admin',
-    component: AdminComponent,
+    path: 'bank',
+    component: BankComponent,
     /*canActivate: [AuthGuard, HasRoleGuard],*/
     data: {
-      role: 'ADMIN',
+      role: 'BANK',
     },
 
     children: [
-      { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
+      { path: 'home', component: BankHomeComponent /* canActivate: [AuthGuard] */ },
 
-      {
-        path: 'create-user',
-        component: CreateUserComponent /* canActivate: [AuthGuard]*/,
-      },
       {
         path: 'change-password',
         component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
       },
     ],
   },
+
   {
     path: '',
     component: FullwidthComponent,

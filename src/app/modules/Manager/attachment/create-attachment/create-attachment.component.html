@@ -39,7 +39,16 @@
           </table>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-4" style="margin-top: 1rem;">
+        <select class="form-select" aria-label="Default select example" style="padding: 0.65rem;border: white;">
+          <option selected>Open this to select the project</option>
+          <option >project name</option>
+        </select>
+      </div>
+      
+    </div>
+    <div class="row">
+      <div class="col-4" style="margin-left: 61rem;">
         <!-- ************************* import document ********************-->
         <div class="card" style="padding: 50px;border-radius: 1rem;">
           <div class="card-body">
@@ -62,7 +71,6 @@
         </div>
       </div>
     </div>
-    
     <div class="row row_btn">
       <button
         type="submit"
@@ -70,7 +78,7 @@
         (click)="addAttachment()"
         [disabled]="!form.valid"
       >
-        add project
+        add documents
       </button>
     </div>
   </form>

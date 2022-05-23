@@ -74,7 +74,6 @@ export class SendInvitationComponent implements OnInit {
   ngOnInit(): void {
     /// this.getInvitationsByUser();
     console.log('this ' + this.seleccionados);
-
     this.form = this._fb.group({
       projectId: new FormControl('', [Validators.required]),
       memberId: new FormControl('', [Validators.required]),
@@ -112,8 +111,7 @@ export class SendInvitationComponent implements OnInit {
 
   getAllProjectsByManager(): void {
     this.projectService.getAllProjectsByManager().subscribe(
-      (data: any) => {
-        this.projects = data.data;
+      (data: any) => {        this.projects = data.data;
       },
       (error) => {
         console.log(error);

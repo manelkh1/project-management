@@ -1,4 +1,4 @@
-package com.management.cni.service;
+package com.management.cni.Service;
 
 import com.management.cni.exceptions.FileStorageException;
 import com.management.cni.exceptions.MyFileNotFoundException;
