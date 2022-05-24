@@ -1,4 +1,4 @@
-package com.management.cni.Service;
+package com.management.cni.service;
 
 import com.management.cni.exceptions.FileStorageException;
 import com.management.cni.exceptions.MyFileNotFoundException;
@@ -20,7 +20,7 @@ import java.nio.file.StandardCopyOption;
 public class FileStorageService {
   private final Path fileStorageLocation;
 
-  @Autowired
+
   public FileStorageService(FileStorageProperties fileStorageProperties) {
     this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
       .toAbsolutePath().normalize();

@@ -21,4 +21,8 @@ public interface AttachmentRepository extends JpaRepository<Attachment, Long > {
   List<Attachment> findByManager(Manager manager);
 
   List<Attachment> findByMember(Member member);
+
+  List<Attachment> findByProjectAndMember(Project project, Member member);
+
+  List<Attachment> findByProjectAndManager(Project project, Manager manager);
 }

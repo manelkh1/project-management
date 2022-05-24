@@ -1,11 +1,14 @@
 package com.management.cni.service;
 
+import com.management.cni.entity.Admin;
 import com.management.cni.entity.User;
 import com.management.cni.entity.UserRole;
 import com.management.cni.repository.UserRepository;
 import com.management.cni.exceptions.ApiResponse;
 import com.management.cni.security.dto.request.UserRequest;
+import com.management.cni.security.dto.response.AdminResponse;
 import com.management.cni.security.dto.response.UserResponse;
+import com.management.cni.security.mapper.AdminMapper;
 import com.management.cni.security.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -88,8 +92,26 @@ public class UserService {
   }
 
   @Transactional
-  public List<User> getAllUsers() {
-    return userRepository.findAll();
+  public ApiResponse getAllUsers() {
+    User connectedAdmin = getConnectedAdmin();
+    List<UserResponse> userResponses = new ArrayList<>();
+    try {
+
+      if (connectedAdmin != null) {
+        List<User> users = userRepository.findAll();
+        if (!users.isEmpty()) {
+          for (User user : users) {
+            UserResponse userResponse = UserMapper.INSTANCE.convertToUserResponse(user);
+            userResponses.add(userResponse);
+          }
+        }
+        return new ApiResponse(userResponses, null, HttpStatus.OK, LocalDateTime.now());
+      } else {
+        return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
+      }
+    } catch (Exception e) {
+      return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
+    }
   }
 
   @Transactional

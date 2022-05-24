@@ -1,6 +1,5 @@
 package com.management.cni.controller;
 
-import com.management.cni.Service.FileStorageService;
 import com.management.cni.entity.Attachment;
 import com.management.cni.entity.Project;
 import com.management.cni.entity.User;
@@ -11,6 +10,7 @@ import com.management.cni.repository.ProjectRepository;
 import com.management.cni.security.dto.response.AttachmentResponse;
 import com.management.cni.security.mapper.AttachementMapper;
 
+import com.management.cni.service.FileStorageService;
 import com.management.cni.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class AttachmentController {
   private static final Logger logger = LoggerFactory.getLogger(AttachmentController.class);
 
   @Autowired
-  private FileStorageService fileStorageService;
+  FileStorageService fileStorageService;
   @Autowired
   UserService userService;
   @Autowired
@@ -99,6 +99,62 @@ public class AttachmentController {
       User user = userService.getConnectedUser();
       if (user != null && user.getManager() != null) {
         List<Attachment> attachments = attachmentRepository.findByManager(user.getManager());
+        if (!attachments.isEmpty()) {
+          for (Attachment attachment : attachments) {
+            AttachmentResponse attachmentResponse = AttachementMapper.INSTANCE.convertToAttachmentResponse(attachment);
+            attachmentResponses.add(attachmentResponse);
+          }
+          return new ApiResponse(attachmentResponses, null, HttpStatus.OK, LocalDateTime.now());
+        }
+      } else {
+        return new ApiResponse(null, "USER IS NOT AN STARTUPPER", HttpStatus.BAD_REQUEST, LocalDateTime.now());
+      }
+      return new ApiResponse(null, "NO CREATION", HttpStatus.NO_CONTENT, LocalDateTime.now());
+    } catch (Exception e) {
+      return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
+    }
+  }
+
+  @GetMapping("/getAttachmentByProjectAndMember/{idProject}")
+  public ApiResponse getAttachmentByProjectAndMember(@PathVariable long idProject) {
+    try {
+
+      List<AttachmentResponse> attachmentResponses = new ArrayList<>();
+      User user = userService.getConnectedUser();
+      if (user != null && user.getManager() != null) {
+       Project project =  projectRepository.getById(idProject);
+       if (project == null) {
+         return new ApiResponse(attachmentResponses, "DOES NOT EXIST", HttpStatus.OK, LocalDateTime.now());
+       }
+        List<Attachment> attachments = attachmentRepository.findByProjectAndMember(project,user.getMember());
+        if (!attachments.isEmpty()) {
+          for (Attachment attachment : attachments) {
+            AttachmentResponse attachmentResponse = AttachementMapper.INSTANCE.convertToAttachmentResponse(attachment);
+            attachmentResponses.add(attachmentResponse);
+          }
+          return new ApiResponse(attachmentResponses, null, HttpStatus.OK, LocalDateTime.now());
+        }
+      } else {
+        return new ApiResponse(null, "USER IS NOT AN STARTUPPER", HttpStatus.BAD_REQUEST, LocalDateTime.now());
+      }
+      return new ApiResponse(null, "NO CREATION", HttpStatus.NO_CONTENT, LocalDateTime.now());
+    } catch (Exception e) {
+      return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
+    }
+  }
+
+  @GetMapping("/getAttachmentByProjectAndManager/{idProject}")
+  public ApiResponse getAttachmentByProjectAndManager(@PathVariable long idProject) {
+    try {
+
+      List<AttachmentResponse> attachmentResponses = new ArrayList<>();
+      User user = userService.getConnectedUser();
+      if (user != null && user.getManager() != null) {
+        Project project =  projectRepository.getById(idProject);
+        if (project == null) {
+          return new ApiResponse(attachmentResponses, "DOES NOT EXIST", HttpStatus.OK, LocalDateTime.now());
+        }
+        List<Attachment> attachments = attachmentRepository.findByProjectAndManager(project,user.getManager());
         if (!attachments.isEmpty()) {
           for (Attachment attachment : attachments) {
             AttachmentResponse attachmentResponse = AttachementMapper.INSTANCE.convertToAttachmentResponse(attachment);
@@ -174,7 +230,7 @@ public class AttachmentController {
       if (project == null ) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
       }
-      String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/").path(fileName).toUriString();
+      String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("//api/attachments/downloadFile/").path(fileName).toUriString();
       Attachment attachment = new Attachment();
       attachment.setName(fileName);
       attachment.setFileDownloadUri(fileDownloadUri);
@@ -212,7 +268,7 @@ public class AttachmentController {
         if (project == null ) {
           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
         }
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/").path(fileName).toUriString();
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/attachments/downloadFile/").path(fileName).toUriString();
         Attachment attachment = new Attachment();
         attachment.setName(fileName);
         attachment.setFileDownloadUri(fileDownloadUri);
@@ -236,7 +292,7 @@ public class AttachmentController {
     }
 
 
-/*  @GetMapping("/downloadFile/{fileName:.+}")
+  @GetMapping("/downloadFile/{fileName:.+}")
   public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) throws MyFileNotFoundException {
     // Load file as Resource
     Resource resource = fileStorageService.loadFileAsResource(fileName);
@@ -244,7 +300,7 @@ public class AttachmentController {
     // Try to determine file's content type
     String contentType = null;
     try {
-      contentType = HttpServletRequest..getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+      contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
     } catch (IOException ex) {
       logger.info("Could not determine file type.");
     }
@@ -255,7 +311,7 @@ public class AttachmentController {
     }
 
     return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType)).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"").body(resource);
-  }*/
+  }
 
 
 }
