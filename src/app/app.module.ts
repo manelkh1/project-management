@@ -20,11 +20,10 @@ import { EnumToArrayPipe } from './modules/create-user/create-user.component';
 import { BankModule } from './layouts/bank/bank.module';
 import { ManagerModule } from './layouts/manager/manager.module';
 import { AdminModule } from './layouts/admin/admin.module';
-
-
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent,],
+  declarations: [AppComponent],
   imports: [
     RouterModule,
     BrowserModule,
@@ -43,6 +42,7 @@ import { AdminModule } from './layouts/admin/admin.module';
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    CommonModule,
   ],
   providers: [authInterceptorProviders, AuthGuard],
   bootstrap: [AppComponent],

@@ -11,19 +11,19 @@
   </div>
 </div> -->
 <div class="row" style="margin-left: 0rem; margin-bottom: 2rem">
-    <h1>Dashboard</h1>
-  </div>
-  <div class="row">
-    <div class="col-8">
-      <main>
-        <div class="recent-orders">
-          <div class="card">
-            <div class="card-header">
-              <h2>Projects</h2>
-            </div>
-            <!-- *************************************** GET ALL PROJECTS FOR ADMIN ************************************
+  <h1>Dashboard</h1>
+</div>
+<div class="row">
+  <div class="col-8">
+    <main>
+      <div class="recent-orders">
+        <div class="card">
+          <div class="card-header">
+            <h2>Projects</h2>
+          </div>
+          <!-- *************************************** GET ALL PROJECTS FOR ADMIN ************************************
             *ngIf="role.name =='Admin'" -->
-            <!--  
+          <!--  
               <mat-form-field appearance="standard">
                 <mat-label>Filter</mat-label>
                 <input
@@ -95,16 +95,16 @@
               >
               </mat-paginator>
             </div> -->
-  
-            <!-- <div class="row" *ngIf="role.name =='Project Manager'">
+
+          <!-- <div class="row" *ngIf="role.name =='Project Manager'">
               <div class="card">
                 <span>
                   hiiiiiiiiii guys i'm the project manager
                 </span>
               </div>
             </div> -->
-            <!-- ***************************** TABLE FOR PROJECT MANAGER GetProjectsById ********************************** -->
-            <!-- <div class="card-body" >
+          <!-- ***************************** TABLE FOR PROJECT MANAGER GetProjectsById ********************************** -->
+          <!-- <div class="card-body" >
               <mat-form-field appearance="standard">
                 <mat-label>Filter</mat-label>
                 <input
@@ -171,19 +171,19 @@
               </mat-paginator>
             </div>
            -->
-          </div>
         </div>
-      </main>
-    </div>
-  
-    <div class="col-4">
-      <div class="right">
-        <!-- END OF TOP -->
-        <div class="recent-updates card">
-          <div class="card-header">
-            <h2>TOTAL NUMBER</h2>
-          </div>
-          <!-- <div class="card-body updates">
+      </div>
+    </main>
+  </div>
+
+  <div class="col-4">
+    <div class="right">
+      <!-- END OF TOP -->
+      <div class="recent-updates card">
+        <div class="card-header">
+          <h2>TOTAL NUMBER</h2>
+        </div>
+        <!-- <div class="card-body updates">
             <div class="update" *ngFor="let user of users">
               <div>
                 <a href="#" data-abc="true"
@@ -200,70 +200,65 @@
               </div>
             </div>
           </div> -->
-        </div>
       </div>
     </div>
   </div>
-  <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="row">
-      <div class="col-md-12" style="margin-top: 2rem;">
-        <div class="card mb-4">
-          <h2 class="card-header"> Projects List
-          </h2>
-          <!-- Account -->
-          <div class="card-body"></div>
-          <hr class="my-0" />
-          <div class="card-body"></div>
-          <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Description</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Manager</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let pro of projects">
-                <td>
-                  {{ pro.title }}
-                </td>
-                <td>
-                  {{ pro.decription }}
-                </td>
-                <td>
-                  {{ pro.startDate }}
-                </td>
-                <td>
-                  {{ pro.endDate }}
-                </td>
-                <td>
-                  {{ pro.status }}
-                </td>
-                <td>
-                  {{ pro.manager.user.firstName }}
-                </td>
-                <td>
-                  <button
-                    type="submit"
-                    id="submitButton"
-                    onclick="validateSignupForm()"
-                    class="submitButton pure-button pure-button-primary"
-                    (click)="getRoute('manager/project-details', pro.id)"
-                  >
-                    <span>View</span>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+</div>
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="row">
+    <div class="col-md-12" style="margin-top: 2rem">
+      <div class="card mb-4">
+        <h2 class="card-header">Projects List</h2>
+        <!-- Account -->
+        <div class="card-body"></div>
+        <hr class="my-0" />
+        <div class="card-body"></div>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Status</th>
+              <th scope="col">Manager</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pro of projects">
+              <td>
+                {{ pro.title }}
+              </td>
+              <td>
+                {{ pro.decription }}
+              </td>
+              <td>
+                {{ pro.startDate }}
+              </td>
+              <td>
+                {{ pro.endDate }}
+              </td>
+              <td>
+                {{ pro.status }}
+              </td>
+              <td>
+                {{ pro.manager.user.firstName }}
+              </td>
+              <td>
+                <button
+                  type="submit"
+                  id="submitButton"
+                  onclick="validateSignupForm()"
+                  class="submitButton pure-button pure-button-primary"
+                  (click)="getRoute('manager/project-details', pro.id)"
+                >
+                  <span>View</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  
-  
-  
-  
+</div>

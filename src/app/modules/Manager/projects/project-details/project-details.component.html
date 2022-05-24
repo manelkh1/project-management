@@ -51,44 +51,35 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-6">
+    <div class="col-12">
       <div class="card">
+        <h3 class="mb-0 text-muted" style="margin-left: 0.7rem">
+          List Documents
+        </h3>
         <table class="table">
           <thead>
             <tr>
-              <th class="type"></th>
-              <th class="name truncate">Name</th>
-              <th class="date">Uploaded</th>
+              <th class="name truncate">File Name</th>
+              <th class="date">Size</th>
               <th class="size">Status</th>
-              <th class="size"></th>
+              <th class="size">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <!-- parcourir tableau attachements et les inserere dans "attachment"  -->
-            <!-- *ngFor="let attachment of attachments" -->
-            <tr>
-              <td class="type">
-                <i class="fa fa-file-text-o text-primary"></i>
-              </td>
-              <td class="name truncate">
-                <!-- [href]="attachment" [download]="attachment.name" -->
-                <a> attachment.name </a>
-              </td>
-              <td class="date">attachment.creationDate | date: "longDate"</td>
-              <td class="size">attachment.status.description</td>
-              <td class="size">
-                <a
-                  class="float-right"
-                  style="margin-right: 0.25rem; cursor: pointer"
-                  >Validate</a
-                >
+            <tr *ngFor="let att of attachments; let i = index">
+              <td>{{ att.name }}</td>
+
+              <td>{{ att.size }}</td>
+              <td>{{ att.status }}</td>
+              <td>
+                <a href="{{ att.fileDownloadUri }}">Download</a>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       <div>
         <!-- user list -->
         <div
@@ -101,8 +92,23 @@
         >
           <h3 class="mb-0 text-muted" style="margin-left: 0.7rem">Members</h3>
           <hr />
-
-          <div
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="name truncate">First Name</th>
+                <th class="date">Last Name</th>
+                <th class="size">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let inv of invitations; let i = index">
+                <td>{{ inv.member.user.firstName }}</td>
+                <td>{{ inv.member.user.lastName }}</td>
+                <td>{{ inv.member.user.email }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <!--    <div
             class="list-item"
             data-id="19"
             *ngFor="let invitation of invitations"
@@ -130,7 +136,7 @@
                 >invitation.status.description
               </a>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -168,7 +174,7 @@
                   </thead>
                   <tbody>
                     <!-- parcourir tableau attachements et les inserere dans "attachment"  -->
-                    <tr *ngFor="let file of files">
+                    <!--   <tr *ngFor="let file of files">
                       <td class="type">
                         <i class="fa fa-file-text-o text-primary"></i>
                       </td>
@@ -182,7 +188,7 @@
                           (click)="deleteFile(file)"
                         />
                       </td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
                 <!-- lorsque il clique sur submit il enregistre les attachements dans le projet addattachement to the project -->

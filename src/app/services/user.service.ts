@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';;
+import { Observable } from 'rxjs';
 import { User } from '../models/user';
-import  {environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
 
 const AUTH_API = environment.baseURL;
 
@@ -12,10 +12,12 @@ const AUTH_API = environment.baseURL;
 export class UserService {
   constructor(private httpClient: HttpClient) {}
   addUser(user: User): Observable<any> {
-    return this.httpClient.post(AUTH_API + 'api/users/addUser' , user);
+    return this.httpClient.post(AUTH_API + 'api/users/addUser', user);
   }
 
-
+  getAllUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>(AUTH_API + 'api/users');
+  }
 
   // find user by keyword inserted in the research
   // getMembers(keyword: string): Observable<User[]> {

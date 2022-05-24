@@ -1,21 +1,19 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Project } from '../../models/project';
-import { ProjectService } from '../../services/project.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { UserService } from '../../services/user.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
+  FormGroup,
   FormBuilder,
   FormControl,
-  FormGroup,
   Validators,
 } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TokenStorageService } from '../../services/token-storage.service';
-import { User } from '../../models/user';
 import { first } from 'rxjs';
-import { Manager } from '../../models/manager';
-import { ManagerService } from '../../services/manager.service';
+import { User } from 'src/app/models/user';
+import { ManagerService } from 'src/app/services/manager.service';
+import { ProjectService } from 'src/app/services/project.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { UserService } from 'src/app/services/user.service';
 
 export interface PeriodicElement {
   name: string;

@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +19,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-home-manager',
   templateUrl: './home-manager.component.html',
-  styleUrls: ['./home-manager.component.scss']
+  styleUrls: ['./home-manager.component.scss'],
 })
 export class HomeManagerComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
@@ -29,13 +34,15 @@ export class HomeManagerComponent implements OnInit {
   showAdmin!: boolean;
   loading = false;
 
-  constructor(private tokenStorage: TokenStorageService,
+  constructor(
+    private tokenStorage: TokenStorageService,
     private route: ActivatedRoute,
     private router: Router,
     private projectService: ProjectService,
     private userService: UserService,
     private managerService: ManagerService,
-    private _fb: FormBuilder) { }
+    private _fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.objectUser = this.tokenStorage.getUser();
@@ -44,8 +51,9 @@ export class HomeManagerComponent implements OnInit {
     this.form = this._fb.group({
       title: new FormControl('', [Validators.required]),
     });
-    
-    this.getAllProjectsByMember();
+
+    this.getAllProjectsByManager();
+    console.log(this.getAllProjectsByManager());
   }
 
   applyFilter(event: Event) {
@@ -54,12 +62,17 @@ export class HomeManagerComponent implements OnInit {
   }
 
   getAllProjectsByManager() {
-    this.projectService.getAllProjectsByManager().subscribe((data) => {
-      //MatTableDataSource :  une source de données de table matTableDataSource intégrée.
-      this.dataSource = new MatTableDataSource(data);
-      //apply the pagination to all the dataSource
-      this.dataSource.paginator = this.paginator;
-    });
+    this.projectService.getAllProjectsByManager().subscribe(
+      (data: any) => {
+        console.log(data.data);
+        this.projects = data.data;
+        console.log('*************');
+        console.log(this.projects);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   getAllProjectsByMember() {
@@ -75,19 +88,19 @@ export class HomeManagerComponent implements OnInit {
   }
 
   getAllProjectsByBank() {
-    this.projectService.getAllProjectsByBank().subscribe((data: unknown[] | undefined) => {
-      this.projects = new MatTableDataSource(data);
-      this.projects.paginator = this.paginator;
-    });
+    this.projectService
+      .getAllProjectsByBank()
+      .subscribe((data: unknown[] | undefined) => {
+        this.projects = new MatTableDataSource(data);
+        this.projects.paginator = this.paginator;
+      });
   }
 
-  getProjects() {
-
-  }
+  getProjects() {}
 
   getAllManagers() {
     this.managerService
-      .getAllManagers()
+      .getAllManagersAndAdmin()
       .pipe(first())
       .subscribe((managers) => {
         this.managers = new Manager();

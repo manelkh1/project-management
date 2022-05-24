@@ -64,11 +64,11 @@ import { ChatComponent } from '../../modules/chat/chat.component';
 @NgModule({
   declarations: [
     DefaultComponent,
-    HomeComponent,
+
     PostComponent,
     /* 
     CreateProjectComponent, */
-    HomeComponent,
+
     EnumToArrayPipe,
     CreateUserComponent,
     UserDetailsComponent,

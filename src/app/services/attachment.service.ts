@@ -23,6 +23,18 @@ export class AttachementService {
     return this.httpClient.get<Attachment[]>(AUTH_API + 'api/attachments');
   }
 
+  getAttachmentByProjectAndManager(projectId: number): Observable<Attachment> {
+    return this.httpClient.get<Attachment>(
+      AUTH_API + 'api/attachments/getAttachmentByProjectAndManager/' + projectId
+    );
+  }
+
+  getAttachmentByProjectAndMember(projectId: number): Observable<Attachment> {
+    return this.httpClient.get<Attachment>(
+      AUTH_API + 'api/attachments/getAttachmentByProjectAndMember/' + projectId
+    );
+  }
+
   getAttachmentById(attachmentId: number): Observable<Attachment> {
     return this.httpClient.get<Attachment>(
       AUTH_API + 'api/attachments/' + attachmentId

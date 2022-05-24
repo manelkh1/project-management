@@ -56,6 +56,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { ProjectDetailsComponent } from 'src/app/modules/Manager/projects/project-details/project-details.component';
+import { HomeComponent } from 'src/app/modules/home/home.component';
 /* 
 import { ManagerInvitationListComponent } from '../../modules/Manager/invitation/invitation-list/invitation-list.component'; */
 
@@ -67,6 +69,7 @@ import { ManagerInvitationListComponent } from '../../modules/Manager/invitation
     /* Manager Componenet */
     ManagerInvitationListComponent,
     SendInvitationComponent,
+    HomeComponent,
     /*    ManagerCreateAttachmentComponent, */
   ],
   imports: [

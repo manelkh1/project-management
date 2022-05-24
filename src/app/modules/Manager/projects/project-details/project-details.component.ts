@@ -1,3 +1,4 @@
+import { InvitationService } from './../../../../services/invitation.service';
 import { AttachementService } from './../../../../services/attachment.service';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -27,7 +28,9 @@ export class ProjectDetailsComponent implements OnInit {
   isEditingTitle = false;
   form!: FormGroup;
   attachement: Attachment[] = [];
-  invitations: Invitation[] = [];
+  attachments: any;
+  invitations: any;
+
   files: any[] = [];
 
   constructor(
@@ -35,6 +38,7 @@ export class ProjectDetailsComponent implements OnInit {
     private _fb: FormBuilder,
     private projectService: ProjectService,
     private attachementService: AttachementService,
+    private invitationService: InvitationService,
     private https: HttpClient
   ) {}
 
@@ -50,6 +54,9 @@ export class ProjectDetailsComponent implements OnInit {
     this.getProject();
     this.getAttachments();
     this.getMembersProject();
+
+    this.getAttachmentByProjectAndManager();
+    this.getAllInvitationByProject();
   }
 
   getProject() {
@@ -69,6 +76,26 @@ export class ProjectDetailsComponent implements OnInit {
     //   this.attachments = data;
     //   console.log(this.attachments)
     // })
+  }
+
+  getAttachmentByProjectAndManager() {
+    this.attachementService
+      .getAttachmentByProjectAndManager(this.id)
+      .subscribe((data: any) => {
+        this.attachments = data.data;
+        //  this.companies = data.data;
+        console.log(this.attachments);
+      });
+  }
+
+  getAllInvitationByProject() {
+    this.invitationService
+      .getAllInvitationByProject(this.id)
+      .subscribe((data: any) => {
+        this.invitations = data.data;
+        //  this.companies = data.data;
+        console.log(this.invitations);
+      });
   }
 
   setEditingTitle(mode: boolean) {

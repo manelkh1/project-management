@@ -30,8 +30,10 @@ import { ProjectDetailsComponent } from './modules/Manager/projects/project-deta
 import { UserProfilComponent } from './modules/user-profil/user-profil/user-profil.component';
 import { HomeMemberComponent } from './modules/Member/home/home-member/home-member.component';
 import { HomeManagerComponent } from './modules/Manager/home/home-manager/home-manager.component';
-import { BankHomeComponent } from './modules/bank/home/bank-home/bank-home.component';
+
 import { BankComponent } from './layouts/bank/bank.component';
+import { CommonModule } from '@angular/common';
+import { BankHomeComponent } from './modules/Bank/home/bank-home/bank-home.component';
 //
 const routes: Routes = [
   {
@@ -95,7 +97,10 @@ const routes: Routes = [
       role: 'MANAGER',
     },
     children: [
-      { path: 'home', component: HomeManagerComponent /* canActivate: [AuthGuard] */ },
+      {
+        path: 'home',
+        component: HomeManagerComponent /* canActivate: [AuthGuard] */,
+      },
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
 
       //
@@ -155,7 +160,10 @@ const routes: Routes = [
     },
 
     children: [
-      { path: 'home', component: HomeMemberComponent /* canActivate: [AuthGuard] */ },
+      {
+        path: 'home',
+        component: HomeMemberComponent /* canActivate: [AuthGuard] */,
+      },
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
 
       {
@@ -191,7 +199,10 @@ const routes: Routes = [
     },
 
     children: [
-      { path: 'home', component: BankHomeComponent /* canActivate: [AuthGuard] */ },
+      {
+        path: 'home',
+        component: BankHomeComponent /* canActivate: [AuthGuard] */,
+      },
 
       {
         path: 'change-password',
@@ -218,7 +229,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), CommonModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
