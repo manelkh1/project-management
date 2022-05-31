@@ -6,9 +6,10 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BankHomeComponent } from 'src/app/modules/bank/home/bank-home/bank-home.component';
 
 @NgModule({
-  declarations: [BankComponent],
+  declarations: [BankComponent, BankHomeComponent],
   imports: [
     CommonModule,
     RouterModule,

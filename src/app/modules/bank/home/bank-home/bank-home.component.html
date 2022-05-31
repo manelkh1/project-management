@@ -1,40 +1,264 @@
-<div >
-    <div class="row">
-    <div class="col-md-6">
-        <div class="card m-b-30">
-            <div class="card-header">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <h5 class="card-title mb-0">  project name (FILES)</h5>
-                    </div>
-                    </div>
-                    <div class="col-4">
-                        <h5><a href="" style="color: cornflowerblue;margin-left :7rem;">valide</a> </h5>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="product-file-type">
-                    <ul class="list-unstyled">
-                        <li class="media mb-3">
-                            <span class="mr-3 align-self-center img-icon primary-rgba text-primary">.doc</span>
-                            <div class="media-body">
-                            <h5 class="font-16 mb-1">Squirrel-updateSelf.log<i class="feather icon-download-cloud float-right"></i></h5>
-                            <p>.doc, 5.3 MB</p>
-                            </div>
-                        </li>
-                        <li class="media mb-3">
-                            <span class="mr-3 align-self-center img-icon primary-rgba text-primary">.doc</span>
-                            <div class="media-body">
-                            <h5 class="font-16 mb-1">Squirrel-updateSelf.log<i class="feather icon-download-cloud float-right"></i></h5>
-                            <p>.doc, 5.3 MB</p>
-                            </div>
-                        </li>
+<!-- <div class="row right">
+  <div class="top align-items-center">
+    <div class="profile d-flex align-items-center">
+      <div class="info">
+        <p>Hey,<b mat-cell *matCellDef="let element">{{ element.title }}</b></p>
+      </div>
+      <div class="profile-photo">
+        <img src="assets/img/avatar/avatar-1.jpg" />
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="row" style="margin-left: 0rem; margin-bottom: 2rem">
+  <h1>Dashboard</h1>
+</div>
+<div class="row">
+  <div class="col-8">
+    <main>
+      <div class="recent-orders">
+        <div class="card">
+          <div class="card-header">
+            <h2>Projects</h2>
+          </div>
+          <!-- *************************************** GET ALL PROJECTS FOR ADMIN ************************************
+              *ngIf="role.name =='Admin'" -->
+          <!--
+                <mat-form-field appearance="standard">
+                  <mat-label>Filter</mat-label>
+                  <input
+                    matInput
+                    (keyup)="applyFilter($event)"
+                    placeholder="Ex. ium"
+                    #input
+                  />
+                </mat-form-field>
+  
+                <table mat-table [dataSource]="dataSource">
+                  <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef>Title</th>
+                    <td
+                      mat-cell
+                      *matCellDef="let element"
+                      (click)="getRoute('default/project-details', element.id)"
+                      style="cursor: pointer"
+                    >
+                      {{ element.title }}
+                    </td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef>Description</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ subStrDescription(element.description) }}
+                    </td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="startDate">
+                    <th mat-header-cell *matHeaderCellDef>Start Date</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.startDate | date: "longDate" }}
+                    </td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="endDate">
+                    <th mat-header-cell *matHeaderCellDef>End Date</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.endDate | date: "longDate" }}
+                    </td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="creationDate">
+                    <th mat-header-cell *matHeaderCellDef>Creation Date</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.creationDate | date: "longDate" }}
+                    </td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                  </ng-container>
+  
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">
+                      No data matching the filter "{{ input.value }}"
+                    </td>
+                  </tr>
+                </table>
+                <mat-paginator
+                  [pageSizeOptions]="[5, 10, 20]"
+                  showFirstLastButtons
+                  aria-label="Select page of periodic elements"
+                >
+                </mat-paginator>
+              </div> -->
 
-                    </ul>
+          <!-- <div class="row" *ngIf="role.name =='Project Manager'">
+                <div class="card">
+                  <span>
+                    hiiiiiiiiii guys i'm the project manager
+                  </span>
                 </div>
-            </div>
+              </div> -->
+          <!-- ***************************** TABLE FOR PROJECT MANAGER GetProjectsById ********************************** -->
+          <!-- <div class="card-body" >
+                <mat-form-field appearance="standard">
+                  <mat-label>Filter</mat-label>
+                  <input
+                    matInput
+                    (keyup)="applyFilter($event)"
+                    placeholder="Ex. ium"
+                    #input
+                  />
+                </mat-form-field>
+  
+                <table mat-table [dataSource]="projects">
+                  title Column
+                  <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef>Title</th>
+                    <td mat-cell *matCellDef="let element" (click)="getRoute('default/project-details', element.id)" style="cursor: pointer;">
+                      {{ element.title }}
+                    </td>
+                  </ng-container>
+  
+                  description Column
+                  <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef>Description</th>
+                    <td mat-cell *matCellDef="let element">{{ subStrDescription(element.description) }}</td>
+                  </ng-container>
+  
+                  startDate Column
+                  <ng-container matColumnDef="startDate">
+                    <th mat-header-cell *matHeaderCellDef>Start Date</th>
+                    <td mat-cell *matCellDef="let element">{{ element.startDate | date: "longDate" }}</td>
+                  </ng-container>
+  
+                  endDate Column
+                  <ng-container matColumnDef="endDate">
+                    <th mat-header-cell *matHeaderCellDef>End Date</th>
+                    <td mat-cell *matCellDef="let element">{{ element.endDate | date: "longDate" }}</td>
+                  </ng-container>
+  
+                   creationDate Column
+                   <ng-container matColumnDef="creationDate">
+                    <th mat-header-cell *matHeaderCellDef>Creation Date</th>
+                    <td mat-cell *matCellDef="let element">{{ element.creationDate | date: "longDate" }}</td>
+                  </ng-container>
+  
+                   status Column
+                   <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>status</th>
+                    <td mat-cell *matCellDef="let element">{{ element.status.description }}</td>
+                  </ng-container>
+  
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">
+                      No data matching the filter "{{ input.value }}"
+                    </td>
+                  </tr>
+                </table>
+                <mat-paginator
+                  [pageSizeOptions]="[5, 10, 20]"
+                  showFirstLastButtons
+                  aria-label="Select page of periodic elements"
+                >
+                </mat-paginator>
+              </div>
+             -->
         </div>
-    </div>
+      </div>
+    </main>
+  </div>
 
+  <div class="col-4">
+    <div class="right">
+      <!-- END OF TOP -->
+      <div class="recent-updates card">
+        <div class="card-header">
+          <h2>TOTAL NUMBER</h2>
+        </div>
+        <!-- <div class="card-body updates">
+              <div class="update" *ngFor="let user of users">
+                <div>
+                  <a href="#" data-abc="true"
+                    ><span class="w-48 avatar gd-warning">{{
+                      subStrName(user)
+                    }}</span></a
+                  >
+                </div>
+                <div class="message">
+                   <p>
+                    <b (click)="getRoute('default/user-details', user.id)">{{ user.firstName }} {{user.lastName}}</b> <span class="poste">{{user.name}} </span>
+                  </p>
+                  <small class="text-muted">2 minutes later</small>
+                </div>
+              </div>
+            </div> -->
+      </div>
     </div>
+  </div>
+</div>
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="row">
+    <div class="col-md-12" style="margin-top: 2rem">
+      <div class="card mb-4">
+        <h2 class="card-header">Projects List</h2>
+        <!-- Account -->
+        <div class="card-body"></div>
+        <hr class="my-0" />
+        <div class="card-body"></div>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Status</th>
+              <th scope="col">Manager</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pro of projects">
+              <td (click)="getRoute('manager/project-details', pro.id)">
+                {{ pro.title }}
+              </td>
+              <td>
+                {{ pro.description }}
+              </td>
+              <td>
+                {{ pro.startDate }}
+              </td>
+              <td>
+                {{ pro.endDate }}
+              </td>
+              <td>
+                {{ pro.status }}
+              </td>
+              <td>
+                {{ pro.manager.user.firstName }}
+              </td>
+              <td>
+                <button
+                  type="submit"
+                  id="submitButton"
+                  onclick="validateSignupForm()"
+                  class="submitButton pure-button pure-button-primary"
+                  (click)="getRoute('manager/project-details', pro.id)"
+                >
+                  <span>View</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
