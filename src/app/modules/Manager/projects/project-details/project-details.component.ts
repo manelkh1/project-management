@@ -16,6 +16,8 @@ import { User } from 'src/app/models/user';
 import { ProjectService } from 'src/app/services/project.service';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CommentService } from 'src/app/services/comment.service';
+import { Comment } from './../../../../models/comment';
 
 @Component({
   selector: 'app-project-details',
@@ -25,36 +27,42 @@ import { Observable } from 'rxjs';
 export class ProjectDetailsComponent implements OnInit {
   id!: number;
   project: Project = new Project();
+  comment: Comment = new Comment();
   isEditingTitle = false;
   form!: FormGroup;
   attachement: Attachment[] = [];
   attachments: any;
   invitations: any;
-
+  comments: any;
   files: any[] = [];
-
+  commentForm!: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private _fb: FormBuilder,
     private projectService: ProjectService,
     private attachementService: AttachementService,
     private invitationService: InvitationService,
+    private commentService: CommentService,
     private https: HttpClient
   ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     console.log(this.id);
+
     this.form = this._fb.group({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
       endDate: new FormControl('', [Validators.required]),
     });
+    this.commentForm = this._fb.group({
+      message: new FormControl('', [Validators.required]),
+    });
     this.getProject();
     this.getAttachments();
     this.getMembersProject();
-
+    this.getAllCommentsByProject();
     this.getAttachmentByProjectAndManager();
     this.getAllInvitationByProject();
   }
@@ -156,5 +164,28 @@ export class ProjectDetailsComponent implements OnInit {
         this.files.splice(i, 1);
       }
     }
+  }
+
+  getAllCommentsByProject() {
+    this.commentService
+      .getAllCommentsByProject(this.id)
+      .subscribe((response: any) => {
+        this.comments = response.data;
+        console.log('commentsss ' + this.comments);
+        this.form.controls['message'].setValue(this.comment.message);
+        this.form.controls['manager'].setValue(this.comment.manager);
+        this.form.controls['member'].setValue(this.comment.member);
+      });
+  }
+
+  createComment() {
+    this.comment.message = this.commentForm.value.message;
+    this.comment.idProject = this.id;
+    this.commentService
+      .createComment(this.comment)
+      .subscribe((data: { id: any }) => {
+        this.form.reset();
+        // redirect the path from create-project to project-details
+      });
   }
 }

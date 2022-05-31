@@ -73,7 +73,7 @@ export class ManagerInvitationListComponent implements OnInit {
     );
   }
 
-  sendInvitationByProject() {
+  /*  sendInvitationByProject() {
     this.invitation.project = this.form.value.projectId;
     this.invitation.member = this.form.value.memberId;
     this.invitationService
@@ -81,5 +81,5 @@ export class ManagerInvitationListComponent implements OnInit {
       .subscribe((data) => {
         this.form.reset();
       });
-  }
+  } */
 }

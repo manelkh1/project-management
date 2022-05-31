@@ -85,7 +85,7 @@ export class InvitationListComponent implements OnInit {
     );
   }
 
-  sendInvitationByProject() {
+  /*   sendInvitationByProject() {
     this.invitation.project = this.form.value.projectId;
     this.invitation.member = this.form.value.memberId;
     console.log(this.invitation.project);
@@ -96,7 +96,7 @@ export class InvitationListComponent implements OnInit {
         this.form.reset();
         /// this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
       });
-  }
+  } */
 
   /*   getInvitationsByUser(){
     this.projectService.getInvitationsByUser().subscribe(data =>{

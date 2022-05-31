@@ -2,6 +2,7 @@ package com.management.cni.controller;
 
 import com.management.cni.entity.User;
 import com.management.cni.exceptions.ApiResponse;
+import com.management.cni.security.dto.request.PasswordRequest;
 import com.management.cni.security.dto.request.UserRequest;
 import com.management.cni.service.ProjectService;
 import com.management.cni.service.UserService;
@@ -32,6 +33,11 @@ public class UserController {
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
+  @PostMapping("/changePassword")
+  public ResponseEntity<ApiResponse> changePassword(@RequestBody PasswordRequest passwordRequest) {
+    ApiResponse apiResponse = userService.changePassword(passwordRequest);
+    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
+  }
 }
 
 

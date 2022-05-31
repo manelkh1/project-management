@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from '../../environments/environment';
+import { ChangePassword } from './../models/changePassword';
 
 const AUTH_API = environment.baseURL;
 
@@ -13,6 +14,13 @@ export class UserService {
   constructor(private httpClient: HttpClient) {}
   addUser(user: User): Observable<any> {
     return this.httpClient.post(AUTH_API + 'api/users/addUser', user);
+  }
+
+  changePassword(changePassword: ChangePassword): Observable<any> {
+    return this.httpClient.post(
+      AUTH_API + 'users/changePassword',
+      changePassword
+    );
   }
 
   getAllUsers(): Observable<User[]> {

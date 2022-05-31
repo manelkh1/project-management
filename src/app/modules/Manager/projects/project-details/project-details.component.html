@@ -74,6 +74,9 @@
               <td>
                 <a href="{{ att.fileDownloadUri }}">Download</a>
               </td>
+              <td>
+                <a href="{{ att.fileDownloadUri }}">Send To Bank</a>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -207,13 +210,17 @@
       <div class="card">
         <div _ngcontent-vto-c70="" class="chat-container">
           <ul _ngcontent-vto-c70="" class="chat-box chatContainerScroll">
-            <li _ngcontent-vto-c70="" class="chat-right">
+            <li
+              _ngcontent-vto-c70=""
+              class="chat-right"
+              *ngFor="let cm of comments; let i = index"
+            >
               <div _ngcontent-vto-c70="" class="chat-hour">
-                08:59
+                {{ cm.time }}
                 <span _ngcontent-vto-c70="" class="fa fa-check-circle"></span>
               </div>
               <div _ngcontent-vto-c70="" class="chat-text">
-                Have you faced any problems at the last phase of the project?
+                {{ cm.message }}
               </div>
               <div _ngcontent-vto-c70="" class="chat-avatar">
                 <img
@@ -221,35 +228,49 @@
                   src="https://www.bootdey.com/img/Content/avatar/avatar4.png"
                   alt="Retail Admin"
                 />
-                <div _ngcontent-vto-c70="" class="chat-name">Jin</div>
+                <div _ngcontent-vto-c70="" class="chat-name">
+                  {{ cm.member.user.firstName }}
+                </div>
               </div>
             </li>
-            <li _ngcontent-vto-c70="" class="chat-left">
+            <!--        <li _ngcontent-vto-c70="" class="chat-left">
               <div _ngcontent-vto-c70="" class="chat-avatar">
                 <img
                   _ngcontent-vto-c70=""
                   src="https://www.bootdey.com/img/Content/avatar/avatar3.png"
                   alt="Retail Admin"
                 />
-                <div _ngcontent-vto-c70="" class="chat-name">Russell</div>
+                <div _ngcontent-vto-c70="" class="chat-name">khammari</div>
               </div>
               <div _ngcontent-vto-c70="" class="chat-text">
                 Actually everything was fine. <br _ngcontent-vto-c70="" />I'm
-                very excited to show this to our team.
+                sorry for the late
               </div>
               <div _ngcontent-vto-c70="" class="chat-hour">
                 07:00
                 <span _ngcontent-vto-c70="" class="fa fa-check-circle"></span>
               </div>
-            </li>
+            </li> -->
           </ul>
+          <form [formGroup]="commentForm">
+            <div _ngcontent-vto-c70="" class="form-group mt-3 mb-0">
+              <textarea
+                _ngcontent-vto-c70=""
+                rows="3"
+                placeholder="Type your message here..."
+                class="form-control"
+                formControlName="message"
+              ></textarea>
+            </div>
+          </form>
           <div _ngcontent-vto-c70="" class="form-group mt-3 mb-0">
-            <textarea
-              _ngcontent-vto-c70=""
-              rows="3"
-              placeholder="Type your message here..."
-              class="form-control"
-            ></textarea>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              (click)="createComment()"
+            >
+              Add comment
+            </button>
           </div>
         </div>
       </div>

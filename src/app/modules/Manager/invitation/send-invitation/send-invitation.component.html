@@ -18,7 +18,7 @@
                   required
                 >
                   <!-- liste des roles par id -->
-                  <option *ngFor="let p of projects">
+                  <option *ngFor="let p of projects" [ngValue]="p.id">
                     {{ p.title }}
                   </option>
                 </select>
@@ -29,17 +29,28 @@
                 <select
                   id="members"
                   class="form-select"
-                  formControlName="members"
+                  formControlName="memberId"
                   [(ngModel)]="members"
+                  (change)="getMember($event)"
                   required
                 >
-                  <option *ngFor="let m of members">
-                    {{ m.user.id }}
+                  <option *ngFor="let m of members" [ngValue]="m.id">
+                    {{ m.user.lastName }}
                   </option>
                 </select>
 
                 <div>Please select member.</div>
               </div>
+              <!--       <p-dropdown
+                name="country"
+                [options]="countries"
+                [(ngModel)]="applicant.country"
+                placeholder="select country"
+                (onChange)="getStatebyCountry(applicant.country, $event)"
+                #country="ngModel"
+                required
+              >
+              </p-dropdown> -->
             </div>
 
             <!-- cliquer sur submit appliquer addUser() -->

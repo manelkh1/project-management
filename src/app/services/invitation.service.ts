@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Invitation } from '../models/invitation';
+import { Invitation, SendedInvitation } from '../models/invitation';
 
 const AUTH_API = environment.baseURL;
 
@@ -42,10 +42,10 @@ export class InvitationService {
       null
     );
   }
-  sendInvitationByProject(invitation: Invitation): Observable<any> {
+  sendInvitationByProject(sendedInvitation: SendedInvitation): Observable<any> {
     return this.httpClient.post(
       AUTH_API + 'api/invitations/sendInvitation',
-      invitation
+      sendedInvitation
     );
   }
 

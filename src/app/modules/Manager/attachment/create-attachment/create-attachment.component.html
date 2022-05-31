@@ -12,54 +12,10 @@
   </div>
 </div>
 
-<div class="row container_project">
+<div>
   <form>
     <div class="row">
-      <div class="col-8">
-        <div class="card mt-3" style="border-radius: 1rem">
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="type"></th>
-                <th class="name truncate">Name</th>
-                <th class="size">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- parcourir tableau attachements et les inserere dans "attachment"  -->
-              <tr *ngFor="let file of files">
-                <td class="type">
-                  <i class="fa fa-file-text-o text-primary"></i>
-                </td>
-                <td class="name truncate">
-                  <a href="#">{{ file.name }}</a>
-                </td>
-                <td class="delete">
-                  <img
-                    src="../../../assets/img/xmark-solid.svg"
-                    alt=""
-                    (click)="deleteFile(file)"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col-4" style="margin-top: 1rem">
-        <select
-          class="form-select"
-          aria-label="Default select example"
-          style="padding: 0.65rem; border: white"
-        >
-          <option selected>Open this to select the project</option>
-          <option>project name</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-4" style="margin-left: 61rem">
-        <!-- ************************* import document ********************-->
         <div class="card" style="padding: 50px; border-radius: 1rem">
           <div class="card-body">
             <h1 style="margin: revert">Import a document</h1>
@@ -67,14 +23,14 @@
               <label for="formFile" class="form-label text-muted"
                 >share documets with your team</label
               >
-              <!-- Define simple input tag of type file. Add a function to (change)-event for handling choosing files. -->
+
               <input
                 class="form-control"
                 type="file"
                 id="formFile"
                 #fileUpload
                 multiple
-                (change)="fileBrowseHandler($event)"
+                (change)="selectFile($event)"
               />
             </div>
           </div>
@@ -85,8 +41,8 @@
       <button
         type="submit"
         class="btn btn-primary"
-        (click)="addAttachment()"
-        [disabled]="!form.valid"
+        [disabled]="!selectedFiles"
+        (click)="upload()"
       >
         add documents
       </button>

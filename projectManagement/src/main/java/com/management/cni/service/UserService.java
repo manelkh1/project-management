@@ -1,14 +1,12 @@
 package com.management.cni.service;
 
-import com.management.cni.entity.Admin;
 import com.management.cni.entity.User;
 import com.management.cni.entity.UserRole;
 import com.management.cni.repository.UserRepository;
 import com.management.cni.exceptions.ApiResponse;
+import com.management.cni.security.dto.request.PasswordRequest;
 import com.management.cni.security.dto.request.UserRequest;
-import com.management.cni.security.dto.response.AdminResponse;
 import com.management.cni.security.dto.response.UserResponse;
-import com.management.cni.security.mapper.AdminMapper;
 import com.management.cni.security.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -88,6 +86,33 @@ public class UserService {
       }
     } else {
       return new ApiResponse(null, "THIS USER IS NOT ADMIN : " + connectedAdmin.getUsername(), HttpStatus.UNAUTHORIZED, LocalDateTime.now());
+    }
+  }
+
+
+  public ApiResponse changePassword(PasswordRequest passwordRequest) {
+    //if the email is already exists
+    User user = getConnectedUser();
+    if (user != null) {
+
+      try {
+        if (passwordEncoder.matches(passwordRequest.getOldPassword(),user.getPassword())) {
+          if (passwordRequest.getNewPassword().equals(passwordRequest.getConfirmedNewPassword())){
+            user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+            userRepository.save(user);
+            return new ApiResponse(null, "password is changed ", HttpStatus.OK, LocalDateTime.now());
+
+          } else  {
+            return new ApiResponse(null, "password doesn't matches ", HttpStatus.BAD_REQUEST, LocalDateTime.now());
+          }
+        } else {
+          return new ApiResponse(null, "wrong password", HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        }
+      } catch (Exception e) {
+        return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
+      }
+    } else {
+      return new ApiResponse(null, "THIS USER IS NOT ADMIN : ", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
     }
   }
 

@@ -10,7 +10,7 @@ import {
 import { first } from 'rxjs';
 import { InvitationService } from '../../../../services/invitation.service';
 import { Component, OnInit } from '@angular/core';
-import { Invitation } from '../../../../models/invitation';
+import { Invitation, SendedInvitation } from '../../../../models/invitation';
 import { Status } from '../../../../models/status';
 import { User } from '../../../../models/user';
 import { ProjectService } from '../../../../services/project.service';
@@ -59,7 +59,7 @@ export class SendInvitationComponent implements OnInit {
   status: Status[] = [];
   project: Project = new Project();
   form!: FormGroup;
-  invitation: Invitation = new Invitation();
+  sendedInvitation: SendedInvitation = new SendedInvitation();
   seleccionados!: any;
   // selected: string = '';
   constructor(
@@ -111,7 +111,8 @@ export class SendInvitationComponent implements OnInit {
 
   getAllProjectsByManager(): void {
     this.projectService.getAllProjectsByManager().subscribe(
-      (data: any) => {        this.projects = data.data;
+      (data: any) => {
+        this.projects = data.data;
       },
       (error) => {
         console.log(error);
@@ -131,17 +132,32 @@ export class SendInvitationComponent implements OnInit {
   }
 
   sendInvitationByProject() {
-    console.log('this ' + this.seleccionados.user);
-    this.invitation.project = this.form.value.projectId;
-    this.invitation.member = this.form.value.memberId;
-    console.log(this.invitation.project);
-    console.log(this.invitation.project);
+    // console.log('this ' + this.seleccionados.user);
+    this.sendedInvitation.projectId = this.form.value.projectId;
+    this.sendedInvitation.memberId = this.form.value.memberId;
+
+    /*   console.log(this.invitation.project);
+    console.log(this.invitation.member);
+    console.log(this.form.value.projectId);
+    console.log(this.form.value.memberId); */
+    /*   this.members.filter((element) => {
+      element.user.lastName;
+    }); */
+
+    console.log('  invitation ' + this.sendedInvitation);
+    //   console.log(this.invitation.project);
+    //  console.log(this.invitation.project);
     this.invitationService
-      .sendInvitationByProject(this.invitation)
+      .sendInvitationByProject(this.sendedInvitation)
       .subscribe((data) => {
         this.form.reset();
         /// this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
       });
+  }
+
+  getMember(event: any) {
+    console.log(event);
+    // this.invitation.member = eve
   }
   removeInvitationByProject(idProject: number) {
     console.log(idProject);

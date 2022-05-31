@@ -1,0 +1,596 @@
+[1mdiff --git a/projectManagement/src/main/java/com/management/cni/controller/UserController.java b/projectManagement/src/main/java/com/management/cni/controller/UserController.java[m
+[1mindex d3a9339..50d08b1 100644[m
+[1m--- a/projectManagement/src/main/java/com/management/cni/controller/UserController.java[m
+[1m+++ b/projectManagement/src/main/java/com/management/cni/controller/UserController.java[m
+[36m@@ -2,6 +2,7 @@[m [mpackage com.management.cni.controller;[m
+ [m
+ import com.management.cni.entity.User;[m
+ import com.management.cni.exceptions.ApiResponse;[m
+[32m+[m[32mimport com.management.cni.security.dto.request.PasswordRequest;[m
+ import com.management.cni.security.dto.request.UserRequest;[m
+ import com.management.cni.service.ProjectService;[m
+ import com.management.cni.service.UserService;[m
+[36m@@ -32,6 +33,11 @@[m [mpublic class UserController {[m
+     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());[m
+   }[m
+ [m
+[32m+[m[32m  @PostMapping("/changePassword")[m
+[32m+[m[32m  public ResponseEntity<ApiResponse> changePassword(@RequestBody PasswordRequest passwordRequest) {[m
+[32m+[m[32m    ApiResponse apiResponse = userService.changePassword(passwordRequest);[m
+[32m+[m[32m    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());[m
+[32m+[m[32m  }[m
+ }[m
+ [m
+ [m
+[1mdiff --git a/projectManagement/src/main/java/com/management/cni/entity/Comment.java b/projectManagement/src/main/java/com/management/cni/entity/Comment.java[m
+[1mindex 2279774..98c76cb 100644[m
+[1m--- a/projectManagement/src/main/java/com/management/cni/entity/Comment.java[m
+[1m+++ b/projectManagement/src/main/java/com/management/cni/entity/Comment.java[m
+[36m@@ -5,6 +5,8 @@[m [mimport lombok.AllArgsConstructor;[m
+ import lombok.Getter;[m
+ import lombok.NoArgsConstructor;[m
+ import lombok.Setter;[m
+[32m+[m[32mimport org.hibernate.annotations.NotFound;[m
+[32m+[m[32mimport org.hibernate.annotations.NotFoundAction;[m
+ import org.hibernate.annotations.OnDelete;[m
+ import org.hibernate.annotations.OnDeleteAction;[m
+ [m
+[36m@@ -30,15 +32,17 @@[m [mpublic class Comment {[m
+   private Timestamp time;[m
+ [m
+   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})[m
+[31m-  @ManyToOne(fetch = FetchType.LAZY, optional = false)[m
+[31m-  @JoinColumn(name = "manager_id", referencedColumnName = "id")[m
+[32m+[m[32m  @ManyToOne(fetch = FetchType.LAZY, optional = true)[m
+[32m+[m[32m  @JoinColumn(name = "manager_id", referencedColumnName = "id", nullable = true)[m
+   @OnDelete(action = OnDeleteAction.CASCADE)[m
+[32m+[m[32m  @NotFound(action = NotFoundAction.IGNORE)[m
+   private Manager manager;[m
+ [m
+   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})[m
+[31m-  @ManyToOne(fetch = FetchType.LAZY, optional = false)[m
+[31m-  @JoinColumn(name = "member_id", referencedColumnName = "id")[m
+[32m+[m[32m  @ManyToOne(fetch = FetchType.LAZY, optional = true)[m
+[32m+[m[32m  @JoinColumn(name = "member_id", referencedColumnName = "id", nullable = true)[m
+   @OnDelete(action = OnDeleteAction.CASCADE)[m
+[32m+[m[32m  @NotFound(action = NotFoundAction.IGNORE)[m
+   private Member member;[m
+ [m
+   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})[m
+[1mdiff --git a/projectManagement/src/main/java/com/management/cni/service/UserService.java b/projectManagement/src/main/java/com/management/cni/service/UserService.java[m
+[1mindex 9d97d82..adcccb6 100644[m
+[1m--- a/projectManagement/src/main/java/com/management/cni/service/UserService.java[m
+[1m+++ b/projectManagement/src/main/java/com/management/cni/service/UserService.java[m
+[36m@@ -1,14 +1,12 @@[m
+ package com.management.cni.service;[m
+ [m
+[31m-import com.management.cni.entity.Admin;[m
+ import com.management.cni.entity.User;[m
+ import com.management.cni.entity.UserRole;[m
+ import com.management.cni.repository.UserRepository;[m
+ import com.management.cni.exceptions.ApiResponse;[m
+[32m+[m[32mimport com.management.cni.security.dto.request.PasswordRequest;[m
+ import com.management.cni.security.dto.request.UserRequest;[m
+[31m-import com.management.cni.security.dto.response.AdminResponse;[m
+ import com.management.cni.security.dto.response.UserResponse;[m
+[31m-import com.management.cni.security.mapper.AdminMapper;[m
+ import com.management.cni.security.mapper.UserMapper;[m
+ import org.springframework.beans.factory.annotation.Autowired;[m
+ import org.springframework.http.HttpStatus;[m
+[36m@@ -91,6 +89,33 @@[m [mpublic class UserService {[m
+     }[m
+   }[m
+ [m
+[32m+[m
+[32m+[m[32m  public ApiResponse changePassword(PasswordRequest passwordRequest) {[m
+[32m+[m[32m    //if the email is already exists[m
+[32m+[m[32m    User user = getConnectedUser();[m
+[32m+[m[32m    if (user != null) {[m
+[32m+[m
+[32m+[m[32m      try {[m
+[32m+[m[32m        if (passwordEncoder.matches(passwordRequest.getOldPassword(),user.getPassword())) {[m
+[32m+[m[32m          if (passwordRequest.getNewPassword().equals(passwordRequest.getConfirmedNewPassword())){[m
+[32m+[m[32m            user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));[m
+[32m+[m[32m            userRepository.save(user);[m
+[32m+[m[32m            return new ApiResponse(null, "password is changed ", HttpStatus.OK, LocalDateTime.now());[m
+[32m+[m
+[32m+[m[32m          } else  {[m
+[32m+[m[32m            return new ApiResponse(null, "password doesn't matches ", HttpStatus.BAD_REQUEST, LocalDateTime.now());[m
+[32m+[m[32m          }[m
+[32m+[m[32m        } else {[m
+[32m+[m[32m          return new ApiResponse(null, "wrong password", HttpStatus.BAD_REQUEST, LocalDateTime.now());[m
+[32m+[m[32m        }[m
+[32m+[m[32m      } catch (Exception e) {[m
+[32m+[m[32m        return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());[m
+[32m+[m[32m      }[m
+[32m+[m[32m    } else {[m
+[32m+[m[32m      return new ApiResponse(null, "THIS USER IS NOT ADMIN : ", HttpStatus.UNAUTHORIZED, LocalDateTime.now());[m
+[32m+[m[32m    }[m
+[32m+[m[32m  }[m
+[32m+[m
+   @Transactional[m
+   public ApiResponse getAllUsers() {[m
+     User connectedAdmin = getConnectedAdmin();[m
+[1mdiff --git a/src/app/layouts/manager/manager.module.ts b/src/app/layouts/manager/manager.module.ts[m
+[1mindex a3545c3..201b262 100644[m
+[1m--- a/src/app/layouts/manager/manager.module.ts[m
+[1m+++ b/src/app/layouts/manager/manager.module.ts[m
+[36m@@ -50,9 +50,15 @@[m [mimport { MatTooltipModule } from '@angular/material/tooltip';[m
+ import { MatTreeModule } from '@angular/material/tree';[m
+ import { OverlayModule } from '@angular/cdk/overlay';[m
+ import { MatTableModule } from '@angular/material/table';[m
+[32m+[m[32mimport { ProjectDetailsComponent } from 'src/app/modules/Manager/projects/project-details/project-details.component';[m
+[32m+[m[32mimport { HomeManagerComponent } from 'src/app/modules/Manager/home/home-manager/home-manager.component';[m
+ [m
+ @NgModule({[m
+[31m-  declarations: [ManagerComponent],[m
+[32m+[m[32m  declarations: [[m
+[32m+[m[32m    ManagerComponent,[m
+[32m+[m[32m    ProjectDetailsComponent,[m
+[32m+[m[32m    HomeManagerComponent,[m
+[32m+[m[32m  ],[m
+   imports: [[m
+     CommonModule,[m
+     RouterModule,[m
+[1mdiff --git a/src/app/models/comment.ts b/src/app/models/comment.ts[m
+[1mindex 7fc9d5b..fe9d82d 100644[m
+[1m--- a/src/app/models/comment.ts[m
+[1m+++ b/src/app/models/comment.ts[m
+[36m@@ -1,12 +1,13 @@[m
+[31m-import { Manager } from "./manager";[m
+[31m-import { Member } from "./member";[m
+[31m-import { Project } from "./project";[m
+[32m+[m[32mimport { Manager } from './manager';[m
+[32m+[m[32mimport { Member } from './member';[m
+[32m+[m[32mimport { Project } from './project';[m
+ [m
+[31m-export class Comment{[m
+[31m-    id!: number;[m
+[31m-    message!: string;[m
+[31m-    time!: string;[m
+[31m-    manager!: Manager;[m
+[31m-    member!: Member;[m
+[31m-    project!: Project;[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32mexport class Comment {[m
+[32m+[m[32m  id!: number;[m
+[32m+[m[32m  message!: string;[m
+[32m+[m[32m  time!: string;[m
+[32m+[m[32m  manager!: Manager;[m
+[32m+[m[32m  member!: Member;[m
+[32m+[m[32m  project!: Project;[m
+[32m+[m[32m  idProject!: number;[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/app/models/invitation.ts b/src/app/models/invitation.ts[m
+[1mindex d333ae6..0399e9d 100644[m
+[1m--- a/src/app/models/invitation.ts[m
+[1m+++ b/src/app/models/invitation.ts[m
+[36m@@ -1,14 +1,18 @@[m
+ import { Status } from './status';[m
+[31m-import { Manager } from "./manager";[m
+[31m-import { Member } from "./member";[m
+[31m-import { Project } from "./project";[m
+[32m+[m[32mimport { Manager } from './manager';[m
+[32m+[m[32mimport { Member } from './member';[m
+[32m+[m[32mimport { Project } from './project';[m
+ [m
+[31m-export class Invitation{[m
+[31m-    id!: number;[m
+[31m-    date!:string;[m
+[31m-    status!: Status;[m
+[31m-    manager!: Manager;[m
+[31m-    member!: Member;[m
+[31m-    project!: Project;[m
+[31m-  [m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32mexport class Invitation {[m
+[32m+[m[32m  id!: number;[m
+[32m+[m[32m  date!: string;[m
+[32m+[m[32m  status!: Status;[m
+[32m+[m[32m  manager!: Manager;[m
+[32m+[m[32m  member!: Member;[m
+[32m+[m[32m  project!: Project;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport class SendedInvitation {[m
+[32m+[m[32m  projectId!: number;[m
+[32m+[m[32m  memberId!: number;[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/app/modules/Manager/attachment/create-attachment/create-attachment.component.html b/src/app/modules/Manager/attachment/create-attachment/create-attachment.component.html[m
+[1mindex e4d0db5..a0a247b 100644[m
+[1m--- a/src/app/modules/Manager/attachment/create-attachment/create-attachment.component.html[m
+[1m+++ b/src/app/modules/Manager/attachment/create-attachment/create-attachment.component.html[m
+[36m@@ -12,54 +12,10 @@[m
+   </div>[m
+ </div>[m
+ [m
+[31m-<div class="row container_project">[m
+[32m+[m[32m<div>[m
+   <form>[m
+[31m-    <div class="row">[m
+[31m-      <div class="col-8">[m
+[31m-        <div class="card mt-3" style="border-radius: 1rem">[m
+[31m-          <table class="table">[m
+[31m-            <thead>[m
+[31m-              <tr>[m
+[31m-                <th class="type"></th>[m
+[31m-                <th class="name truncate">Name</th>[m
+[31m-                <th class="size">Delete</th>[m
+[31m-              </tr>[m
+[31m-            </thead>[m
+[31m-            <tbody>[m
+[31m-              <!-- parcourir tableau attachements et les inserere dans "attachment"  -->[m
+[31m-              <tr *ngFor="let file of files">[m
+[31m-                <td class="type">[m
+[31m-                  <i class="fa fa-file-text-o text-primary"></i>[m
+[31m-                </td>[m
+[31m-                <td class="name truncate">[m
+[31m-                  <a href="#">{{ file.name }}</a>[m
+[31m-                </td>[m
+[31m-                <td class="delete">[m
+[31m-                  <img[m
+[31m-                    src="../../../assets/img/xmark-solid.svg"[m
+[31m-                    alt=""[m
+[31m-                    (click)="deleteFile(file)"[m
+[31m-                  />[m
+[31m-                </td>[m
+[31m-              </tr>[m
+[31m-            </tbody>[m
+[31m-          </table>[m
+[31m-        </div>[m
+[31m-      </div>[m
+[31m-      <div class="col-4" style="margin-top: 1rem">[m
+[31m-        <select[m
+[31m-          class="form-select"[m
+[31m-          aria-label="Default select example"[m
+[31m-          style="padding: 0.65rem; border: white"[m
+[31m-        >[m
+[31m-          <option selected>Open this to select the project</option>[m
+[31m-          <option>project name</option>[m
+[31m-        </select>[m
+[31m-      </div>[m
+[31m-    </div>[m
+     <div class="row">[m
+       <div class="col-4" style="margin-left: 61rem">[m
+[31m-        <!-- ************************* import document ********************-->[m
+         <div class="card" style="padding: 50px; border-radius: 1rem">[m
+           <div class="card-body">[m
+             <h1 style="margin: revert">Import a document</h1>[m
+[36m@@ -67,14 +23,14 @@[m
+               <label for="formFile" class="form-label text-muted"[m
+                 >share documets with your team</label[m
+               >[m
+[31m-              <!-- Define simple input tag of type file. Add a function to (change)-event for handling choosing files. -->[m
+[32m+[m
+               <input[m
+                 class="form-control"[m
+                 type="file"[m
+                 id="formFile"[m
+                 #fileUpload[m
+                 multiple[m
+[31m-                (change)="fileBrowseHandler($event)"[m
+[32m+[m[32m                (change)="selectFile($event)"[m
+               />[m
+             </div>[m
+           </div>[m
+[36m@@ -85,8 +41,8 @@[m
+       <button[m
+         type="submit"[m
+         class="btn btn-primary"[m
+[31m-        (click)="addAttachment()"[m
+[31m-        [disabled]="!form.valid"[m
+[32m+[m[32m        [disabled]="!selectedFiles"[m
+[32m+[m[32m        (click)="upload()"[m
+       >[m
+         add documents[m
+       </button>[m
+[1mdiff --git a/src/app/modules/Manager/attachment/create-attachment/create-attachment.component.ts b/src/app/modules/Manager/attachment/create-attachment/create-attachment.component.ts[m
+[1mindex 2dc80e4..50eb359 100644[m
+[1m--- a/src/app/modules/Manager/attachment/create-attachment/create-attachment.component.ts[m
+[1m+++ b/src/app/modules/Manager/attachment/create-attachment/create-attachment.component.ts[m
+[36m@@ -1,5 +1,5 @@[m
+ import { UserService } from '../../../../services/user.service';[m
+[31m-import { Component, OnInit } from '@angular/core';[m
+[32m+[m[32mimport { Component, ElementRef, OnInit, ViewChild } from '@angular/core';[m
+ import {[m
+   FormBuilder,[m
+   FormControl,[m
+[36m@@ -12,7 +12,8 @@[m [mimport { Attachment } from '../../../../models/attachement';[m
+ import { User } from '../../../../models/user';[m
+ import { ConvertDateService } from '../../../../services/convert-date.service';[m
+ import { AttachementService } from '../../../../services/attachment.service';[m
+[31m-[m
+[32m+[m[32mimport { Observable } from 'rxjs';[m
+[32m+[m[32mimport { HttpEventType, HttpResponse } from '@angular/common/http';[m
+ @Component({[m
+   selector: 'app-create-attachment',[m
+   templateUrl: './create-attachment.component.html',[m
+[36m@@ -27,6 +28,16 @@[m [mexport class ManagerCreateAttachmentComponent implements OnInit {[m
+   users: User[] = [];[m
+   newDate = new Date();[m
+   files: any[] = [];[m
+[32m+[m
+[32m+[m[32m  //////////////////////4[m
+[32m+[m
+[32m+[m[32m  selectedFiles?: FileList;[m
+[32m+[m[32m  currentFile?: File;[m
+[32m+[m[32m  progress = 0;[m
+[32m+[m[32m  message = '';[m
+[32m+[m[32m  fileInfos?: Observable<any>;[m
+[32m+[m
+[32m+[m[32m  ////////////////////////[m
+   constructor([m
+     private attachmentService: AttachementService,[m
+     private userService: UserService,[m
+[36m@@ -44,14 +55,27 @@[m [mexport class ManagerCreateAttachmentComponent implements OnInit {[m
+     });[m
+   }[m
+ [m
+[32m+[m[32m  selectFile(event: any): void {[m
+[32m+[m[32m    this.selectedFiles = event.target.files;[m
+[32m+[m[32m  }[m
+[32m+[m
+   addAttachment() {[m
+[31m-    /*  this.attachmentService[m
+[31m-      .a(this.attachment)[m
+[32m+[m[32m    this.files.forEach((file) => {[m
+[32m+[m[32m      const formData: FormData = new FormData();[m
+[32m+[m[32m      console.log(file);[m
+[32m+[m[32m      formData.append('file', file);[m
+[32m+[m[32m      // await this.attachmentService.uploadFile(file).toPromise();[m
+[32m+[m
+[32m+[m[32m      this.attachmentService.uploadFile(file).subscribe();[m
+[32m+[m
+[32m+[m[32m      /* this.attachmentService[m
+[32m+[m[32m      .addAttachment())[m
+       .subscribe((data: { id: any }) => {[m
+         this.form.reset();[m
+         // redirect the path from create-attachment to attachment-details[m
+         this.router.navigate(['/default/attachment-details', data.id]);[m
+       }); */[m
+[32m+[m[32m    });[m
+   }[m
+ [m
+   //find user by the keyword inserted[m
+[36m@@ -92,4 +116,36 @@[m [mexport class ManagerCreateAttachmentComponent implements OnInit {[m
+       }[m
+     }[m
+   }[m
+[32m+[m
+[32m+[m[32m  /////////////////////////////////////[m
+[32m+[m[32m  upload(): void {[m
+[32m+[m[32m    this.progress = 0;[m
+[32m+[m[32m    if (this.selectedFiles) {[m
+[32m+[m[32m      const file: File | null = this.selectedFiles.item(0);[m
+[32m+[m[32m      if (file) {[m
+[32m+[m[32m        this.currentFile = file;[m
+[32m+[m[32m        this.attachmentService.uploadFile(this.currentFile).subscribe([m
+[32m+[m[32m          (event: any) => {[m
+[32m+[m[32m            if (event.type === HttpEventType.UploadProgress) {[m
+[32m+[m[32m              this.progress = Math.round((100 * event.loaded) / event.total);[m
+[32m+[m[32m            } /* else if (event instanceof HttpResponse) {[m
+[32m+[m[32m              this.message = event.body.message;[m
+[32m+[m[32m              this.fileInfos = this.uploadService.getFiles();[m
+[32m+[m[32m            } */[m
+[32m+[m[32m          },[m
+[32m+[m[32m          (err: any) => {[m
+[32m+[m[32m            console.log(err);[m
+[32m+[m[32m            this.progress = 0;[m
+[32m+[m[32m            if (err.error && err.error.message) {[m
+[32m+[m[32m              this.message = err.error.message;[m
+[32m+[m[32m            } else {[m
+[32m+[m[32m              this.message = 'Could not upload the file!';[m
+[32m+[m[32m            }[m
+[32m+[m[32m            this.currentFile = undefined;[m
+[32m+[m[32m          }[m
+[32m+[m[32m        );[m
+[32m+[m[32m      }[m
+[32m+[m[32m      this.selectedFiles = undefined;[m
+[32m+[m[32m    }[m
+[32m+[m[32m  }[m
+ }[m
+[1mdiff --git a/src/app/modules/Manager/invitation/invitation-list/invitation-list.component.html b/src/app/modules/Manager/invitation/invitation-list/invitation-list.component.html[m
+[1mindex 4a37595..9ed50df 100644[m
+[1m--- a/src/app/modules/Manager/invitation/invitation-list/invitation-list.component.html[m
+[1m+++ b/src/app/modules/Manager/invitation/invitation-list/invitation-list.component.html[m
+[36m@@ -56,13 +56,13 @@[m
+               </div>[m
+               <!-- cliquer sur submit appliquer addUser() -->[m
+               <div class="mt-2">[m
+[31m-                <button[m
+[32m+[m[32m                <!--      <button[m
+                   type="submit"[m
+                   class="btn btn-primary me-2"[m
+                   (click)="sendInvitationByProject()"[m
+                 >[m
+                   Submit[m
+[31m-                </button>[m
+[32m+[m[32m                </button> -->[m
+               </div>[m
+             </form>[m
+           </div>[m
+[1mdiff --git a/src/app/modules/Manager/invitation/invitation-list/invitation-list.component.ts b/src/app/modules/Manager/invitation/invitation-list/invitation-list.component.ts[m
+[1mindex 4f2c640..688330a 100644[m
+[1m--- a/src/app/modules/Manager/invitation/invitation-list/invitation-list.component.ts[m
+[1m+++ b/src/app/modules/Manager/invitation/invitation-list/invitation-list.component.ts[m
+[36m@@ -73,7 +73,7 @@[m [mexport class ManagerInvitationListComponent implements OnInit {[m
+     );[m
+   }[m
+ [m
+[31m-  sendInvitationByProject() {[m
+[32m+[m[32m  /*  sendInvitationByProject() {[m
+     this.invitation.project = this.form.value.projectId;[m
+     this.invitation.member = this.form.value.memberId;[m
+     this.invitationService[m
+[36m@@ -81,5 +81,5 @@[m [mexport class ManagerInvitationListComponent implements OnInit {[m
+       .subscribe((data) => {[m
+         this.form.reset();[m
+       });[m
+[31m-  }[m
+[32m+[m[32m  } */[m
+ }[m
+[1mdiff --git a/src/app/modules/Manager/invitation/send-invitation/send-invitation.component.html b/src/app/modules/Manager/invitation/send-invitation/send-invitation.component.html[m
+[1mindex 0bad2fe..44171a4 100644[m
+[1m--- a/src/app/modules/Manager/invitation/send-invitation/send-invitation.component.html[m
+[1m+++ b/src/app/modules/Manager/invitation/send-invitation/send-invitation.component.html[m
+[36m@@ -18,7 +18,7 @@[m
+                   required[m
+                 >[m
+                   <!-- liste des roles par id -->[m
+[31m-                  <option *ngFor="let p of projects">[m
+[32m+[m[32m                  <option *ngFor="let p of projects" [ngValue]="p.id">[m
+                     {{ p.title }}[m
+                   </option>[m
+                 </select>[m
+[36m@@ -29,17 +29,28 @@[m
+                 <select[m
+                   id="members"[m
+                   class="form-select"[m
+[31m-                  formControlName="members"[m
+[32m+[m[32m                  formControlName="memberId"[m
+                   [(ngModel)]="members"[m
+[32m+[m[32m                  (change)="getMember($event)"[m
+                   required[m
+                 >[m
+[31m-                  <option *ngFor="let m of members">[m
+[31m-                    {{ m.user.id }}[m
+[32m+[m[32m                  <option *ngFor="let m of members" [ngValue]="m.id">[m
+[32m+[m[32m                    {{ m.user.lastName }}[m
+                   </option>[m
+                 </select>[m
+ [m
+                 <div>Please select member.</div>[m
+               </div>[m
+[32m+[m[32m              <!--       <p-dropdown[m
+[32m+[m[32m                name="country"[m
+[32m+[m[32m                [options]="countries"[m
+[32m+[m[32m                [(ngModel)]="applicant.country"[m
+[32m+[m[32m                placeholder="select country"[m
+[32m+[m[32m                (onChange)="getStatebyCountry(applicant.country, $event)"[m
+[32m+[m[32m                #country="ngModel"[m
+[32m+[m[32m                required[m
+[32m+[m[32m              >[m
+[32m+[m[32m              </p-dropdown> -->[m
+             </div>[m
+ [m
+             <!-- cliquer sur submit appliquer addUser() -->[m
+[1mdiff --git a/src/app/modules/Manager/invitation/send-invitation/send-invitation.component.ts b/src/app/modules/Manager/invitation/send-invitation/send-invitation.component.ts[m
+[1mindex b2952b7..6c60ddc 100644[m
+[1m--- a/src/app/modules/Manager/invitation/send-invitation/send-invitation.component.ts[m
+[1m+++ b/src/app/modules/Manager/invitation/send-invitation/send-invitation.component.ts[m
+[36m@@ -10,7 +10,7 @@[m [mimport {[m
+ import { first } from 'rxjs';[m
+ import { InvitationService } from '../../../../services/invitation.service';[m
+ import { Component, OnInit } from '@angular/core';[m
+[31m-import { Invitation } from '../../../../models/invitation';[m
+[32m+[m[32mimport { Invitation, SendedInvitation } from '../../../../models/invitation';[m
+ import { Status } from '../../../../models/status';[m
+ import { User } from '../../../../models/user';[m
+ import { ProjectService } from '../../../../services/project.service';[m
+[36m@@ -59,7 +59,7 @@[m [mexport class SendInvitationComponent implements OnInit {[m
+   status: Status[] = [];[m
+   project: Project = new Project();[m
+   form!: FormGroup;[m
+[31m-  invitation: Invitation = new Invitation();[m
+[32m+[m[32m  sendedInvitation: SendedInvitation = new SendedInvitation();[m
+   seleccionados!: any;[m
+   // selected: string = '';[m
+   constructor([m
+[36m@@ -111,7 +111,8 @@[m [mexport class SendInvitationComponent implements OnInit {[m
+ [m
+   getAllProjectsByManager(): void {[m
+     this.projectService.getAllProjectsByManager().subscribe([m
+[31m-      (data: any) => {        this.projects = data.data;[m
+[32m+[m[32m      (data: any) => {[m
+[32m+[m[32m        this.projects = data.data;[m
+       },[m
+       (error) => {[m
+         console.log(error);[m
+[36m@@ -131,18 +132,33 @@[m [mexport class SendInvitationComponent implements OnInit {[m
+   }[m
+ [m
+   sendInvitationByProject() {[m
+[31m-    console.log('this ' + this.seleccionados.user);[m
+[31m-    this.invitation.project = this.form.value.projectId;[m
+[31m-    this.invitation.member = this.form.value.memberId;[m
+[31m-    console.log(this.invitation.project);[m
+[31m-    console.log(this.invitation.project);[m
+[32m+[m[32m    // console.log('this ' + this.seleccionados.user);[m
+[32m+[m[32m    this.sendedInvitation.projectId = this.form.value.projectId;[m
+[32m+[m[32m    this.sendedInvitation.memberId = this.form.value.memberId;[m
+[32m+[m
+[32m+[m[32m    /*   console.log(this.invitation.project);[m
+[32m+[m[32m    console.log(this.invitation.member);[m
+[32m+[m[32m    console.log(this.form.value.projectId);[m
+[32m+[m[32m    console.log(this.form.value.memberId); */[m
+[32m+[m[32m    /*   this.members.filter((element) => {[m
+[32m+[m[32m      element.user.lastName;[m
+[32m+[m[32m    }); */[m
+[32m+[m
+[32m+[m[32m    console.log('  invitation ' + this.sendedInvitation);[m
+[32m+[m[32m    //   console.log(this.invitation.project);[m
+[32m+[m[32m    //  console.log(this.invitation.project);[m
+     this.invitationService[m
+[31m-      .sendInvitationByProject(this.invitation)[m
+[32m+[m[32m      .sendInvitationByProject(this.sendedInvitation)[m
+       .subscribe((data) => {[m
+         this.form.reset();[m
+         /// this.openSnackBar(data.message, data.type.toLowerCase(), data.type);[m
+       });[m
+   }[m
+[32m+[m
+[32m+[m[32m  getMember(event: any) {[m
+[32m+[m[32m    console.log(event);[m
+[32m+[m[32m    // this.invitation.member = eve[m
+[32m+[m[32m  }[m
+   removeInvitationByProject(idProject: number) {[m
+     console.log(idProject);[m
+     this.invitationService.removeInvitationByProject(idProject).subscribe([m
+[1mdiff --git a/src/app/modules/Manager/projects/project-details/project-details.component.html b/src/app/modules/Manager/projects/project-details/project-details.component.html[m
+[1mindex 74c9729..948b2f4 100644[m
+[1m--- a/src/app/modules/Manager/projects/project-details/project-details.component.html[m
+[1m+++ b/src/app/modules/Manager/projects/project-details/project-details.component.html[m
+[36m@@ -74,6 +74,9 @@[m
+               <td>[m
+                 <a href="{{ att.fileDownloadUri }}">Download</a>[m
+               </td>[m
+[32m+[m[32m              <td>[m
+[32m+[m[32m                <a href="{{ att.fileDownloadUri }}">Send To Bank</a>[m
+[32m+[m[32m              </td>[m
+             </tr>[m
+           </tbody>[m
+         </table>[m
+[36m@@ -207,13 +210,17 @@[m
+       <div class="card">[m
+         <div _ngcontent-vto-c70="" class="chat-container">[m
+           <ul _ngcontent-vto-c70="" class="chat-box chatContainerScroll">[m
+[31m-            <li _ngcontent-vto-c70="" class="chat-right">[m
+[32m+[m[32m            <li[m
+[32m+[m[32m              _ngcontent-vto-c70=""[m
+[32m+[m[32m              class="chat-right"[m
+[32m+[m[32m              *ngFor="let cm of comments; let i = index"[m
+[32m+[m[32m            >[m
+               <div _ngcontent-vto-c70="" class="chat-hour">[m
+[31m-                08:59[m
+[32m+[m[32m                {{ cm.time }}[m
+                 <span _ngcontent-vto-c70="" class="fa fa-check-circle"></span>[m
+               </div>[m
+               <div _ngcontent-vto-c70="" class="chat-text">[m
+[31m-                Have you faced any problems at the last phase of the project?[m
+[32m+[m[32m                {{ cm.message }}[m
+               </div>[m
+               <div _ngcontent-vto-c70="" class="chat-avatar">[m
+                 <img[m
+[36m@@ -221,35 +228,49 @@[m
+                   src="https://www.bootdey.com/img/Content/avatar/avatar4.png"[m
+                   alt="Retail Admin"[m
+                 />[m
+[31m-                <div _ngcontent-vto-c70="" class="chat-name">Jin</div>[m
+[32m+[m[32m                <div _ngcontent-vto-c70="" class="chat-name">[m
+[32m+[m[32m                  {{ cm.member.user.firstName }}[m
+[32m+[m[32m                </div>[m
+               </div>[m
+             </li>[m
+[31m-            <l

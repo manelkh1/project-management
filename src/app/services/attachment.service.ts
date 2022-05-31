@@ -53,16 +53,16 @@ export class AttachementService {
     );
   }
 
-  uploadFile(attachment: Attachment, projectId: number): Observable<any> {
+  uploadFile(attachment: File): Observable<any> {
     return this.httpClient.post(
-      AUTH_API + '/api/attachments/uploadFile/' + projectId,
+      AUTH_API + 'api/attachments/uploadFile/12',
       attachment
     );
   }
 
-  uploadMultipleFiles(attachment: Attachment): Observable<any> {
+  uploadMultipleFiles(attachment: File): Observable<any> {
     return this.httpClient.post(
-      AUTH_API + '/api/attachments/uploadMultipleFiles/',
+      AUTH_API + 'api/attachments/uploadMultipleFiles/',
       attachment
     );
   }
@@ -123,4 +123,5 @@ export class AttachementService {
       AUTH_API + 'api/attachments/attachments/' + attachmentId
     );
   }
+  
 }

@@ -50,9 +50,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatTableModule } from '@angular/material/table';
+import { ProjectDetailsComponent } from 'src/app/modules/Manager/projects/project-details/project-details.component';
+import { HomeManagerComponent } from 'src/app/modules/Manager/home/home-manager/home-manager.component';
 
 @NgModule({
-  declarations: [ManagerComponent],
+  declarations: [
+    ManagerComponent,
+    ProjectDetailsComponent,
+    HomeManagerComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
