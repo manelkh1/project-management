@@ -9,5 +9,6 @@ export class Comment {
   manager!: Manager;
   member!: Member;
   project!: Project;
+  sender!: String;
   idProject!: number;
 }

@@ -162,7 +162,10 @@ const routes: Routes = [
       { path: 'home', component: HomeMemberComponent /* canActivate: [AuthGuard] */ },
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
 
-
+      {
+        path: 'project-details/:id',
+        component: ProjectDetailsComponent /*canActivate: [AuthGuard]*/,
+      },
       {
         path: 'attachment-list',
         component:

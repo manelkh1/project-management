@@ -53,6 +53,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { HomeMemberComponent } from 'src/app/modules/Member/home/home-member/home-member.component';
 /* 
 import { MemberInvitationListComponent } from '../../modules/Member/invitation/invitation-list/invitation-list.component'; */
 
@@ -62,6 +63,7 @@ import { MemberInvitationListComponent } from '../../modules/Member/invitation/i
 
     /* Member Componenet */
     MemberInvitationListComponent,
+    HomeMemberComponent
     /*    MemberCreateAttachmentComponent, */
   ],
   imports: [

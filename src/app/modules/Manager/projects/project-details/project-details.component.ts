@@ -170,9 +170,13 @@ export class ProjectDetailsComponent implements OnInit {
     this.commentService
       .getAllCommentsByProject(this.id)
       .subscribe((response: any) => {
+        console.log("hellocomment" + response)
+        console.log("hellocomment" + response.data)
+        console.log("hellocomment")
         this.comments = response.data;
         console.log('commentsss ' + this.comments);
         this.form.controls['message'].setValue(this.comment.message);
+        this.form.controls['sender'].setValue(this.comment.sender);
         this.form.controls['manager'].setValue(this.comment.manager);
         this.form.controls['member'].setValue(this.comment.member);
       });

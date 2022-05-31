@@ -90,7 +90,7 @@
               <th scope="col">Manager</th>
               <th scope="col">Status</th>
               <th scope="col">Date</th>
-              <th scope="col">Actions</th>
+              <!-- <th scope="col">Actions</th> -->
             </tr>
           </thead>
           <tbody>
@@ -108,9 +108,9 @@
                 {{ inv.status }}
               </td>
               <td>
-                {{ inv.date }}
+                {{ inv.date | date: "longDate" }}
               </td>
-              <td>
+              <!-- <td>
                 <button
                   type="submit"
                   id="submitButton"
@@ -129,7 +129,7 @@
                 >
                   <span>Refuse</span>
                 </button>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>

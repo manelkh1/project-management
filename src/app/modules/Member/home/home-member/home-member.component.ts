@@ -46,6 +46,7 @@ export class HomeMemberComponent implements OnInit {
     });
     
     this.getAllProjectsByMember();
+    console.log(this.getAllProjectsByMember());
   }
 
   applyFilter(event: Event) {
@@ -53,19 +54,30 @@ export class HomeMemberComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getAllProjectsByManager() {
+ /*  getAllProjectsByManager() {
     this.projectService.getAllProjectsByManager().subscribe((data) => {
       //MatTableDataSource :  une source de données de table matTableDataSource intégrée.
       this.dataSource = new MatTableDataSource(data);
       //apply the pagination to all the dataSource
       this.dataSource.paginator = this.paginator;
     });
-  }
+  } */
 
-  getAllProjectsByMember() {
+ /*  getAllProjectsByMember() {
     this.projectService.getAllProjectsByMember().subscribe(
       (data: any) => {
-        console.log(data.data);
+        console.log("projects "+ data.data);
+        this.projects = data.data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  } */
+  getAllProjectsByMember() {
+    this.projectService.getAllProjectsByMember().subscribe(
+       (data: any) => {
+        console.log("projects "+ data.data);
         this.projects = data.data;
       },
       (error: any) => {
@@ -74,18 +86,18 @@ export class HomeMemberComponent implements OnInit {
     );
   }
 
-  getAllProjectsByBank() {
+/*   getAllProjectsByBank() {
     this.projectService.getAllProjectsByBank().subscribe((data: unknown[] | undefined) => {
       this.projects = new MatTableDataSource(data);
       this.projects.paginator = this.paginator;
     });
-  }
+  } */
 
-  getProjects() {
+/*   getProjects() {
 
-  }
+  } */
 
-  getAllManagers() {
+ /*  getAllManagers() {
     this.managerService
       .getAllManagers()
       .pipe(first())
@@ -93,14 +105,14 @@ export class HomeMemberComponent implements OnInit {
         this.managers = new Manager();
       });
   }
-
-  subStrDescription(description: String) {
+ */
+/*   subStrDescription(description: String) {
     if (description.length > 25) {
       return description.substring(0, 25) + '...';
     } else {
       return description.substring(0, 25);
     }
-  }
+  } */
 
   getAllUsers() {
     /*  this.loading = true;

@@ -24,6 +24,8 @@ import { Project } from 'src/app/models/project';
 })
 export class ManagerInvitationListComponent implements OnInit {
   invitations: any;
+  sendedInvitations: any;
+
   projects: any;
   members: any;
   status: Status[] = [];
@@ -72,6 +74,20 @@ export class ManagerInvitationListComponent implements OnInit {
       }
     );
   }
+
+  removeInvitationByProject(idProject: number) {
+       console.log(idProject);
+       this.invitationService.removeInvitationByProject(idProject).subscribe(
+          (data: any) => {
+            this.sendedInvitations = data.data;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+     
+    
 
   /*  sendInvitationByProject() {
     this.invitation.project = this.form.value.projectId;
