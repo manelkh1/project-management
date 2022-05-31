@@ -58,6 +58,19 @@ public class ProjectController {
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
+  @PostMapping("/{id}/acceptProject")
+  public ResponseEntity<ApiResponse> acceptProject(@PathVariable("id") long id) {
+    ApiResponse apiResponse = projectService.acceptProject(id);
+    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
+  }
+
+  @PostMapping("/{id}/sendProject")
+  public ResponseEntity<ApiResponse> sendProject(@PathVariable("id") long id) {
+    ApiResponse apiResponse = projectService.sendProject(id);
+    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
+  }
+
+
   //update project
   @PutMapping("/{id}")
   public ResponseEntity<ApiResponse> updateProject(@PathVariable("id") long id, @RequestBody ProjectRequest projectRequest) {

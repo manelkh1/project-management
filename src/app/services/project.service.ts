@@ -54,10 +54,7 @@ export class ProjectService {
   }
 
   updateProject(projectId: number, project: Project): Observable<any> {
-    return this.httpClient.put(
-      AUTH_API + '/api/projects/' + projectId,
-      project
-    );
+    return this.httpClient.put(AUTH_API + 'api/projects/' + projectId, project);
   }
 
   deleteProjectById(projectId: number): Observable<any> {
@@ -66,6 +63,19 @@ export class ProjectService {
     );
   }
 
+  acceptProject(projectId: number): Observable<any> {
+    return this.httpClient.post(
+      AUTH_API + 'api/projects/' + projectId + '/acceptProject',
+      null
+    );
+  }
+
+  sendProject(projectId: number): Observable<any> {
+    return this.httpClient.post(
+      AUTH_API + 'api/projects/' + projectId + '/sendProject',
+      null
+    );
+  }
   // getAllProjects(): Observable<Project[]> {
   //   return this.httpClient.get<Project[]>(
   //     AUTH_API + 'api/projects/allProjects'

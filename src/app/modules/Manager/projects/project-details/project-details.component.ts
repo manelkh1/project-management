@@ -27,6 +27,7 @@ import { Comment } from './../../../../models/comment';
 export class ProjectDetailsComponent implements OnInit {
   id!: number;
   project: Project = new Project();
+  newProject: Project = new Project();
   comment: Comment = new Comment();
   isEditingTitle = false;
   form!: FormGroup;
@@ -36,6 +37,7 @@ export class ProjectDetailsComponent implements OnInit {
   comments: any;
   files: any[] = [];
   commentForm!: FormGroup;
+  newForm!: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private _fb: FormBuilder,
@@ -55,6 +57,11 @@ export class ProjectDetailsComponent implements OnInit {
       description: new FormControl('', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
       endDate: new FormControl('', [Validators.required]),
+      newTitle: new FormControl('', [Validators.required]),
+    });
+
+    this.newForm = this._fb.group({
+      newTitle: new FormControl('', [Validators.required]),
     });
     this.commentForm = this._fb.group({
       message: new FormControl('', [Validators.required]),
@@ -115,16 +122,38 @@ export class ProjectDetailsComponent implements OnInit {
     this.form.controls['title'].setValue(this.project.title);
   }
 
-  updateProject() {
+  /*   updateProject() {
     this.setEditingTitle(false);
     console.log(this.project);
-  }
+  } */
 
   getMembersProject() {
     // this.projectService.getMembersProject(this.id).subscribe(data =>{
     //   this.invitations = data;
     //   console.log(this.invitations)
     // })
+  }
+
+  updateProject() {
+    this.newProject.title = this.newForm.value.newTitle;
+    console.log(this.newForm.value.newTitle);
+    this.projectService
+      .updateProject(this.id, this.project)
+      .subscribe((data: { id: any }) => {
+        this.form.reset();
+        // redirect the path from create-project to project-details
+        /*         this.router.navigate(['/manager/project-details/:id', data.id]); */
+      });
+  }
+
+  sendProject() {
+    this.newProject.title = this.newForm.value.newTitle;
+    console.log(this.newForm.value.newTitle);
+    this.projectService.sendProject(this.id).subscribe((data: { id: any }) => {
+      this.form.reset();
+      // redirect the path from create-project to project-details
+      /*         this.router.navigate(['/manager/project-details/:id', data.id]); */
+    });
   }
 
   /*   uploadFile() {
@@ -170,9 +199,9 @@ export class ProjectDetailsComponent implements OnInit {
     this.commentService
       .getAllCommentsByProject(this.id)
       .subscribe((response: any) => {
-        console.log("hellocomment" + response)
-        console.log("hellocomment" + response.data)
-        console.log("hellocomment")
+        console.log('hellocomment' + response);
+        console.log('hellocomment' + response.data);
+        console.log('hellocomment');
         this.comments = response.data;
         console.log('commentsss ' + this.comments);
         this.form.controls['message'].setValue(this.comment.message);

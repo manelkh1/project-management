@@ -133,7 +133,7 @@ public class ProjectService {
     List<ProjectResponse> projectResponses = new ArrayList<>();
     try {
       if (user != null) {
-        invitations = inviationRepository.findInvitationByManagerAndStatus(user.getManager(), Status.RECIEVED);
+        invitations = inviationRepository.findInvitationsByStatus(Status.RECIEVED);
         for (Invitation invitation : invitations) {
           projects.add(invitation.getProject());
         }
@@ -177,9 +177,52 @@ public class ProjectService {
       if (user != null) {
         Project project = ProjectMapper.INSTANCE.convertToProject(projectRequest);
         project.setManager(user.getManager());
+        project.setStatus(Status.PENDING);
         projectRepository.save(project);
         return new ApiResponse(null, "PROJECT CREATED", HttpStatus.OK, LocalDateTime.now());
-     } else {
+      } else {
+        return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
+      }
+    } catch (Exception e) {
+      return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
+    }
+  }
+
+  public ApiResponse acceptProject(Long id) {
+    User user = userService.getConnectedManager();
+    try {
+      if (user != null) {
+        Optional<Project> project = projectRepository.findById(id);
+        if (project.isPresent()) {
+          Project newProject = project.get();
+          newProject.setStatus(Status.ACCEPTED);
+          projectRepository.save(newProject);
+          return new ApiResponse(null, "PROJECT UPDATED", HttpStatus.OK, LocalDateTime.now());
+        } else {
+          return new ApiResponse(null, "PROJECT DOES NOT EXIST", HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        }
+      } else {
+        return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
+      }
+    } catch (Exception e) {
+      return new ApiResponse(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
+    }
+  }
+
+  public ApiResponse sendProject(Long id) {
+    User user = userService.getConnectedManager();
+    try {
+      if (user != null) {
+        Optional<Project> project = projectRepository.findById(id);
+        if (project.isPresent()) {
+          Project newProject = project.get();
+          newProject.setStatus(Status.RECIEVED);
+          projectRepository.save(newProject);
+          return new ApiResponse(null, "PROJECT UPDATED", HttpStatus.OK, LocalDateTime.now());
+        } else {
+          return new ApiResponse(null, "PROJECT DOES NOT EXIST", HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        }
+      } else {
         return new ApiResponse(null, "USER MUST BE ADMIN", HttpStatus.UNAUTHORIZED, LocalDateTime.now());
       }
     } catch (Exception e) {
@@ -188,7 +231,7 @@ public class ProjectService {
   }
 
   public ApiResponse deleteProjectById(Long id) {
-    User user = userService.getConnectedAdmin();
+    User user = userService.getConnectedManager();
     try {
       if (user != null) {
         Optional<Project> project = projectRepository.findById(id);
@@ -207,15 +250,18 @@ public class ProjectService {
   }
 
   public ApiResponse updateProject(Long id, ProjectRequest projectRequest) {
-    User user = userService.getConnectedAdmin();
+    User user = userService.getConnectedManager();
     try {
       if (user != null) {
         Optional<Project> project = projectRepository.findById(id);
         if (project.isPresent()) {
           Project newProject = project.get();
-          newProject.setTitle(projectRequest.getTitle());
-          newProject.setDescription(projectRequest.getDescription());
-          newProject.setStatus(projectRequest.getStatus());
+          if (projectRequest.getTitle() != null) {
+            newProject.setTitle(projectRequest.getTitle());
+          }
+          if (projectRequest.getDescription() != null) {
+            newProject.setDescription(projectRequest.getDescription());
+          }
           projectRepository.save(newProject);
           return new ApiResponse(null, "PROJECT UPDATED", HttpStatus.OK, LocalDateTime.now());
         } else {
