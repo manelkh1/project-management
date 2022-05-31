@@ -23,7 +23,6 @@ export class TokenStorageService {
   }
 
   public saveToken(jwt: string) {
-
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, jwt);
     window.sessionStorage.setItem(USER_KEY, jwt);

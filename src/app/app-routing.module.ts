@@ -30,10 +30,10 @@ import { ProjectDetailsComponent } from './modules/Manager/projects/project-deta
 import { UserProfilComponent } from './modules/user-profil/user-profil/user-profil.component';
 import { HomeMemberComponent } from './modules/Member/home/home-member/home-member.component';
 import { HomeManagerComponent } from './modules/Manager/home/home-manager/home-manager.component';
-
+import { BankHomeComponent } from './modules/bank/home/bank-home/bank-home.component';
 import { BankComponent } from './layouts/bank/bank.component';
-import { CommonModule } from '@angular/common';
-import { BankHomeComponent } from './modules/Bank/home/bank-home/bank-home.component';
+import { InvitationListComponent } from './modules/invitation-list/invitation-list.component';
+import { ProfilComponent } from './modules/Manager/profil/profil/profil.component';
 //
 const routes: Routes = [
   {
@@ -43,7 +43,9 @@ const routes: Routes = [
 
     children: [
       { path: 'home', component: HomeComponent /* canActivate: [AuthGuard] */ },
+
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
+
       {
         path: 'create-project',
         component: CreateProjectComponent /*canActivate: [AuthGuard]*/,
@@ -57,16 +59,22 @@ const routes: Routes = [
         path: 'user-details/:id',
         component: UserDetailsComponent /* canActivate: [AuthGuard] */,
       },
+
       {
         path: 'invitation-list',
         component:
           ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
       },
+
       {
         path: 'change-password',
         component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
       },
       { path: 'chat', component: ChatComponent /*canActivate: [AuthGuard]*/ },
+      {
+        path: 'user-profil/:id',
+        component: UserProfilComponent /*canActivate: [AuthGuard]*/,
+      },
     ],
   },
   {
@@ -88,6 +96,7 @@ const routes: Routes = [
         path: 'change-password',
         component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
       },
+
     ],
   },
   {
@@ -97,17 +106,10 @@ const routes: Routes = [
       role: 'MANAGER',
     },
     children: [
-      {
-        path: 'home',
-        component: HomeManagerComponent /* canActivate: [AuthGuard] */,
-      },
+      { path: 'home', component: HomeManagerComponent /* canActivate: [AuthGuard] */ },
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
 
       //
-      {
-        path: 'user-profil',
-        component: UserProfilComponent /*canActivate: [AuthGuard]*/,
-      },
 
       {
         path: 'create-project',
@@ -118,9 +120,8 @@ const routes: Routes = [
         component: ProjectDetailsComponent /*canActivate: [AuthGuard]*/,
       },
       {
-        path: 'project-list',
-        component:
-          ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
+        path: 'profil',
+        component: ProfilComponent /*canActivate: [AuthGuard]*/,
       },
 
       {
@@ -140,15 +141,13 @@ const routes: Routes = [
       {
         path: 'invitation-list',
         component:
-          ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
+         InvitationListComponent /* canActivate: [AuthGuard]  */,
       },
 
       {
         path: 'change-password',
         component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
-      },
-      { path: 'chat', component: ChatComponent /*canActivate: [AuthGuard]*/ },
-    ],
+      }    ],
   },
 
   {
@@ -160,17 +159,9 @@ const routes: Routes = [
     },
 
     children: [
-      {
-        path: 'home',
-        component: HomeMemberComponent /* canActivate: [AuthGuard] */,
-      },
+      { path: 'home', component: HomeMemberComponent /* canActivate: [AuthGuard] */ },
       { path: 'post', component: PostComponent /*canActivate: [AuthGuard]*/ },
 
-      {
-        path: 'project-list',
-        component:
-          ManagerInvitationListComponent /* canActivate: [AuthGuard]  */,
-      },
 
       {
         path: 'attachment-list',
@@ -187,7 +178,6 @@ const routes: Routes = [
         path: 'change-password',
         component: ChangePasswordComponent /*canActivate: [AuthGuard]*/,
       },
-      { path: 'chat', component: ChatComponent /*canActivate: [AuthGuard]*/ },
     ],
   },
   {
@@ -199,10 +189,7 @@ const routes: Routes = [
     },
 
     children: [
-      {
-        path: 'home',
-        component: BankHomeComponent /* canActivate: [AuthGuard] */,
-      },
+      { path: 'home', component: BankHomeComponent /* canActivate: [AuthGuard] */ },
 
       {
         path: 'change-password',
@@ -229,7 +216,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), CommonModule],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

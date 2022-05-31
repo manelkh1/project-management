@@ -25,7 +25,6 @@ import { Project } from 'src/app/models/project';
 export class MemberInvitationListComponent implements OnInit {
   selected: string = 'dumling';
   title: string = '';
-
   projects: any;
   members: any;
   managers: any;
@@ -44,31 +43,14 @@ export class MemberInvitationListComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _fb: FormBuilder
   ) {}
-
   ngOnInit(): void {
-    /// this.getInvitationsByUser();
     console.log('this ' + this.seleccionados);
-
     this.form = this._fb.group({
       projectId: new FormControl('', [Validators.required]),
       memberId: new FormControl('', [Validators.required]),
     });
-    // this.getAllProjectsByManager();
-    //this.getAllMembers();
-    /*  getAllMembers() { */
-    /*  this.memberService
-      .getAllMembers()
-      .pipe(first())
-      .subscribe((members) => {
-        //this.loading = false;
-        this.members = members;
-        console.log(this.members);
-      });
-    console.log(this.members); */
-    /* } */
     this.getAllMembers();
     this.getAllProjectsByManager();
-    // this.getAllInvitationByMember();
     this.getAllInvitationByMember();
     console.log(this.getAllInvitationByMember());
   }

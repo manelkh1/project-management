@@ -55,7 +55,7 @@ export class CreateProjectComponent implements OnInit {
     this.createProject.project = this.project;
     this.createProject.users = this.users;
 
-    this.projectService.addProject(this.createProject, this.files).subscribe((data: { id: any; }) => {
+    this.projectService.addProject(this.project ).subscribe((data: { id: any; }) => {
 
 
       this.form.reset();
@@ -81,8 +81,6 @@ export class CreateProjectComponent implements OnInit {
       this.searchUsers = [];
     }
   }
-
-
 //add the selected user to the users table
   addUser(user: User){
 
@@ -91,8 +89,6 @@ export class CreateProjectComponent implements OnInit {
       this.users.push(user);
     }
   }
-
-
 //************************************** add multiple files ***************/
   fileBrowseHandler(event:any) {
 

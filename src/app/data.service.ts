@@ -11,12 +11,12 @@ export class DataService {
     {id: 4, name: "Contact 004", description: "Contact 004 des", email: "c004@email.com"}
   ];
   constructor() { }
-//returns the contacts 
-  public getContacts():Array<{id, name, description, email}>{
+//returns the contacts
+  public getContacts():Array<{id: any, name: any, description: any, email: any}>{
     return this.contacts;
   }
   //append a new contact to the contacts array.
-  public createContact(contact: {id, name, description, email}){
+  public createContact(contact: {id: any, name: any, description: any, email: any}){
     this.contacts.push(contact);
   }
 }

@@ -46,19 +46,19 @@ public class Attachment {
 
   @Enumerated(EnumType.STRING)
   private Status status;
-
+  ///PROJECT
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "project_id", referencedColumnName = "id")
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonIgnore
   private Project project;
-
+  ///MEMBER
   @JsonIgnore
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "member_id", referencedColumnName = "id")
   private Member member;
-
+  ///MANAGER
   @JsonIgnore
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "manager_id", referencedColumnName = "id")

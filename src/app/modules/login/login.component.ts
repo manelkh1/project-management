@@ -48,18 +48,15 @@ export class LoginComponent implements OnInit {
   }
 //
   login() {
-
     this.authService.login(this.form.value).subscribe(
       (data: any) => {
-
         this.loginResponse = data.data
-
         this.tokenStorage.saveToken(data.data.token);
         this.tokenStorage.saveUser(data.data.user);
         this.isLoggedFailed = false;
         this.isLoggedIn = true;
         //navigation to the next component Home
-        this.router.navigate(['default/home']);
+        this.router.navigate(['manager/home']);
       },
       // if there is an error in the login
       (err) => {

@@ -6,11 +6,11 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-user-profil',
-  templateUrl: './user-profil.component.html',
-  styleUrls: ['./user-profil.component.scss']
+  selector: 'app-profil',
+  templateUrl: './profil.component.html',
+  styleUrls: ['./profil.component.scss']
 })
-export class UserProfilComponent implements OnInit {
+export class ProfilComponent implements OnInit {
 
   id!: number;
   user: User = new User();
@@ -122,5 +122,4 @@ export class UserProfilComponent implements OnInit {
     // this.setEditingLastName(false);
     console.log(this.user)
   }
-  }
-
+}

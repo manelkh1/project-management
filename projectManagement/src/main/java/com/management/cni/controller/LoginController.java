@@ -85,7 +85,6 @@ public class LoginController {
     final String token = jwtTokenUtil.generateToken(user);
     UserResponse response = UserMapper.INSTANCE.convertToUserResponse(user);
     LoginResponse loginResponse = new LoginResponse(token, response);
-
    // log.info(" {} has successfully logged in!", user.getUsername());
     ApiResponse apiResponse =new ApiResponse(loginResponse, "USER LOGED IN ", HttpStatus.OK, LocalDateTime.now());
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());

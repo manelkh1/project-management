@@ -17,7 +17,6 @@ public class InvitationController {
 
 
   // get all the invitations of a member
-
   @GetMapping("/invitationByManager")
   public ResponseEntity<ApiResponse> getAllInvitationByManager() {
     ApiResponse apiResponse = invitationService.getAllInvitationByManager();
@@ -35,7 +34,18 @@ public class InvitationController {
     ApiResponse apiResponse = invitationService.getAllInvitationByProject(idProject);
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
+  //////////***** @PathVariable idproject
+  @PostMapping("/sendInvitation")
+  public ResponseEntity<ApiResponse> sendInvitationByProject(@RequestBody InvitationRequest invitationRequest) {
+    ApiResponse apiResponse = invitationService.sendInvitationByProject(invitationRequest);
+    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
+  }
 
+  @DeleteMapping("/removeInvitation/{idProject}")
+  public ResponseEntity<ApiResponse> removeInvitationByProject(@PathVariable long idProject) {
+    ApiResponse apiResponse = invitationService.removeInvitationByProject(idProject);
+    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
+  }
 
   @PutMapping("/acceptInvitation/{idProject}")
   public ResponseEntity<ApiResponse> acceptInvitationByProject(@PathVariable long idProject) {
@@ -49,18 +59,7 @@ public class InvitationController {
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
-  //////////***** @PathVariable idproject
-  @PostMapping("/sendInvitation")
-  public ResponseEntity<ApiResponse> sendInvitationByProject(@RequestBody InvitationRequest invitationRequest) {
-    ApiResponse apiResponse = invitationService.sendInvitationByProject(invitationRequest);
-    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
-  }
 
-  @DeleteMapping("/removeInvitation/{idProject}")
-  public ResponseEntity<ApiResponse> removeInvitationByProject(@PathVariable long idProject) {
-    ApiResponse apiResponse = invitationService.removeInvitationByProject(idProject);
-    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
-  }
 
 }
 

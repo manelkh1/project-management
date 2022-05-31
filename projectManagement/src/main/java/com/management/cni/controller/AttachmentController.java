@@ -230,7 +230,8 @@ public class AttachmentController {
       if (project == null ) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
       }
-      String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("//api/attachments/downloadFile/").path(fileName).toUriString();
+      String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/" +
+        "*api/attachments/downloadFile/").path(fileName).toUriString();
       Attachment attachment = new Attachment();
       attachment.setName(fileName);
       attachment.setFileDownloadUri(fileDownloadUri);

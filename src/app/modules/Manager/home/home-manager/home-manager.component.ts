@@ -46,6 +46,7 @@ export class HomeManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this.objectUser = this.tokenStorage.getUser();
+    ///permet de recuperer les infos de ce route
     this.id = this.route.snapshot.params['id'];
 
     this.form = this._fb.group({
@@ -75,7 +76,7 @@ export class HomeManagerComponent implements OnInit {
     );
   }
 
-  getAllProjectsByMember() {
+ /* getAllProjectsByMember() {
     this.projectService.getAllProjectsByMember().subscribe(
       (data: any) => {
         console.log(data.data);
@@ -94,7 +95,7 @@ export class HomeManagerComponent implements OnInit {
         this.projects = new MatTableDataSource(data);
         this.projects.paginator = this.paginator;
       });
-  }
+  }*/
 
   getProjects() {}
 
@@ -115,23 +116,6 @@ export class HomeManagerComponent implements OnInit {
     }
   }
 
-  getAllUsers() {
-    /*  this.loading = true;
-    this.userService
-      .getAllUsers()
-      .pipe(first())
-      .subscribe((users) => {
-        this.loading = false;
-        this.users = users;
-      });
-    console.log(this.users); */
-  }
-  // getUsers(){j
-  //   this.userService.getUserById(this.id).subscribe((data) =>{
-  //     this.users = data;
-  //     console.log(this.users);
-  //   });
-  // }
 
   getRoute(route: string, id: number) {
     this.router.navigate([route, id]);

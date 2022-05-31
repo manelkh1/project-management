@@ -12,8 +12,10 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+//generer un costructeur avec et sans argument
 @NoArgsConstructor
 @AllArgsConstructor
+//let lombok generate the default getter/setter automatically.
 @Getter
 @Setter
 @Table(name = "USER")

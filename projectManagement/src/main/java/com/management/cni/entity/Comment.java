@@ -30,21 +30,21 @@ public class Comment {
 
   @Column(name = "time")
   private Timestamp time;
-
+  ///MANAGER
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   @JoinColumn(name = "manager_id", referencedColumnName = "id", nullable = true)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @NotFound(action = NotFoundAction.IGNORE)
   private Manager manager;
-
+  ///MEMBER
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   @JoinColumn(name = "member_id", referencedColumnName = "id", nullable = true)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @NotFound(action = NotFoundAction.IGNORE)
   private Member member;
-
+  ///PROJECT
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "id_project", referencedColumnName = "id")

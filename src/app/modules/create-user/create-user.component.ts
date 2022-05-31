@@ -50,14 +50,14 @@ export class CreateUserComponent implements OnInit {
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       post: new FormControl('', [Validators.required]),
-      email: new FormControl('', [
+      email: new FormControl('',
+      [
         Validators.required,
-        Validators.pattern(
-          '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'
-        ),
+        Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'),
         Validators.minLength(6),
       ]),
-      password: new FormControl('', [
+      password: new FormControl('',
+      [
         Validators.required,
         Validators.minLength(6),
         // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'),
@@ -79,19 +79,7 @@ export class CreateUserComponent implements OnInit {
     this.user.codePostal = this.form.value.codePostal;
     this.user.post = this.form.value.post;
     this.user.userRole = this.form.value.userRole;
-    /* this.userService.addUser(this.user).subscribe(data =>{
-       console.log(data);
-       this.form.reset();
-       this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
-     }); */
 
-    /*      if (this.form.value.userRole == UserRole.ADMIN) {
-      this.adminService.cra(this.manager).subscribe(data =>{
-        console.log(data);
-        this.form.reset();
-        this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
-      });
-     } */
     console.log(this.form.value.userRole == UserRole[0]);
     if (this.form.value.userRole == UserRole[0]) {
       console.log((this.admin.user = this.user));
@@ -140,7 +128,7 @@ export class CreateUserComponent implements OnInit {
     });
   }
 }
-
+///to iterate over  Enum
 @Pipe({ name: 'enumToArray' })
 export class EnumToArrayPipe implements PipeTransform {
   transform(data: Object) {

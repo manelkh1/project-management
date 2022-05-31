@@ -23,7 +23,7 @@
           </div>
           <!-- *************************************** GET ALL PROJECTS FOR ADMIN ************************************
           *ngIf="role.name =='Admin'" -->
-          <!--  
+          <!--
             <mat-form-field appearance="standard">
               <mat-label>Filter</mat-label>
               <input
@@ -136,24 +136,24 @@
                 <td mat-cell *matCellDef="let element">{{ element.startDate | date: "longDate" }}</td>
               </ng-container>
 
-              endDate Column 
+              endDate Column
               <ng-container matColumnDef="endDate">
                 <th mat-header-cell *matHeaderCellDef>End Date</th>
                 <td mat-cell *matCellDef="let element">{{ element.endDate | date: "longDate" }}</td>
               </ng-container>
 
-               creationDate Column 
+               creationDate Column
                <ng-container matColumnDef="creationDate">
                 <th mat-header-cell *matHeaderCellDef>Creation Date</th>
                 <td mat-cell *matCellDef="let element">{{ element.creationDate | date: "longDate" }}</td>
               </ng-container>
 
-               status Column 
+               status Column
                <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef>status</th>
                 <td mat-cell *matCellDef="let element">{{ element.status.description }}</td>
               </ng-container>
-            
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
@@ -209,7 +209,6 @@
     <div class="col-md-12" style="margin-top: 2rem">
       <div class="card mb-4">
         <h2 class="card-header">Projects List</h2>
-        <!-- Account -->
         <div class="card-body"></div>
         <hr class="my-0" />
         <div class="card-body"></div>
@@ -233,10 +232,10 @@
                 {{ pro.description }}
               </td>
               <td>
-                {{ pro.startDate }}
+                {{ pro.startDate | date:'dd/MM/yy' }}
               </td>
               <td>
-                {{ pro.endDate }}
+                {{ pro.endDate | date: 'dd/MM/yy' }}
               </td>
               <td>
                 {{ pro.status }}
@@ -282,7 +281,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let man of managers">
+            <tr  *ngFor="let man of managers">
               <td>
                 {{ man.id }}
               </td>

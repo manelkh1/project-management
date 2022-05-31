@@ -19,6 +19,7 @@ public class MyUserDetailsService implements UserDetailsService{
 
     @Override
     @Transactional
+    // loadUserByUsername recupere les donnees de l'utilisateur de la base de donnes a l'aide du username
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
     	User user = userRepository.findByEmail(username);

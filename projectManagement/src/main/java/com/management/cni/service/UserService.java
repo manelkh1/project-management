@@ -41,7 +41,6 @@ public class UserService {
     return userRepository.findUserByEmail(email);
   }
 
-
   public User findByUsername(String username) {
 
     return userRepository.findByUsername(username);
@@ -53,16 +52,71 @@ public class UserService {
 
     return UserMapper.INSTANCE.convertToUserResponse(user);
   }
+
   @Transactional
   public User saveUser(User user) {
     return userRepository.save(user);
   }
 
+
+  public User getConnectedAdmin() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    User user = userRepository.findUserByEmail(((UserDetails) principal).getUsername());
+    if (user != null) {
+      /// tester si le role de user est ADMIN
+      if (user.getAdmin() != null && user.getUserRole().equals(UserRole.ADMIN)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
+  public User getConnectedManager() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    User user = userRepository.findUserByEmail(((UserDetails) principal).getUsername());
+    if (user != null) {
+      if (user.getManager() != null && user.getUserRole().equals(UserRole.MANAGER)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
+  public User getConnectedMember() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    User user = userRepository.findUserByEmail(((UserDetails) principal).getUsername());
+    if (user != null) {
+      if (user.getMember() != null && user.getUserRole().equals(UserRole.MEMBER)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
+  public User getConnectedBank() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    User user = userRepository.findUserByEmail(((UserDetails) principal).getUsername());
+    if (user != null) {
+      if (user.getBank() != null && user.getUserRole().equals(UserRole.BANK)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
+  public User getConnectedUser() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    User user = userRepository.findUserByEmail(((UserDetails) principal).getUsername());
+    return user;
+  }
+
+
   // Add User
   @Transactional
   public ApiResponse addUser(UserRequest userRequest) {
-    //if the email is already exists
+    //if the email already exists
     User connectedAdmin = getConnectedAdmin();
+    /// si elle retourne ADMIN et not null
     if (connectedAdmin != null) {
 
       try {
@@ -71,7 +125,7 @@ public class UserService {
           return new ApiResponse(null, "Email already exists", HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
 
-        ///convert userRequest to USER PERSISTENCE SO YOU CAN STORE IT IN DATABASE
+        ///convert userRequest to USER PERSISTENCE entity SO YOU CAN STORE IT IN DATABASE
         User user = UserMapper.INSTANCE.convertToUser(userRequest);
         String password = passwordEncoder.encode(userRequest.getPassword());
         user.setPassword(password);
@@ -161,55 +215,7 @@ public class UserService {
     return userRepository.findById(userId);
   }
 
-  public User getConnectedAdmin() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    User user = userRepository.findUserByEmail(((UserDetails) principal).getUsername());
-    if (user != null) {
-      if (user.getAdmin() != null && user.getUserRole().equals(UserRole.ADMIN)) {
-        return user;
-      }
-    }
-    return null;
-  }
 
-  public User getConnectedManager() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    User user = userRepository.findUserByEmail(((UserDetails) principal).getUsername());
-    if (user != null) {
-      if (user.getManager() != null && user.getUserRole().equals(UserRole.MANAGER)) {
-        return user;
-      }
-    }
-    return null;
-  }
-
-  public User getConnectedMember() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    User user = userRepository.findUserByEmail(((UserDetails) principal).getUsername());
-    if (user != null) {
-      if (user.getMember() != null && user.getUserRole().equals(UserRole.MEMBER)) {
-        return user;
-      }
-    }
-    return null;
-  }
-
-  public User getConnectedBank() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    User user = userRepository.findUserByEmail(((UserDetails) principal).getUsername());
-    if (user != null) {
-      if (user.getBank() != null && user.getUserRole().equals(UserRole.BANK)) {
-        return user;
-      }
-    }
-    return null;
-  }
-
-  public User getConnectedUser() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    User user = userRepository.findUserByEmail(((UserDetails) principal).getUsername());
-    return user;
-  }
 
 }
 

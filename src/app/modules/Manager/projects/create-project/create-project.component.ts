@@ -58,24 +58,10 @@ export class CreateProjectComponent implements OnInit {
       .subscribe((data: { id: any }) => {
         this.form.reset();
         // redirect the path from create-project to project-details
-        this.router.navigate(['/default/project-details', data.id]);
+        this.router.navigate(['/manager/project-details/:id', data.id]);
       });
   }
 
-  //find user by the keyword inserted
-  findMember(keyword: any) {
-    //if there is a written value
-    if (keyword.target.value.length > 1) {
-      /*  this.userService.getMembers(keyword.target.value.toLowerCase()).subscribe((data: User[]) =>{
-
-        this.searchUsers = data;
-
-        console.log(this.searchUsers)
-      }); */
-    } else {
-      this.searchUsers = [];
-    }
-  }
 
   //add the selected user to the users table
   addUser(user: User) {

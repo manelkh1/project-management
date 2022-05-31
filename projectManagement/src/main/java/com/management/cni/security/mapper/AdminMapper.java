@@ -10,9 +10,9 @@ import org.mapstruct.factory.Mappers;
 public interface AdminMapper {
 
   AdminMapper INSTANCE = Mappers.getMapper(AdminMapper.class);
-
+  /// convertit response dto en une entité
   AdminResponse convertToAdminResponse(Admin admin);
-
+  /// convertir admin entity en un dto request
   Admin convertToAdmin(AdminRequest adminRequest);
 
 }

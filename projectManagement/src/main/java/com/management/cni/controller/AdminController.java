@@ -27,14 +27,6 @@ public class AdminController {
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
-/*
-  @GetMapping("/admins")
-  public ResponseEntity<ApiResponse> getAllAdmins() {
-    ApiResponse apiResponse = adminService.getAllAdmins();
-    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
-  }
-*/
-
   @PostMapping("")
   public ResponseEntity<ApiResponse> createAdmin(@RequestBody AdminRequest adminRequest) {
     ApiResponse apiResponse = adminService.createAdmin(adminRequest);
@@ -53,4 +45,11 @@ public class AdminController {
     return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
   }
 
+/*
+  @GetMapping("/admins")
+  public ResponseEntity<ApiResponse> getAllAdmins() {
+    ApiResponse apiResponse = adminService.getAllAdmins();
+    return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
+  }
+*/
 }

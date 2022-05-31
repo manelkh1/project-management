@@ -17,6 +17,7 @@ import { ProjectService } from '../../../../services/project.service';
 import { UserService } from '../../../../services/user.service';
 import { Project } from 'src/app/models/project';
 import { Manager } from 'src/app/models/manager';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-send-invitation',
@@ -63,6 +64,8 @@ export class SendInvitationComponent implements OnInit {
   seleccionados!: any;
   // selected: string = '';
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private projectService: ProjectService,
     private userService: UserService,
     private invitationService: InvitationService,
@@ -78,22 +81,9 @@ export class SendInvitationComponent implements OnInit {
       projectId: new FormControl('', [Validators.required]),
       memberId: new FormControl('', [Validators.required]),
     });
-    // this.getAllProjectsByManager();
-    //this.getAllMembers();
-    /*  getAllMembers() { */
-    /*  this.memberService
-      .getAllMembers()
-      .pipe(first())
-      .subscribe((members) => {
-        //this.loading = false;
-        this.members = members;
-        console.log(this.members);
-      });
-    console.log(this.members); */
-    /* } */
+
     this.getAllMembers();
     this.getAllProjectsByManager();
-    // this.getAllInvitationByMember();
     this.getAllInvitationByManager();
     console.log(this.getAllInvitationByManager());
   }
@@ -151,7 +141,6 @@ export class SendInvitationComponent implements OnInit {
       .sendInvitationByProject(this.sendedInvitation)
       .subscribe((data) => {
         this.form.reset();
-        /// this.openSnackBar(data.message, data.type.toLowerCase(), data.type);
       });
   }
 
@@ -159,6 +148,7 @@ export class SendInvitationComponent implements OnInit {
     console.log(event);
     // this.invitation.member = eve
   }
+
   removeInvitationByProject(idProject: number) {
     console.log(idProject);
     this.invitationService.removeInvitationByProject(idProject).subscribe(
@@ -169,5 +159,8 @@ export class SendInvitationComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  getRoute(route: string, id: number) {
+    this.router.navigate([route, id]);
   }
 }

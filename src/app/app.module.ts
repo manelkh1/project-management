@@ -21,10 +21,13 @@ import { BankModule } from './layouts/bank/bank.module';
 import { ManagerModule } from './layouts/manager/manager.module';
 import { AdminModule } from './layouts/admin/admin.module';
 import { CommonModule } from '@angular/common';
+import { ProfilComponent } from './modules/Manager/profil/profil/profil.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ProfilComponent],
   imports: [
+    ReactiveFormsModule,
+
     RouterModule,
     BrowserModule,
     AppRoutingModule,
@@ -40,7 +43,6 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
     MatDatepickerModule,
     FormsModule,
-    ReactiveFormsModule,
     MatSnackBarModule,
     CommonModule,
   ],

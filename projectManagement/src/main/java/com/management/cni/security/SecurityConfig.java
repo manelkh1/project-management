@@ -22,20 +22,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
 	@Autowired
 	private UserDetailsService myUserDetailsService;
   @Autowired
   private JwtRequestFilter jwtRequestFilter;
   @Autowired
   private UserService userService;
-
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     // TODO configure authentication manager
     auth.userDetailsService(myUserDetailsService);
   }
 
+
+  /// password encoder du classe BcryptPasswordEncoder
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder);
@@ -64,18 +64,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         // TODO configure web security (public/private URL ..)
 		http.cors().and().csrf().disable()
 		// The pages does not require login
+      // toutes les autres requêtes doivent être authentifiées
 		.authorizeRequests().antMatchers("/login","/**", "/activation"). permitAll()
-		// Set permissions on our private endpoints
-
 		.anyRequest().authenticated().and()
 		.exceptionHandling().and().sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		// Add JWT token filter
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS); ////Spring Security will never create an HttpSession
+    // Add JWT token filter
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 		//  We’re doing this because we need access to the user identity
 		//at this point to perform authentication/authorization
 		//and its extraction happens inside jwtRequestFilter based on the provided JWT token.
 	}
-
-
 }

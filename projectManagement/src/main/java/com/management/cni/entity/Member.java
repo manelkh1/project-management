@@ -30,6 +30,7 @@ public class Member {
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "project_id", referencedColumnName = "id")
+  //deleting the door will also delete the house.
   @OnDelete(action = OnDeleteAction.CASCADE)
   private Project project;
 

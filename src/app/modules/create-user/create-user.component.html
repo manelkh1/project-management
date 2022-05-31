@@ -24,25 +24,24 @@
                       width="100"
                       id="uploadedAvatar"
                     />
-
                   </div>
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
-                  <form  [formGroup]="form">
+                  <form [formGroup]="form">
                     <div class="row">
-
                       <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label"
                           >First Name</label
                         >
                         <input
                           class="form-control"
+                          formControlName="firstName"
                           type="text"
                           id="firstName"
                           name="firstName"
-                          formControlName="firstName"
-                          required                        />
+                          required
+                        />
                         <div
                           *ngIf="
                             form.controls['firstName'].hasError('required') &&
@@ -64,7 +63,8 @@
                           name="lastName"
                           id="lastName"
                           formControlName="lastName"
-                          required/>
+                          required
+                        />
                         <div
                           *ngIf="
                             form.controls['lastName'].hasError('required') &&
@@ -84,7 +84,8 @@
                           id="email"
                           name="email"
                           formControlName="email"
-                          required                        />
+                          required
+                        />
                         <div
                           *ngIf="form.controls['email'].touched"
                           id="inputEmail4"
@@ -148,16 +149,16 @@
                           formControlName="userRole"
                           required
                         >
-                        <!-- liste des roles par id -->
+                          <!-- liste des roles par id -->
+                          <!-- enumToArray est PIPE -->
                           <option *ngFor="let item of roleEnum | enumToArray">
                             {{ item }}
                           </option>
                         </select>
                         <div
                           *ngIf="
-                            form.controls['userRole'].hasError(
-                              'required'
-                            ) && form.controls['userRole'].touched
+                            form.controls['userRole'].hasError('required') &&
+                            form.controls['userRole'].touched
                           "
                           id="userRole"
                           class="requiredField"
@@ -208,11 +209,7 @@
                       </div>
 
                       <div class="mb-3 col-md-4">
-                        <label
-                          class="form-label"
-                          for="country"
-                          >Country</label
-                        >
+                        <label class="form-label" for="country">Country</label>
                         <input
                           class="form-control"
                           type="text"
@@ -254,7 +251,12 @@
                     </div>
                     <!-- cliquer sur submit appliquer addUser() -->
                     <div class="mt-2">
-                   <button type="submit" class="btn btn-primary me-2" (click)="addUser()" [disabled]="!form.valid">
+                      <button
+                        type="submit"
+                        class="btn btn-primary me-2"
+                        (click)="addUser()"
+                        [disabled]="!form.valid"
+                      >
                         Submit
                       </button>
                     </div>
@@ -264,7 +266,6 @@
             </div>
           </div>
         </div>
-
         <div class="content-backdrop fade"></div>
       </div>
     </div>

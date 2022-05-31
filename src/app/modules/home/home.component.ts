@@ -66,7 +66,6 @@ export class HomeComponent implements OnInit {
   showAdmin!: boolean;
   loading = false;
   // user: User | undefined;
-
   constructor(
     private tokenStorage: TokenStorageService,
     private route: ActivatedRoute,
@@ -89,7 +88,6 @@ export class HomeComponent implements OnInit {
     // Le routeur angulaire vous permet de récupérer facilement les paramètres de l'URL,
     //une fonctionnalité essentielle requise par la plupart des applications Web.
     this.id = this.route.snapshot.params['id'];
-
     this.form = this._fb.group({
       title: new FormControl('', [Validators.required]),
     });
@@ -108,13 +106,16 @@ export class HomeComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getAllProjectsByManager() {
-    this.projectService.getAllProjectsByManager().subscribe((data) => {
-      //MatTableDataSource :  une source de données de table matTableDataSource intégrée.
-      this.dataSource = new MatTableDataSource(data);
-      //apply the pagination to all the dataSource
-      this.dataSource.paginator = this.paginator;
-    });
+  getAllUsers() {
+    this.userService.getAllUsers().subscribe(
+      (data: any) => {
+        console.log(data.data);
+        this.users = data.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getAllProjectsByAdmin() {
@@ -128,6 +129,27 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
+
+  getAllProjectsByManager() {
+    this.projectService.getAllProjectsByManager().subscribe((data) => {
+      //MatTableDataSource :  une source de données de table matTableDataSource intégrée.
+      this.dataSource = new MatTableDataSource(data);
+      //apply the pagination to all the dataSource
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  getAllManagers() {
+    this.managerService
+      .getAllManagersAndAdmin()
+      .pipe(first())
+      .subscribe((data: any) => {
+        this.managers = data.data;
+      });
+  }
+
+
 
   /*   getAllProjectsByBank() {
     this.projectService.getAllProjectsByBank().subscribe((data) => {
@@ -144,14 +166,7 @@ export class HomeComponent implements OnInit {
     }); */
   }
 
-  getAllManagers() {
-    this.managerService
-      .getAllManagersAndAdmin()
-      .pipe(first())
-      .subscribe((data: any) => {
-        this.managers = data.data;
-      });
-  }
+
 
   subStrDescription(description: String) {
     if (description.length > 25) {
@@ -160,24 +175,6 @@ export class HomeComponent implements OnInit {
       return description.substring(0, 25);
     }
   }
-
-  getAllUsers() {
-    this.userService.getAllUsers().subscribe(
-      (data: any) => {
-        console.log(data.data);
-        this.users = data.data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-  // getUsers(){j
-  //   this.userService.getUserById(this.id).subscribe((data) =>{
-  //     this.users = data;
-  //     console.log(this.users);
-  //   });
-  // }
 
   getRoute(route: string, id: number) {
     this.router.navigate([route, id]);
