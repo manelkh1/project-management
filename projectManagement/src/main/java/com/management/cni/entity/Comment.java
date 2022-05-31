@@ -1,5 +1,6 @@
 package com.management.cni.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class Comment {
   @Column(name = "time")
   private Timestamp time;
   ///MANAGER
+  @JsonIgnore
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   @JoinColumn(name = "manager_id", referencedColumnName = "id", nullable = true)
@@ -38,6 +40,7 @@ public class Comment {
   @NotFound(action = NotFoundAction.IGNORE)
   private Manager manager;
   ///MEMBER
+  @JsonIgnore
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   @JoinColumn(name = "member_id", referencedColumnName = "id", nullable = true)

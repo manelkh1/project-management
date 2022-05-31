@@ -41,6 +41,8 @@ public class CommentService {
         comments = commentRepository.findAllByProject(project);
         for (Comment comment : comments) {
           CommentResponse commentResponse = CommentMapper.INSTANCE.convertToCommentResponse(comment);
+
+            commentResponse.setSender(user.getUsername());
           commentResponses.add(commentResponse);
         }
         return new ApiResponse(commentResponses, null, HttpStatus.OK, LocalDateTime.now());
